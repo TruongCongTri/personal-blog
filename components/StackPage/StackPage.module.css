@@ -1,0 +1,51 @@
+.page {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--pz);
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--stack-border-radius) var(--stack-border-radius) 0 0;
+  transform: translateZ(0);
+  transform-origin: bottom;
+  transform-style: preserve-3d;
+  transition: transform var(--dur) var(--ease);
+  -webkit-touch-callout: none;
+}
+
+.rotated {
+  transform: translateY(var(--stack-rotation-offset)) rotateX(var(--stack-rotation-angle));
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: var(--bg-color);
+}
+
+/* The tab row sits on top of the folder edge */
+.header {
+  position: absolute;
+  bottom: 100%;
+  left: var(--stack-border-radius);
+  z-index: -2;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.header [data-tag="visible"] {
+  pointer-events: auto;
+}
+
+/* The folder's body. Hovering it (rather than the tab) parts the drawer
+   to show the category description. */
+.unfold {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}

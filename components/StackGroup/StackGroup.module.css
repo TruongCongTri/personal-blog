@@ -1,0 +1,36 @@
+.group {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--gi);
+  /* Groups further back are taller by one offset each */
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * var(--gr));
+  margin-top: calc(var(--stack-border-radius) * -1);
+  transform-origin: bottom;
+  transform-style: preserve-3d;
+  will-change: height;
+  transition:
+    transform var(--dur) var(--ease),
+    height var(--dur) var(--ease);
+}
+
+.rotated {
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * var(--gr) - 1rem);
+  transform: rotateX(var(--stack-rotation-angle)) translateZ(calc(2px * var(--gi)));
+}
+
+/* Sink to reveal the cover description of the group behind */
+.unfolded {
+  height: calc(
+    var(--stack-group-height-lg) - var(--stack-group-height-sm) + var(--stack-group-offset) +
+      var(--stack-group-offset) * var(--gr)
+  );
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}

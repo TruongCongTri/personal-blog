@@ -1,0 +1,139 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding-top: var(--safe-top);
+  background-color: #191919cc;
+  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  transition: transform var(--dur) var(--ease);
+}
+
+.hidden {
+  transform: translateY(-100%);
+  transition-duration: var(--dur-fast);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: var(--header-h);
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-bottom: 0.05em;
+}
+
+.close {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin-left: -10px;
+  opacity: 0.8;
+  transition: opacity var(--dur);
+}
+
+.close svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.item {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 2rem;
+  opacity: 0.8;
+  transition: opacity var(--dur);
+}
+
+.item[aria-current="page"] {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .item:hover,
+  .close:hover {
+    opacity: 1;
+  }
+}
+
+/* On narrow phones the centred logo leaves room for the locale toggle only;
+   About moves into the footer of the stack. */
+@media (min-width: 600px) {
+  .item {
+    display: inline-flex;
+  }
+
+  .nav {
+    gap: 2.5rem;
+  }
+}
+
+/* ---- Two faces ------------------------------------------------------------
+   site (default): the site name, centred.
+   folder: the open folder's title, at the left beside the close button.
+   While swapping, the bar slides out; the face changes off screen. */
+.header[data-swap="out"] {
+  transform: translateY(-100%);
+  transition-duration: var(--dur-fast);
+}
+
+.folderTitle {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 2.75rem;
+  right: 5.75rem;
+  transform: translateY(-50%);
+  min-height: 44px;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: left;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header[data-face="folder"] .folderTitle {
+  display: block;
+}
+
+.header[data-face="folder"] .logo {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .folderTitle {
+    right: 14rem;
+  }
+}

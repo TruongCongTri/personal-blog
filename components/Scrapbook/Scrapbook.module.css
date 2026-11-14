@@ -1,0 +1,164 @@
+/* Loose items lying on the open folder.
+   Phones: a column on the folder, overlapping the bottom of the sheet. */
+.scrapbook {
+  position: relative;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4rem;
+  width: 90%;
+  margin-left: 5%;
+  margin-block: -4rem 4rem;
+}
+
+.item {
+  max-width: 100%;
+}
+
+.item:nth-child(2n) {
+  align-self: flex-end;
+}
+
+.scrapbook [data-drag] {
+  touch-action: manipulation;
+}
+
+.grabbing {
+  cursor: grabbing !important;
+}
+
+/* Sticky note */
+.note {
+  position: relative;
+  width: 15rem;
+  max-width: 100%;
+  padding: 1.75rem 1.25rem 1.5rem;
+  background: #f4ecc2;
+  color: var(--color-dark);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.6);
+  transform: rotate(-3deg);
+}
+
+.clip {
+  position: absolute;
+  top: -1.25rem;
+  right: 1.5rem;
+  width: 1.4rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* Rubber stamp, inked in whatever reads on this folder's colour */
+.stamp {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  border: 3px double currentColor;
+  border-radius: 6px;
+  color: var(--case-ink, #fff);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  transform: rotate(8deg);
+  opacity: 0.9;
+}
+
+.stamp span {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+
+.stamp strong {
+  font-size: 1.25rem;
+}
+
+/* Wooden ruler, poking out past the folder's hinge */
+.rulerItem {
+  margin-left: -22vw;
+  transform: rotate(10deg);
+}
+
+.ruler {
+  display: flex;
+  align-items: flex-start;
+  width: 22rem;
+  height: 3rem;
+  padding-inline: 0.75rem;
+  background: linear-gradient(180deg, #e9cf98, #d4b273);
+  border-radius: 3px;
+  box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.ruler span {
+  position: relative;
+  flex: 1;
+  height: 0.6rem;
+  border-left: 1px solid #5b4626;
+}
+
+.ruler .major {
+  height: 1.1rem;
+}
+
+.ruler em {
+  position: absolute;
+  top: 1.2rem;
+  left: -0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-style: normal;
+  color: #5b4626;
+}
+
+/* Desktop: the folder runs on below the sheet like a desk blotter, and the
+   items are scattered across it, free to drag around. */
+@media (min-width: 1025px) {
+  .scrapbook {
+    position: static;
+    display: block;
+    width: auto;
+    height: 0;
+    margin: 0 0 24rem;
+    pointer-events: none;
+  }
+
+  .item {
+    position: absolute;
+    z-index: 15;
+  }
+
+  .item [data-drag] {
+    pointer-events: auto;
+    cursor: grab;
+  }
+
+  /* overlaps the bottom-left corner of the sheet */
+  .noteItem {
+    left: 5%;
+    bottom: 19rem;
+  }
+
+  .stampItem {
+    left: 54%;
+    bottom: 10rem;
+  }
+
+  .rulerItem {
+    left: 20%;
+    bottom: 3.5rem;
+    margin-left: 0;
+    transform: rotate(8deg);
+  }
+}

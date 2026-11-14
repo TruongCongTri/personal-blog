@@ -1,0 +1,109 @@
+.cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 2rem;
+  background-color: var(--cover-bg-color);
+  color: var(--cover-color);
+  border-radius: var(--stack-border-radius) var(--stack-border-radius) 0 0;
+  pointer-events: none;
+  transform-origin: bottom;
+  transform-style: preserve-3d;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* Faint lift highlight when its first folder is hovered */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  background: linear-gradient(0deg, #ffffff0d, #ffffff0d);
+  box-shadow: var(--stack-shadow);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.hovered::after {
+  opacity: 1;
+}
+
+.rotated {
+  transform: translateY(var(--stack-rotation-offset)) rotateX(var(--stack-rotation-angle));
+}
+
+.desc {
+  position: absolute;
+  left: 0;
+  top: var(--stack-group-offset);
+  display: none;
+  max-width: 85vh;
+  padding-inline: var(--container-offset);
+  padding-block-end: var(--container-offset);
+  text-wrap: balance;
+  transform-style: preserve-3d;
+}
+
+.category {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: var(--stack-group-offset);
+}
+
+.arrow {
+  width: 1em;
+  height: 1em;
+  transform: rotate(90deg);
+  transition: transform var(--dur) var(--ease);
+}
+
+.unfolded .arrow {
+  transform: rotate(0deg);
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-inline: var(--container-offset);
+  padding-block-end: calc(var(--container-offset) * 2 + var(--safe-bottom));
+  transform-style: preserve-3d;
+  transition: transform var(--dur) var(--ease);
+}
+
+@media (min-width: 481px) {
+  .desc {
+    display: block;
+    padding-inline: calc(var(--tag-height) * var(--tag-aspect-ratio) - 0.2rem);
+  }
+
+  .footer {
+    padding-inline: calc(var(--tag-height) * var(--tag-aspect-ratio) - 0.2rem);
+  }
+}
+
+@media (min-width: 769px) {
+  .category {
+    display: inline-flex;
+  }
+
+  .desc,
+  .footer {
+    padding-inline: calc(var(--tag-height) * var(--tag-aspect-ratio));
+  }
+}
+
+@media (min-aspect-ratio: 2/1) {
+  .cover:not(.unfolded) .footer {
+    transform: translateY(var(--stack-group-height-sm));
+  }
+}

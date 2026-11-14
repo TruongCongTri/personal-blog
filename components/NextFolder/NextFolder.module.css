@@ -1,0 +1,45 @@
+/* Same width as the open folder above it, cut off by the end of the page */
+.next {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: calc(100% - var(--tag-height));
+  height: 36vh;
+  margin-top: 10vh;
+  padding: var(--container-offset) var(--container-offset) 0 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  border-radius: 0 var(--stack-border-radius) 0 0;
+}
+
+/* Like the folder above, it runs off the left edge of the screen */
+.next::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 100vw;
+  background-color: inherit;
+}
+
+.category {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.title {
+  overflow-wrap: anywhere;
+  /* leave room for the Next button in the corner */
+  max-width: 100%;
+}
+
+@media (min-width: 1025px) {
+  .next {
+    width: var(--case-content-width);
+    height: 45vh;
+  }
+}

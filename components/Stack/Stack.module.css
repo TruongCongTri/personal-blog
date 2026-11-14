@@ -1,0 +1,40 @@
+/* On phones the drawer runs edge to edge */
+.wrap {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  width: 100%;
+}
+
+.stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * (var(--n) - 1));
+  margin-inline: auto;
+  /* Pull the drawer up so the tabs sit under the hero copy on first screen */
+  margin-top: calc(
+    var(--stack-group-offset) * var(--n) * -1 - var(--stack-group-height-sm) + var(--stack-group-offset)
+  );
+  perspective: var(--stack-perspective);
+}
+
+@media (min-width: 481px) {
+  .wrap {
+    width: var(--container-size);
+    margin-inline: var(--container-offset);
+  }
+}
+
+@media (min-width: 1025px) {
+  .stack {
+    width: calc(90% - 0.1rem);
+  }
+}
+
+@media (min-width: 1025px) and (min-aspect-ratio: 2/1) {
+  .stack {
+    margin-top: calc(var(--stack-group-offset) * var(--n) * -1);
+  }
+}

@@ -1,0 +1,98 @@
+/* Anchored at the folder's top-right corner, rotated to run down its edge.
+   In this rotated frame "down" points into the open folder. */
+.tags {
+  --tuck: 20px; /* how much of each folder hides under the open one */
+  --peek: 10px; /* how far a hovered folder slides out */
+
+  position: absolute;
+  top: var(--stack-border-radius);
+  right: 0;
+  z-index: -1;
+  display: flex;
+  width: 100%;
+  transform: translate(100%, -100%) rotate(90deg);
+  transform-origin: left bottom;
+}
+
+/* One folder filed in this category: its tab plus the edge of the folder
+   itself, tucked under the open folder. Earlier folders sit on top. */
+.page {
+  position: relative;
+  z-index: var(--z);
+  display: flex;
+  width: 100%;
+  margin-block-end: calc(var(--tuck) * -1);
+  padding-block-end: var(--tuck);
+  pointer-events: none;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.page:not(:first-child) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* The folder's edge, in its own colour, running the length of the tab row */
+.page::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: var(--tuck);
+  background: var(--bg-color);
+  border-radius: var(--stack-border-radius) var(--stack-border-radius) 0 0;
+}
+
+/* Shadow the open folder casts on a folder that is peeking out */
+.page::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--tuck);
+  box-shadow: 0 calc(var(--peek) * -1) 20px #00000080;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.active {
+  z-index: 10;
+}
+
+.item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  pointer-events: auto;
+  /* Bigger touch target than the visible tab */
+  padding-top: 6px;
+  margin-top: -6px;
+}
+
+.item [data-tag] {
+  pointer-events: auto;
+}
+
+.item[aria-current="page"] {
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Hovering a tab underneath: that folder sneaks out a little, showing a
+   sliver of itself along the edge of the open one. */
+@media (hover: hover) {
+  .page:not(.active):hover {
+    transform: translateY(calc(var(--peek) * -1));
+  }
+
+  .page:not(.active):hover::after {
+    opacity: 1;
+  }
+}
+
+.page:not(.active):has(.item:focus-visible) {
+  transform: translateY(calc(var(--peek) * -1));
+}

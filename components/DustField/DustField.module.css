@@ -1,0 +1,16 @@
+.dust {
+  position: absolute;
+  inset: 0 calc(var(--container-offset) * -1);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+
+.dust[data-ready="true"] {
+  opacity: 1;
+}
+
+.dust canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

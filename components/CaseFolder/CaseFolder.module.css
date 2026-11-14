@@ -1,0 +1,170 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.hero {
+  position: relative;
+  z-index: 5;
+  margin-top: calc(var(--header-h) + var(--safe-top));
+  padding-block: 3.75rem;
+}
+
+.title {
+  max-width: 100%;
+  transform-origin: top left;
+  overflow-wrap: anywhere;
+}
+
+.title [data-word] {
+  margin-top: -0.05em;
+  padding-bottom: 0.05em;
+}
+
+/* Sits inside the page margins (width comes from the global .container), so
+   the opened cover shows as a strip of folder colour in the left gutter. */
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Leaves room on the right for the tabs that run down the folder's edge */
+.inner {
+  position: relative;
+  width: calc(100% - var(--tag-height));
+}
+
+.folder {
+  position: relative;
+  width: 100%;
+  perspective: var(--stack-perspective);
+  will-change: transform;
+}
+
+.folderInner {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  padding: var(--container-offset);
+  padding-inline-start: 0;
+  background-color: var(--case-color);
+  border-radius: 0 var(--stack-border-radius) var(--stack-border-radius) 0;
+}
+
+.sheetWrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-height: 100%;
+}
+
+/* The cover hinges on the left edge; rotateY(-180deg) = lying open */
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 var(--stack-border-radius) var(--stack-border-radius) 0;
+  transform: rotateY(-180deg);
+  transform-origin: left;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.front,
+.back {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.front {
+  z-index: 2;
+  /* The cover is this folder's own colour, inside and out */
+  background: var(--case-color);
+}
+
+.frontShadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  /* Edge shadow only: the closing cover keeps the folder's exact colour */
+  box-shadow: var(--folder-shadow);
+  opacity: 0;
+}
+
+.back {
+  background-color: var(--case-color);
+  background-image: linear-gradient(90deg, #fff0, #ffffff0d);
+  transform: rotateY(180deg);
+}
+
+.coverShadow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  box-shadow: 0 0 250px #00000080;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Drawer slot ----------------------------------------------------------
+   An invisible box placed exactly where this folder stands in the drawer on
+   the home page (same maths as Stack/StackGroup). The close transition reads
+   its rectangle, so the folder lands on the right spot on any screen size —
+   even after a rotation or a direct visit. --n = categories, --gi = index. */
+.probe {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  top: calc(
+    100svh - var(--stack-group-offset) * (var(--n) - 1) - var(--stack-group-height-sm) +
+      var(--stack-group-offset) * var(--gi)
+  );
+  height: calc(var(--stack-group-height-lg) + var(--stack-group-offset) * (var(--n) - 1 - var(--gi)));
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 481px) {
+  .probe {
+    left: var(--container-offset);
+    width: var(--container-size);
+  }
+}
+
+@media (min-width: 1025px) {
+  .inner {
+    width: var(--case-content-width);
+  }
+
+  .sheetWrap {
+    aspect-ratio: 210 / 297;
+  }
+
+  .sheetWrap > * {
+    aspect-ratio: 210 / 297;
+  }
+
+  .probe {
+    --w: calc(var(--container-size) * 0.9 - 0.1rem);
+    left: calc(var(--container-offset) + (var(--container-size) - var(--w)) / 2);
+    width: var(--w);
+  }
+}
+
+@media (min-width: 1025px) and (min-aspect-ratio: 2/1) {
+  .probe {
+    top: calc(100svh - var(--stack-group-offset) * var(--n) + var(--stack-group-offset) * var(--gi));
+  }
+}

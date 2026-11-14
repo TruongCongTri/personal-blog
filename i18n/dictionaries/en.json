@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Film Files",
+    "description": "Not reviews — thought practice. One saying about a genre or subject, one film, and a verdict: does the film agree, push back, or land in between?"
+  },
+  "nav": {
+    "logo": "Film Files",
+    "about": "About",
+    "language": "Language",
+    "skip": "Skip to content",
+    "close": "Close folder",
+    "prev": "Previous file",
+    "next": "Next file"
+  },
+  "hero": {
+    "title": "Film files",
+    "desc": "Not reviews, but thought practice: take one saying about a genre or a subject, break a film down against it, and see whether the film agrees, pushes back, or lands somewhere in between. Filed by director."
+  },
+  "footer": {
+    "signature": "Watched, argued with, and filed by hand, somewhere in Saigon",
+    "scale": "Scale 1:1"
+  },
+  "post": {
+    "minutes": "min read",
+    "plate": "Still",
+    "next": "Next",
+    "open": "Open",
+    "noteLabel": "In short",
+    "verdictLabel": "Verdict",
+    "directedBy": "Directed by",
+    "testing": "The saying",
+    "verdict": {
+      "agrees": "Agrees",
+      "against": "Pushes back",
+      "between": "In between"
+    },
+    "keepScrolling": "Keep scrolling for the next page"
+  },
+  "about": {
+    "title": "About",
+    "tab": "The practice",
+    "info": [
+      "Film Files",
+      "One saying · one film",
+      "Filed by director"
+    ],
+    "body": [
+      "This is not a review blog. There are no stars, no scores, no recommendations.",
+      "Each entry starts from a single quote or saying about a genre or a subject — war, language, guilt, money — and then takes one film apart against it. Does the film prove the saying, argue with it, or sit somewhere in the middle?",
+      "The point is the practice, not the verdict. Folders are sorted by director, because the same director testing the same idea twice is usually where it gets interesting."
+    ],
+    "note": "A saying is a hypothesis. A film is the experiment."
+  },
+  "notFound": {
+    "title": "File missing",
+    "body": "This folder is empty — or someone misfiled it.",
+    "cta": "Back to the drawer"
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "folders": [
+    {
+      "slug": "alex-garland",
+      "title": "Alex Garland",
+      "description": "A writer-director who keeps pointing the camera at the moment a system breaks — minds, bodies, countries. Lately: war, shown without the comfort of a reason or a hero.",
+      "posts": [
+        {
+          "slug": "warfare-2025",
+          "tab": "Warfare",
+          "title": "Warfare",
+          "year": 2025,
+          "genre": "War",
+          "color": "#0C7866",
+          "theme": "light",
+          "date": "2026-10-28",
+          "minutes": 6,
+          "quote": "There is no such thing as an anti-war film.",
+          "quoteBy": "attributed to François Truffaut",
+          "verdict": "against",
+          "excerpt": "The closest a war film has come to taking the thrill out of combat. Not all the way — but close enough to argue with Truffaut.",
+          "body": [
+            "Truffaut's point is that cinema can't help itself: put war on a screen and the screen makes it exciting. Movement, noise, danger, comradeship — the very tools of film turn horror into spectacle, so even a film that hates war ends up selling it.",
+            "Warfare, co-directed with Ray Mendoza and rebuilt from the memories of the Navy SEALs who were there in Ramadi in 2006, attacks that problem directly. There is almost no score to tell you how to feel. There is no backstory, no mission briefing that makes it matter, no speech. Time is not compressed into highlights; the waiting is as long as the shooting.",
+            "And when it goes wrong, the film refuses to cut away. The wounded don't die quickly or nobly — they scream, for a long time, and the others have to keep working around the sound. That stretch is where the thrill drains out. You don't want to be there. You want it to stop.",
+            "Does it fully escape Truffaut? Not quite. The first minutes, the gear, the competence, the tension of a house held at night — all of it still has the pull he was talking about. But Warfare spends that pull deliberately and then makes you pay for it. If any war film earns the right to push back on the quote, it is this one."
+          ]
+        },
+        {
+          "slug": "civil-war-2024",
+          "tab": "Civil War",
+          "title": "Civil War",
+          "year": 2024,
+          "genre": "War",
+          "color": "#D71E1E",
+          "theme": "light",
+          "date": "2026-09-14",
+          "minutes": 6,
+          "quote": "The first casualty when war comes is truth.",
+          "quoteBy": "attributed to Senator Hiram Johnson, 1917",
+          "verdict": "between",
+          "excerpt": "A film about people whose whole job is truth, set in a war whose truth it refuses to tell you.",
+          "body": [
+            "The saying usually means propaganda: when war starts, every side lies, and facts are the first thing sacrificed. Civil War seems built to test it — its heroes are journalists, driving from New York toward Washington to get one true interview and one true picture before the end.",
+            "In one sense the film agrees completely. We never learn what this war is really about. Texas and California fight on the same side, the president gives empty speeches, and nobody on the road can explain the politics. The cause, the most basic truth of any war, has already died before the film begins.",
+            "But the film also argues the opposite. Lee, the veteran photographer, and Jessie, the young one, keep producing truth: images that are exact, unarguable, and terrible. Truth isn't the first casualty here — it survives, in the frame, while the people taking it are hollowed out. The scene with the soldier asking 'What kind of American are you?' is the truth of this war in one sentence, and it has nothing to do with policy.",
+            "So: in between. The truth of why is gone. The truth of what — what people do to each other when the rules are switched off — is recorded perfectly. Garland suggests the second kind may be the only one that was ever going to survive."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "denis-villeneuve",
+      "title": "Denis Villeneuve",
+      "description": "Slow, enormous images and quiet people inside them. Science fiction and crime alike become questions about what we can know, and what knowing costs.",
+      "posts": [
+        {
+          "slug": "arrival-2016",
+          "tab": "Arrival",
+          "title": "Arrival",
+          "year": 2016,
+          "genre": "Science fiction",
+          "color": "#1E4BD7",
+          "theme": "light",
+          "date": "2026-08-02",
+          "minutes": 5,
+          "quote": "The limits of my language mean the limits of my world.",
+          "quoteBy": "Ludwig Wittgenstein, Tractatus Logico-Philosophicus",
+          "verdict": "agrees",
+          "excerpt": "Possibly the most literal film ever made of a philosophy line — and it still lands as a love story.",
+          "body": [
+            "Wittgenstein's line says that what we can think is bounded by what we can say. Most films nod at language; Arrival builds its entire structure on taking him at his word.",
+            "Louise Banks, a linguist, is asked to talk to visitors who write in circles — sentences with no beginning or end. As she learns their language, her world doesn't just get bigger; it changes shape. She starts to experience time the way their writing is shaped: all at once.",
+            "That is Wittgenstein turned inside out. If language limits the world, then a new language unlocks a new world. The film's twist — that the scenes of her daughter are not memories — is only possible because her grammar changed.",
+            "The film agrees with the quote, then asks the harder question underneath it: if you could see your whole life at once, including the grief, would you still choose it? Louise does. That choice is the real ending."
+          ]
+        },
+        {
+          "slug": "sicario-2015",
+          "tab": "Sicario",
+          "title": "Sicario",
+          "year": 2015,
+          "genre": "Crime thriller",
+          "color": "#FFE927",
+          "theme": "dark",
+          "date": "2026-07-11",
+          "minutes": 5,
+          "quote": "He who fights with monsters should look to it that he himself does not become a monster.",
+          "quoteBy": "Friedrich Nietzsche, Beyond Good and Evil",
+          "verdict": "agrees",
+          "excerpt": "Nietzsche's warning, split between two people: one who becomes the monster, one who refuses and is broken for it.",
+          "body": [
+            "Nietzsche's aphorism is a warning about method: fight long enough with the tools of your enemy and you become what you fight. Sicario stages it with almost diagrammatic clarity.",
+            "Kate Macer, an FBI agent, is pulled into a task force operating around the border. She believes in rules. The men running it — Matt, smiling and evasive, and Alejandro, silent and precise — do not. Every scene she is in, the line between law enforcement and cartel moves a little further.",
+            "Alejandro is the monster the quote predicts. His final act, at a dinner table, is the cartel's own logic performed by the state's side. The film doesn't excuse it and doesn't stop it.",
+            "Kate is the other half of the sentence. She refuses to become the monster, and the film's answer is brutal: then you're useless here. She signs the paper with a gun at her chin. Sicario agrees with Nietzsche entirely — and adds that refusing may cost you everything except yourself."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "christopher-nolan",
+      "title": "Christopher Nolan",
+      "description": "Time, memory and machinery — stories built like clocks. Lately the clock has a conscience in it.",
+      "posts": [
+        {
+          "slug": "oppenheimer-2023",
+          "tab": "Oppenheimer",
+          "title": "Oppenheimer",
+          "year": 2023,
+          "genre": "Biography / History",
+          "color": "#000000",
+          "theme": "light",
+          "date": "2026-06-20",
+          "minutes": 6,
+          "quote": "The physicists have known sin; and this is a knowledge which they cannot lose.",
+          "quoteBy": "J. Robert Oppenheimer, 1947",
+          "verdict": "between",
+          "excerpt": "A three-hour film about guilt that never quite decides whether the guilt is a confession or a performance.",
+          "body": [
+            "Oppenheimer said this about his own field after the war: the bomb gave physics a permanent moral stain. The question for the film is whether it shows that knowledge of sin — or only the drama around it.",
+            "Nolan clearly wants the first. The colour sections are inside Oppenheimer's head, and after the Trinity test that head is haunted: the applause in the gymnasium becomes a vision of burned skin, the floor shakes under his feet. Those scenes feel like a man carrying exactly the knowledge he described.",
+            "But a large part of the film is a courtroom drama — the 1954 security hearing, Strauss and his grudge, in black and white. There, the sin becomes a political weapon and a reputation fight. We watch Oppenheimer being punished, and the punishment risks standing in for the guilt.",
+            "So: in between. The film knows the sin, in flashes. It also turns that sin into suspense, and suspense is a kind of relief. Maybe that tension is honest — Oppenheimer himself was never sure whether his regret was penance or performance."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "bong-joon-ho",
+      "title": "Bong Joon-ho",
+      "description": "Genre films with class politics in the walls. Every staircase means something.",
+      "posts": [
+        {
+          "slug": "parasite-2019",
+          "tab": "Parasite",
+          "title": "Parasite",
+          "year": 2019,
+          "genre": "Thriller / Social satire",
+          "color": "#581E70",
+          "theme": "light",
+          "date": "2026-05-09",
+          "minutes": 5,
+          "quote": "Behind every great fortune lies a great crime.",
+          "quoteBy": "attributed to Honoré de Balzac",
+          "verdict": "against",
+          "excerpt": "The rich family commits no crime at all. That's the point — and the problem.",
+          "body": [
+            "The saying assumes wealth hides a villain: dig behind any fortune and you will find the theft that built it. Parasite refuses to give us that villain.",
+            "The Parks are not criminals. They are polite, a little naive, generous in a careless way. Mr. Park built a company; nothing in the film suggests he stole it. The crimes in Parasite are all committed by the poor — the Kims' forged documents, the lies, and finally the violence at the party.",
+            "What the film puts behind the fortune is not a crime but an arrangement: a house built so that some people live upstairs and some live, literally, underneath. A flood that is weather for one family and disaster for another. A smell that crosses a line no one says out loud.",
+            "So it pushes back on Balzac. There's no hidden crime to expose, and that is more disturbing — the system doesn't need anyone to be guilty. Ki-woo's last plan, to earn enough money to buy the house, shows how complete the trap is: the only escape anyone can imagine is the fortune itself."
+          ]
+        }
+      ]
+    }
+  ]
+}

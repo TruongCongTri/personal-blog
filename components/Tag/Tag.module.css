@@ -1,0 +1,84 @@
+.tag {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  height: var(--tag-height);
+  margin-bottom: -1px;
+  margin-left: -0.5rem;
+  margin-right: -1rem;
+  color: var(--color);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.middle {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color);
+}
+
+.middle span {
+  margin-inline: -0.66rem;
+}
+
+.side {
+  flex: none;
+  height: 100%;
+  width: 3.25rem;
+  color: var(--bg-color);
+  transform-origin: top;
+}
+
+/* scaleY(1.01) closes the hairline seam with the folder body */
+.start {
+  transform: scale(-1, 1.01) translateX(-1px);
+}
+
+.end {
+  transform: scaleY(1.01) translateX(-1px);
+}
+
+@media (min-width: 481px) {
+  .tag {
+    font-size: 1.25rem;
+    margin-left: -0.2rem;
+    margin-right: -0.75rem;
+  }
+
+  .middle span {
+    margin-inline: -0.33rem;
+  }
+
+  .side {
+    width: auto;
+    aspect-ratio: var(--tag-aspect-ratio);
+  }
+}
+
+@media (min-width: 769px) {
+  .tag {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .middle span {
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .tag {
+    font-size: 1.625rem;
+  }
+}

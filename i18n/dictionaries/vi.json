@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "title": "Hồ Sơ Phim",
+    "description": "Không phải điểm phim — mà là luyện suy nghĩ. Một câu nói về một thể loại hay chủ đề, một bộ phim, và một kết luận: phim đồng ý, phản bác, hay ở giữa?"
+  },
+  "nav": {
+    "logo": "Hồ Sơ Phim",
+    "about": "Giới thiệu",
+    "language": "Ngôn ngữ",
+    "skip": "Chuyển đến nội dung",
+    "close": "Đóng hồ sơ",
+    "prev": "Hồ sơ trước",
+    "next": "Hồ sơ sau"
+  },
+  "hero": {
+    "title": "Hồ sơ phim",
+    "desc": "Không phải điểm phim, mà là luyện suy nghĩ: lấy một câu nói về một thể loại hay một chủ đề, mổ xẻ một bộ phim dựa trên nó, và xem bộ phim đồng ý, phản bác, hay nằm đâu đó ở giữa. Xếp theo đạo diễn."
+  },
+  "footer": {
+    "signature": "Xem, tranh luận, và lưu trữ thủ công, đâu đó ở Sài Gòn",
+    "scale": "Tỉ lệ 1:1"
+  },
+  "post": {
+    "minutes": "phút đọc",
+    "plate": "Khung hình",
+    "next": "Tiếp",
+    "open": "Mở",
+    "noteLabel": "Tóm lại",
+    "verdictLabel": "Kết luận",
+    "directedBy": "Đạo diễn",
+    "testing": "Câu nói",
+    "verdict": {
+      "agrees": "Đồng ý",
+      "against": "Phản bác",
+      "between": "Ở giữa"
+    },
+    "keepScrolling": "Cuộn tiếp để sang trang sau"
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "tab": "Cách làm",
+    "info": [
+      "Hồ Sơ Phim",
+      "Một câu nói · một bộ phim",
+      "Xếp theo đạo diễn"
+    ],
+    "body": [
+      "Đây không phải blog điểm phim. Không có sao, không có điểm số, không có lời khuyên nên xem hay không.",
+      "Mỗi bài bắt đầu từ một câu trích dẫn hay câu nói về một thể loại hoặc một chủ đề — chiến tranh, ngôn ngữ, tội lỗi, tiền bạc — rồi mổ xẻ một bộ phim dựa trên nó. Bộ phim chứng minh câu nói, cãi lại nó, hay nằm đâu đó ở giữa?",
+      "Điều quan trọng là quá trình suy nghĩ, không phải kết luận. Các hồ sơ được xếp theo đạo diễn, vì cùng một đạo diễn thử cùng một ý tưởng hai lần thường là lúc mọi thứ trở nên thú vị."
+    ],
+    "note": "Một câu nói là một giả thuyết. Một bộ phim là thí nghiệm."
+  },
+  "notFound": {
+    "title": "Thất lạc hồ sơ",
+    "body": "Tập hồ sơ này trống — hoặc ai đó đã xếp nhầm chỗ.",
+    "cta": "Quay lại ngăn kéo"
+  }
+}

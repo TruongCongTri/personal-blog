@@ -1,0 +1,15 @@
+.split {
+  display: inline;
+}
+
+/* Words never break internally; chars move independently. No clipping, so
+   stacked Vietnamese diacritics on capitals are never cut off. */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+  will-change: transform;
+}

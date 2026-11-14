@@ -1,0 +1,67 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  padding-block: calc(1.875rem + var(--header-h) + var(--safe-top))
+    calc(var(--stack-group-offset) * 3.5 + var(--stack-group-height-sm));
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Title fills the width: the multiplier is tuned per breakpoint */
+/* 0.2 (not the reference 0.23): our grotesk is wider than their condensed
+   face, and long words like "PERSONAL" must still fit a 360px phone. */
+.title {
+  font-size: clamp(1px, var(--container-size) * 0.2, 200px);
+}
+
+.title [data-word] {
+  margin-bottom: -0.1em;
+  padding-bottom: 0.1em;
+}
+
+.desc {
+  max-width: var(--container-size);
+  width: 50rem;
+  color: var(--color-gray);
+  font-size: 16px;
+  text-wrap: balance;
+}
+
+@media (min-width: 481px) {
+  .title {
+    font-size: clamp(1px, var(--container-size) * 0.18, 200px);
+  }
+
+  .desc {
+    font-size: inherit;
+  }
+}
+
+@media (min-width: 769px) {
+  .title {
+    font-size: clamp(1px, var(--container-size) * 0.13, 200px);
+  }
+}
+
+@media (min-width: 1025px) {
+  .title {
+    font-size: clamp(1px, var(--container-size) * 0.105, 200px);
+  }
+
+  .inner {
+    gap: 2.5rem;
+  }
+}

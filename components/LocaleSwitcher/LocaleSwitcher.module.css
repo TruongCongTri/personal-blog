@@ -1,0 +1,25 @@
+.switcher {
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+}
+
+.option {
+  min-width: 36px;
+  min-height: 44px;
+  display: inline-grid;
+  place-items: center;
+  text-transform: uppercase;
+  opacity: 0.4;
+  transition: opacity var(--dur);
+}
+
+.option[aria-current="true"] {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .option:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,297 @@
+/* ==========================================================================
+   Global styles — tokens, reset, type scale, utilities.
+   Each component owns its styles in a sibling *.module.css file.
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --color-light: #fdfaf7;
+  --color-gray: #787a7f;
+  --color-dark: #191919;
+  --color-paper: #fffcf9;
+  --color-accent: #ffe927;
+  --color-primary: var(--color-dark);
+  --color-contrast: var(--color-light);
+
+  /* Fonts (loaded with next/font in the root layout) */
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* Motion */
+  --ease: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur: 0.65s;
+  --dur-fast: 0.325s;
+
+  /* Layout */
+  --container-offset: 18px;
+  --container-size: calc(100vw - var(--container-offset) * 2);
+  --header-h: 3.75rem;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Folder stack geometry */
+  --stack-border-radius: 4px;
+  --stack-group-height-sm: 15vh;
+  --stack-group-height-lg: 80vh;
+  --stack-group-offset: 3.75rem;
+  --stack-perspective: 3000px;
+  --stack-rotation-angle: -3deg;
+  --stack-rotation-offset: 1rem;
+  --stack-shadow: 0 -1px 8px rgba(0, 0, 0, 0.15);
+  --folder-shadow: 1px 0 8px rgba(0, 0, 0, 0.15);
+  --tag-height: 2.25rem;
+  --tag-aspect-ratio: 1.409;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 481px) {
+  :root {
+    --container-offset: 20px;
+    --stack-group-height-sm: 20vh;
+  }
+}
+
+@media (min-width: 769px) {
+  :root {
+    --container-offset: 30px;
+    --tag-height: 2.75rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --container-offset: 32px;
+    --stack-group-height-sm: 15vw;
+    /* Width of the open folder on the case page */
+    --case-content-width: calc((var(--container-size) - 19 * 1rem) * 16 / 20 + 15rem);
+  }
+}
+
+@media (min-width: 1025px) and (min-aspect-ratio: 2/1) {
+  :root {
+    --stack-group-height-sm: 20vw;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --container-offset: 34px;
+  }
+}
+
+/* ---- Reset ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Root size steps — every folder, tab and strip is sized in rem,
+   so this keeps the drawer proportions identical across screens. */
+html {
+  font-size: 13px;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.25;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-primary);
+}
+
+@media (max-width: 320px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1920px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+html.is-scroll-disabled {
+  overflow: hidden;
+}
+
+body {
+  min-height: 100svh;
+  background-color: var(--color-primary);
+  color: var(--color-contrast);
+  overscroll-behavior-y: none;
+}
+
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ---- Type scale ----------------------------------------------------------- */
+.heading-1,
+.heading-2 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 0.8;
+  text-transform: uppercase;
+}
+
+.heading-1 {
+  font-size: clamp(4rem, 2.25rem + 5.833vw, 7.5rem);
+}
+
+.heading-2 {
+  font-size: clamp(2.66rem, 1.49rem + 3.9vw, 5rem);
+}
+
+.par-1 {
+  font-size: clamp(1rem, 0.875rem + 0.417vw, 1.25rem);
+  line-height: 1.4;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 0rem + 0.833vw, 1rem);
+  line-height: 1.4;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* ---- Layout utilities ----------------------------------------------------- */
+.container {
+  width: var(--container-size);
+  margin-inline: var(--container-offset);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: calc(var(--safe-top) + 8px);
+  left: 8px;
+  z-index: 2000;
+  padding: 10px 14px;
+  background: var(--color-light);
+  color: var(--color-dark);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ---- Preload -------------------------------------------------------------
+   Animated blocks stay hidden until hydration so the server HTML never
+   flashes in its final state before the entrance animation sets its "from"
+   values. <noscript> in the layout undoes this. */
+html:not(.is-ready) [data-preload] {
+  opacity: 0;
+}
+
+/* The header waits above the screen and slides in when the page is ready */
+html:not(.is-ready) [data-site-header] {
+  transform: translateY(-100%);
+}
+
+/* ---- Lenis ---------------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
