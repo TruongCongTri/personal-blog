@@ -1,7 +1,19 @@
 {
   "meta": {
     "title": "Film Files",
-    "description": "Not reviews — thought practice. One saying about a genre or subject, one film, and a verdict: does the film agree, push back, or land in between?"
+    "description": "Not reviews — thought practice. One saying about a genre or subject, one film, and a verdict: does the film agree, push back, or land in between?",
+    "tagline": "One saying, one film, one verdict",
+    "keywords": [
+      "film essays",
+      "movie analysis",
+      "film criticism",
+      "thought practice",
+      "director",
+      "Alex Garland",
+      "Denis Villeneuve",
+      "Christopher Nolan",
+      "Bong Joon-ho"
+    ]
   },
   "nav": {
     "logo": "Film Files",
@@ -11,6 +23,13 @@
     "close": "Close folder",
     "prev": "Previous file",
     "next": "Next file"
+  },
+  "cursor": {
+    "open": "Open",
+    "drag": "Drag",
+    "next": "Next",
+    "close": "Close",
+    "play": "Play"
   },
   "hero": {
     "title": "Film files",
@@ -34,7 +53,17 @@
       "against": "Pushes back",
       "between": "In between"
     },
-    "keepScrolling": "Keep scrolling for the next page"
+    "keepScrolling": "Keep scrolling for the next page",
+    "trailer": "Trailer",
+    "play": "Play trailer",
+    "closeTrailer": "Close",
+    "admit": "Admit one",
+    "row": "Row",
+    "seat": "Seat",
+    "cut": "Director’s cut",
+    "soon": "The analysis is coming out soon",
+    "pending": "Pending",
+    "topic": "On"
   },
   "about": {
     "title": "About",

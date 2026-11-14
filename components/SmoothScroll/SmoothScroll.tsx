@@ -6,19 +6,21 @@ import Lenis from "lenis";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import { getLenis, setLenis } from "@/lib/lenis";
 import { appReady } from "@/lib/ready";
+import { isLite, onLite, probeFrameRate } from "@/lib/perf";
 
 /**
  * Lenis smooth scrolling driven by GSAP's ticker so ScrollTrigger and Lenis
  * share one frame loop. Touch devices keep native scrolling (syncTouch off),
- * which feels best on phones and costs nothing.
+ * which feels best on phones and costs nothing. Weak devices (lite mode) skip
+ * Lenis entirely: native scrolling never lags behind a slow frame loop.
  */
 export default function SmoothScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
     // Reveal the page once fonts are in (entrance animations wait for this too).
-    appReady();
-    if (prefersReducedMotion()) return;
+    appReady().then(probeFrameRate);
+    if (prefersReducedMotion() || isLite()) return;
 
     const lenis = new Lenis({
       autoRaf: false,
@@ -33,10 +35,15 @@ export default function SmoothScroll() {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    return () => {
+    const teardown = () => {
       gsap.ticker.remove(tick);
       lenis.destroy();
       setLenis(null);
+    };
+    const off = onLite(teardown);
+    return () => {
+      off();
+      teardown();
     };
   }, []);
 

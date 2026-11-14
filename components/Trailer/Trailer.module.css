@@ -1,0 +1,101 @@
+.play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-dark);
+  box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.6);
+  transition:
+    scale var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.play svg {
+  width: 1.6rem;
+  fill: currentColor;
+  translate: 2px 0;
+}
+
+.play:hover {
+  scale: 1.08;
+}
+
+.play:active {
+  scale: 0.94;
+}
+
+.play:focus-visible {
+  outline: 2px solid var(--color-light);
+  outline-offset: 4px;
+}
+
+.dialog {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: calc(var(--safe-top) + 4rem) var(--container-offset) calc(var(--safe-bottom) + 2rem);
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.dialog::backdrop {
+  background: rgba(10, 10, 10, 0.92);
+}
+
+.frame {
+  width: min(100%, 1100px, calc((100dvh - 10rem) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px #000;
+}
+
+.frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.close {
+  min-height: 44px;
+  padding-inline: 1.25rem;
+  border: 1px solid rgba(253, 250, 247, 0.4);
+  border-radius: 999px;
+  color: var(--color-light);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.close:hover {
+  background: rgba(253, 250, 247, 0.1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] .frame {
+    animation: rise 0.45s var(--ease);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) scale(0.97);
+  }
+}

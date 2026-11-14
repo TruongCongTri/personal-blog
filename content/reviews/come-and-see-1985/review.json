@@ -1,0 +1,28 @@
+{
+  "slug": "come-and-see-1985",
+  "folder": "elem-klimov",
+  "tab": "Come and See",
+  "title": "Come and See",
+  "year": 1985,
+  "color": "#5E6B2F",
+  "theme": "light",
+  "date": "2026-11-15",
+  "trailer": "UHaSQU-4wss",
+  "genre": {
+    "en": "War",
+    "vi": "Chiến tranh"
+  },
+  "topic": {
+    "en": "Truffaut’s anti-war paradox; the Rape of Berlin",
+    "vi": "Nghịch lý phản chiến của Truffaut; nạn cưỡng hiếp ở Berlin"
+  },
+  "quote": {
+    "en": "There is no such thing as an anti-war film.",
+    "vi": "Không có thứ gọi là phim phản chiến."
+  },
+  "quoteBy": {
+    "en": "attributed to François Truffaut",
+    "vi": "được cho là của François Truffaut"
+  },
+  "body": []
+}

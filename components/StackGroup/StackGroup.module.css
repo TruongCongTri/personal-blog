@@ -9,7 +9,6 @@
   margin-top: calc(var(--stack-border-radius) * -1);
   transform-origin: bottom;
   transform-style: preserve-3d;
-  will-change: height;
   transition:
     transform var(--dur) var(--ease),
     height var(--dur) var(--ease);

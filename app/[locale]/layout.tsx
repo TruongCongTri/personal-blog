@@ -5,6 +5,9 @@ import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
 import Header from "@/components/Header/Header";
+import { SITE_URL, AUTHOR, baseOpenGraph } from "@/lib/site";
+import Cursor from "@/components/Cursor/Cursor";
+import { liteScript } from "@/lib/perf";
 import "../global.css";
 
 // Free stand-ins with Vietnamese support: a sharp text serif for body copy,
@@ -48,12 +51,17 @@ export async function generateMetadata({
   if (!hasLocale(locale)) return {};
   const dict = await getDictionary(locale);
   return {
+    metadataBase: new URL(SITE_URL),
     title: { default: dict.meta.title, template: `%s — ${dict.meta.title}` },
     description: dict.meta.description,
-    alternates: {
-      languages: Object.fromEntries(locales.map((l) => [l, `/${l}`])),
-    },
-    appleWebApp: { capable: true, statusBarStyle: "black-translucent" },
+    applicationName: dict.meta.title,
+    authors: [{ name: AUTHOR }],
+    creator: AUTHOR,
+    keywords: dict.meta.keywords,
+    openGraph: { type: "website", ...baseOpenGraph(locale, dict.meta.title) },
+    twitter: { card: "summary_large_image" },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+    appleWebApp: { capable: true, title: dict.meta.title, statusBarStyle: "black-translucent" },
     formatDetection: { telephone: false },
   };
 }
@@ -70,8 +78,12 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       className={`${newsreader.variable} ${hanken.variable} ${plexMono.variable}`}
+      // lite / mouse / ready flags are added to <html> before hydration
+      suppressHydrationWarning
     >
       <body>
+        {/* Flags weak devices and mouse users before the first paint (see lib/perf.ts). */}
+        <script dangerouslySetInnerHTML={{ __html: liteScript }} />
         <noscript>
           <style>{`[data-preload]{opacity:1!important}[data-site-header]{transform:none!important}`}</style>
         </noscript>
@@ -79,6 +91,7 @@ export default async function LocaleLayout({
           {dict.nav.skip}
         </a>
         <SmoothScroll />
+        <Cursor labels={dict.cursor} />
         <Header locale={locale} dict={dict.nav} />
         <main id="main">{children}</main>
       </body>

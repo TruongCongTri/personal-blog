@@ -35,6 +35,7 @@ export default function StackPage(props: Props) {
       className={`${styles.page} ${props.rotated ? styles.rotated : ""}`}
       style={style}
       onClick={props.onClick}
+      data-cursor="open"
       onPointerEnter={(e) => isMouse(e) && props.onEnter()}
       onPointerLeave={(e) => isMouse(e) && props.onLeave()}
       aria-label={props.title}

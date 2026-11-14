@@ -10,7 +10,8 @@ import { appReady } from "@/lib/ready";
 import SplitText from "@/components/SplitText/SplitText";
 import CaseSheet from "@/components/CaseSheet/CaseSheet";
 import CaseTags, { type CaseTag } from "@/components/CaseTags/CaseTags";
-import Scrapbook from "@/components/Scrapbook/Scrapbook";
+import Scrapbook, { type ScrapFilm, type ScrapLabels } from "@/components/Scrapbook/Scrapbook";
+import type { Block, Scrap } from "@/lib/schema";
 import NextWidget from "@/components/NextWidget/NextWidget";
 import NextFolder from "@/components/NextFolder/NextFolder";
 import { useFolderScroll } from "@/lib/useFolderScroll";
@@ -28,9 +29,13 @@ type Props = {
   tags: CaseTag[];
   info: string[];
   quote?: { label: string; text: string; by: string };
-  body: string[];
+  body: Block[];
+  /** Shown on the sheet while `body` is empty. */
+  soon?: string;
   plate: string;
-  scrap: { note: string; noteLabel: string; stamp: string; stampLabel: string };
+  /** Image for the clipped print at the top of the sheet. */
+  still?: string;
+  scrap: { scraps: Scrap[]; labels: ScrapLabels; film?: ScrapFilm; desk?: number };
   next?: {
     href: string;
     title: string;
@@ -451,7 +456,7 @@ export default function CaseFolder(props: Props) {
           <div className={styles.folder} data-case-folder data-preload>
             <div className={styles.folderInner} data-folder-inner>
               <div className={styles.sheetWrap} data-sheet-wrap>
-                <CaseSheet info={props.info} quote={props.quote} body={props.body} plate={props.plate} title={props.title} />
+                <CaseSheet info={props.info} quote={props.quote} body={props.body} soon={props.soon} plate={props.plate} title={props.title} still={props.still} />
               </div>
               {/* Loose items lie on the folder itself, below and over the sheet. */}
               <Scrapbook {...props.scrap} />

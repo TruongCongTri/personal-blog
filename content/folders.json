@@ -1,0 +1,38 @@
+{
+  "folders": [
+    {
+      "slug": "alex-garland",
+      "title": "Alex Garland",
+      "description": {
+        "en": "A writer-director who keeps pointing the camera at the moment a system breaks — minds, bodies, countries. Lately: war, shown without the comfort of a reason or a hero.",
+        "vi": "Một biên kịch kiêm đạo diễn luôn hướng máy quay vào khoảnh khắc một hệ thống vỡ ra — tâm trí, cơ thể, đất nước. Gần đây: chiến tranh, không kèm lý do hay người hùng để an ủi."
+      },
+      "posts": [
+        "warfare-2025",
+        "civil-war-2024"
+      ]
+    },
+    {
+      "slug": "elem-klimov",
+      "title": "Elem Klimov",
+      "description": {
+        "en": "Soviet director. His last film, Come and See, is still the one other war films get measured against.",
+        "vi": "Đạo diễn Liên Xô. Bộ phim cuối cùng của ông, Come and See, đến nay vẫn là thước đo cho các phim chiến tranh khác."
+      },
+      "posts": [
+        "come-and-see-1985"
+      ]
+    },
+    {
+      "slug": "markus-schleinzer",
+      "title": "Markus Schleinzer",
+      "description": {
+        "en": "Austrian director, and a casting director before that. Rose, his third feature, is set in a German village in the 17th century.",
+        "vi": "Đạo diễn người Áo, từng là đạo diễn tuyển vai. Rose, phim dài thứ ba của ông, lấy bối cảnh một ngôi làng Đức thế kỷ 17."
+      },
+      "posts": [
+        "rose-2026"
+      ]
+    }
+  ]
+}

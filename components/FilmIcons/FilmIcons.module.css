@@ -1,0 +1,154 @@
+.icons {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.5rem;
+  /* Cut-outs in the drawings show the cover colour behind them. */
+  --icon-bg: var(--cover-bg-color, var(--color-dark));
+}
+
+.icon {
+  display: inline-flex;
+  width: 100%;
+  max-width: 4.5rem;
+}
+
+.icon svg {
+  width: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.08em;
+  stroke: none;
+}
+
+/* Moving parts */
+.arm {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  transform: rotate(-16deg);
+}
+
+.spin,
+.rock,
+.shout {
+  transform-box: view-box;
+}
+
+.rock {
+  transform-origin: 50px 88px;
+}
+
+.shout {
+  transform-origin: 20px 52px;
+}
+
+.wave {
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .icons[data-play] .arm,
+  .icon:hover .arm {
+    animation: clap 0.9s var(--ease);
+  }
+
+  .icons[data-play] .spin,
+  .icon:hover .spin {
+    animation: spin 1.4s var(--ease);
+  }
+
+  .icons[data-play] .rock,
+  .icon:hover .rock {
+    animation: rock 1s var(--ease);
+  }
+
+  .icons[data-play] .shout,
+  .icon:hover .shout {
+    animation: shout 0.6s var(--ease);
+  }
+
+  .icons[data-play] .wave,
+  .icon:hover .wave {
+    animation: wave 0.9s ease-out;
+  }
+
+  .wave:nth-of-type(2) {
+    animation-delay: 0.12s !important;
+  }
+
+  .wave:nth-of-type(3) {
+    animation-delay: 0.24s !important;
+  }
+}
+
+@keyframes clap {
+  0%,
+  100% {
+    transform: rotate(-16deg);
+  }
+  30% {
+    transform: rotate(-24deg);
+  }
+  45%,
+  60% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rock {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30% {
+    transform: rotate(-6deg);
+  }
+  65% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes shout {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  40% {
+    transform: rotate(-8deg) scale(1.06);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .icons {
+    gap: 1rem;
+  }
+
+  .hideOnMobile {
+    display: none;
+  }
+}

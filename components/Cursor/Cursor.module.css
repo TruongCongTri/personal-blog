@@ -1,0 +1,113 @@
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.cursor[data-visible="true"] {
+  opacity: 1;
+}
+
+/* Outer boxes only move (GSAP x/y); inner boxes change size and look. */
+.ringPos,
+.dotPos {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ring,
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  border-radius: 999px;
+}
+
+.ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(253, 250, 247, 0.85);
+  box-shadow: 0 0 0 1px rgba(25, 25, 25, 0.25);
+  transition:
+    width var(--dur-fast) var(--ease),
+    height var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    scale var(--dur-fast) var(--ease);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-light);
+  box-shadow: 0 0 0 1px rgba(25, 25, 25, 0.5);
+  transition: scale var(--dur-fast) var(--ease);
+}
+
+.text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-dark);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+/* Over anything clickable: a bigger, lighter ring */
+.cursor[data-kind="link"] .ring {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: rgba(253, 250, 247, 0.12);
+}
+
+.cursor[data-kind="link"] .dot {
+  scale: 0.5;
+}
+
+/* Labelled: a yellow tag, like a sticker on the folder */
+.cursor[data-kind="open"] .ring,
+.cursor[data-kind="drag"] .ring,
+.cursor[data-kind="next"] .ring,
+.cursor[data-kind="close"] .ring,
+.cursor[data-kind="play"] .ring {
+  width: 4.75rem;
+  height: 4.75rem;
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.cursor[data-kind="open"] .text,
+.cursor[data-kind="drag"] .text,
+.cursor[data-kind="next"] .text,
+.cursor[data-kind="close"] .text,
+.cursor[data-kind="play"] .text {
+  opacity: 1;
+}
+
+.cursor[data-kind="open"] .dot,
+.cursor[data-kind="drag"] .dot,
+.cursor[data-kind="next"] .dot,
+.cursor[data-kind="close"] .dot,
+.cursor[data-kind="play"] .dot {
+  scale: 0;
+}
+
+.cursor[data-down="true"] .ring {
+  scale: 0.85;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

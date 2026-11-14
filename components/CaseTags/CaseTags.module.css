@@ -96,3 +96,7 @@
 .page:not(.active):has(.item:focus-visible) {
   transform: translateY(calc(var(--peek) * -1));
 }
+
+:global(.is-lite) .page::after {
+  box-shadow: none;
+}

@@ -2,21 +2,27 @@
 
 import { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "@/lib/gsap";
+import { isLite, onLite } from "@/lib/perf";
 import styles from "./DustField.module.css";
 
 /**
  * Paper dust drifting in the lamp light above the drawer (three.js).
  * Lazy-loaded, capped pixel ratio, fewer particles on phones, and paused
- * whenever it is off screen or the tab is hidden.
+ * whenever it is off screen or the tab is hidden. Phones draw at 30fps; weak
+ * devices (lite mode) skip it, and it shuts down if lite mode kicks in later.
  */
 export default function DustField() {
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = host.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el || prefersReducedMotion() || isLite()) return;
     let cleanup = () => {};
     let cancelled = false;
+    const offLite = onLite(() => {
+      cancelled = true;
+      cleanup();
+    });
 
     import("three").then((THREE) => {
       if (cancelled) return;
@@ -79,8 +85,11 @@ export default function DustField() {
 
       const clock = new THREE.Clock();
       const attr = geometry.getAttribute("position") as InstanceType<typeof THREE.BufferAttribute>;
+      let odd = false;
       const loop = () => {
-        const dt = Math.min(clock.getDelta(), 0.05);
+        // Phones: every other frame is plenty for slow drifting dust.
+        if (mobile && (odd = !odd)) return;
+        const dt = Math.min(clock.getDelta(), 0.1);
         const t = clock.elapsedTime;
         for (let i = 0; i < count; i++) {
           let y = positions[i * 3 + 1] + speeds[i] * dt;
@@ -112,6 +121,7 @@ export default function DustField() {
       el.dataset.ready = "true";
 
       cleanup = () => {
+        cleanup = () => {};
         renderer.setAnimationLoop(null);
         io.disconnect();
         ro.disconnect();
@@ -126,6 +136,7 @@ export default function DustField() {
     });
 
     return () => {
+      offLite();
       cancelled = true;
       cleanup();
     };

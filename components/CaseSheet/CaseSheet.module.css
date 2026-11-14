@@ -13,26 +13,34 @@
   border-radius: 4px;
 }
 
-/* Binder holes punched in the folder colour */
-.clip {
+/* Nine binder holes spaced evenly down the left edge, showing the folder
+   colour through, each with a darker cut edge and a faint reinforcement ring. */
+.holes {
+  --hole: clamp(9px, 1vw, 14px);
+
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 5;
   width: 3rem;
+  padding-block: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   pointer-events: none;
 }
 
-.clip span {
-  width: clamp(10px, 1.33vw, 20px);
-  height: clamp(10px, 1.33vw, 20px);
+.holes span {
+  width: var(--hole);
+  height: var(--hole);
   border-radius: 50%;
   background-color: var(--case-color);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 0 0 2.5px var(--color-paper),
+    0 0 0 4.5px rgba(120, 100, 70, 0.12);
 }
 
 .inner {
@@ -62,18 +70,10 @@
   transform-origin: left bottom;
 }
 
-.paperclip {
-  position: absolute;
-  top: 0;
-  right: 2rem;
-  z-index: 2;
-  width: 1.6rem;
-  transform: translateY(-1.25rem);
-}
-
 /* Placeholder print: duotone in the folder colour with film grain */
 .plate {
   position: relative;
+  z-index: 1;
   aspect-ratio: 0.875;
   display: flex;
   align-items: flex-end;
@@ -137,11 +137,11 @@
   text-shadow: 1px 1px 1px #fff;
 }
 
-.desc p:not(:first-child) {
+.desc > p + p {
   text-indent: 2.5rem;
 }
 
-.desc p:first-child::first-letter {
+.desc > p:first-child::first-letter {
   float: left;
   font-size: 5em;
   line-height: 0.8;
@@ -166,7 +166,7 @@
     --clip-size: 4rem;
   }
 
-  .clip {
+  .holes {
     width: var(--clip-size);
     border-right: 1px solid #b8b3ae;
   }
@@ -269,5 +269,122 @@
 @media (min-width: 1025px) {
   .quote blockquote p {
     font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+  }
+}
+
+/* Weak devices: drop the noise textures and blend modes. They are composited
+   over the whole sheet on every frame of the folder animations. */
+:global(.is-lite) .grain,
+:global(.is-lite) .plate::after {
+  display: none;
+}
+
+:global(.is-lite) .plateTitle {
+  mix-blend-mode: normal;
+  opacity: 0.6;
+}
+
+/* Real still in the print at the top of the sheet */
+.hasStill {
+  padding: 0;
+}
+
+.hasStill img {
+  object-fit: cover;
+}
+
+/* ---- Body blocks */
+.subhead {
+  margin-top: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.pull {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--case-color);
+  font-style: italic;
+  font-size: 1.25em;
+  line-height: 1.3;
+}
+
+.pull cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-style: normal;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* A photo clipped onto the page */
+.figure {
+  position: relative;
+  margin: 1rem 0 0.5rem;
+  transform: rotate(-0.8deg);
+}
+
+.figure:nth-of-type(2n) {
+  transform: rotate(0.9deg);
+}
+
+.figureImage {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 6px solid #fff;
+  background: color-mix(in srgb, var(--case-color) 50%, #000);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.figureImage img {
+  object-fit: cover;
+}
+
+.figure figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  text-shadow: none;
+  opacity: 0.7;
+}
+
+/* Placeholder while the analysis hasn't been written: typed on the sheet,
+   a little faded, with a blinking typewriter caret. */
+.soon {
+  padding-block: 2rem 4rem;
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.soon::after {
+  content: "";
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 0.3em;
+  vertical-align: -0.15em;
+  background: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .soon::after {
+    animation: caret 1.1s steps(1) infinite;
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
   }
 }

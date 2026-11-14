@@ -87,7 +87,7 @@ export default function Header({ locale, dict }: Props) {
     <header ref={bar} className={`${styles.header} ${hidden && !inFolder ? styles.hidden : ""}`} data-site-header>
       <div className={`container ${styles.content}`}>
         {inFolder && (
-          <Link href={`/${locale}`} className={styles.close} aria-label={dict.close} onClick={closeFolder}>
+          <Link href={`/${locale}`} className={styles.close} aria-label={dict.close} onClick={closeFolder} data-cursor="close">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="1.5" />
             </svg>

@@ -1,14 +1,18 @@
-/* Loose items lying on the open folder.
-   Phones: a column on the folder, overlapping the bottom of the sheet. */
+/* Loose papers lying on the open folder.
+   Phones: a loose pile that wraps across the folder, overlapping the bottom
+   of the sheet. Desktop: placed on the desk below the sheet from each
+   paper's --x / --y (set from the review's data). Each paper's --r (turn)
+   and --w (width) override the defaults for its kind. */
 .scrapbook {
   position: relative;
   z-index: 15;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4rem;
-  width: 90%;
-  margin-left: 5%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3rem 1.5rem;
+  width: 92%;
+  margin-left: 4%;
   margin-block: -4rem 4rem;
 }
 
@@ -16,8 +20,8 @@
   max-width: 100%;
 }
 
-.item:nth-child(2n) {
-  align-self: flex-end;
+.desktopOnly {
+  display: none;
 }
 
 .scrapbook [data-drag] {
@@ -28,29 +32,26 @@
   cursor: grabbing !important;
 }
 
-/* Sticky note */
-.note {
+/* Things that carry a clip: the host turns, the paper inside sits between
+   the clip's back and front layers (see components/Clip). */
+.note,
+.print,
+.ticket,
+.strip,
+.clipping {
   position: relative;
-  width: 15rem;
-  max-width: 100%;
-  padding: 1.75rem 1.25rem 1.5rem;
-  background: #f4ecc2;
-  color: var(--color-dark);
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  line-height: 1.3;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.6);
-  transform: rotate(-3deg);
 }
 
-.clip {
-  position: absolute;
-  top: -1.25rem;
-  right: 1.5rem;
-  width: 1.4rem;
+.notePaper,
+.printPaper,
+.ticketPaper,
+.stripPaper,
+.clippingPaper {
+  position: relative;
+  z-index: 1;
 }
 
-.label {
+.noteLabel {
   display: block;
   margin-bottom: 0.5rem;
   font-family: var(--font-mono);
@@ -59,7 +60,78 @@
   opacity: 0.55;
 }
 
-/* Rubber stamp, inked in whatever reads on this folder's colour */
+/* ---- Note, clipped over its top edge */
+.noteItem {
+  flex-basis: 100%;
+}
+
+.note {
+  width: var(--w, 15rem);
+  max-width: 100%;
+  transform: rotate(var(--r, -3deg));
+}
+
+.notePaper {
+  padding: 1.75rem 1.25rem 1.5rem;
+  background: #f4ecc2;
+  color: var(--color-dark);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Prints: the trailer (bulldog clip) and photos */
+.print {
+  width: var(--w, 17rem);
+  max-width: 100%;
+  transform: rotate(var(--r, 2.5deg));
+}
+
+.photoItem .print {
+  transform: rotate(var(--r, -2deg));
+}
+
+.printPaper {
+  margin: 0;
+  padding: 0.6rem 0.6rem 0;
+  background: #fbf8f2;
+  color: var(--color-dark);
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.7);
+}
+
+.printPaper:not(:has(figcaption)) {
+  padding-bottom: 0.6rem;
+}
+
+.printImage,
+.photoImage {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--case-color) 60%, #000);
+}
+
+.printImage {
+  aspect-ratio: 16 / 10;
+}
+
+.printImage img,
+.photoImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.printPaper figcaption {
+  padding: 0.7rem 0.1rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* ---- Rubber stamp, inked in whatever reads on this folder's colour */
 .stamp {
   display: grid;
   justify-items: center;
@@ -70,7 +142,7 @@
   color: var(--case-ink, #fff);
   font-family: var(--font-mono);
   text-transform: uppercase;
-  transform: rotate(8deg);
+  transform: rotate(var(--r, 8deg));
   opacity: 0.9;
 }
 
@@ -83,22 +155,220 @@
   font-size: 1.25rem;
 }
 
-/* Wooden ruler, poking out past the folder's hinge */
-.rulerItem {
-  margin-left: -22vw;
-  transform: rotate(10deg);
+/* ---- Ticket stub, clipped across its side */
+.ticket {
+  transform: rotate(var(--r, -5deg));
 }
 
+.ticketPaper {
+  --notch: 0.45rem;
+  --stub: 2.6rem;
+
+  display: flex;
+  min-height: 6.5rem;
+  background: #efe3cf;
+  color: #3b2a1e;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  /* Half-round bites out of the top and bottom at the tear line */
+  -webkit-mask:
+    radial-gradient(circle at var(--stub) 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) top / 100% 51% no-repeat,
+    radial-gradient(circle at var(--stub) 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle at var(--stub) 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) top / 100% 51% no-repeat,
+    radial-gradient(circle at var(--stub) 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) bottom / 100% 51% no-repeat;
+}
+
+.stub {
+  display: grid;
+  place-items: center;
+  width: var(--stub);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  border-left: 2px dashed rgba(59, 42, 30, 0.35);
+}
+
+.ticketMain {
+  display: grid;
+  align-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1.1rem 0.75rem 0.9rem;
+  font-size: 0.65rem;
+}
+
+.ticketMain strong {
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* ---- Strip of 35mm film, clipped over a corner */
+.strip {
+  transform: rotate(var(--r, -4deg));
+}
+
+.stripPaper {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.85rem 0.45rem;
+  background:
+    repeating-linear-gradient(90deg, #0000 0 0.35rem, #e9e2d3 0.35rem 0.75rem, #0000 0.75rem 1.1rem) top 0.25rem left 0 / 100% 0.35rem no-repeat,
+    repeating-linear-gradient(90deg, #0000 0 0.35rem, #e9e2d3 0.35rem 0.75rem, #0000 0.75rem 1.1rem) bottom 0.25rem left 0 / 100% 0.35rem no-repeat,
+    #161412;
+  box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.7);
+}
+
+.stripPaper img {
+  width: 5.2rem;
+  height: 3.9rem;
+  object-fit: cover;
+  filter: sepia(0.35) contrast(1.05);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---- Newspaper clipping, torn along the bottom */
+.clipping {
+  width: var(--w, 14rem);
+  max-width: 100%;
+  transform: rotate(var(--r, 3deg));
+}
+
+.clippingPaper {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.1rem 1rem 1.6rem;
+  background: #e8e2d4;
+  color: #2a2620;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.6);
+  clip-path: polygon(
+    0 0, 100% 0, 100% 94%, 92% 97%, 85% 94%, 77% 98%, 69% 95%, 61% 99%, 52% 95%, 44% 98%,
+    36% 94%, 27% 98%, 19% 95%, 11% 99%, 5% 95%, 0 98%
+  );
+}
+
+.clippingPaper strong {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.clippingPaper small {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ---- Stickers: die-cut, white edge, they just stick */
+.sticker {
+  display: grid;
+  place-items: center;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.45);
+  background: var(--sticker-bg);
+  color: var(--sticker-ink);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  transform: rotate(var(--r, 0deg));
+}
+
+.sticker small {
+  font-size: 0.6rem;
+}
+
+.round {
+  --sticker-bg: var(--color-accent);
+  --sticker-ink: var(--color-dark);
+
+  width: var(--w, 6.5rem);
+  aspect-ratio: 1;
+  padding: 0.75rem;
+  border-radius: 50%;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transform: rotate(var(--r, -12deg));
+}
+
+.badge {
+  --sticker-bg: #191919;
+  --sticker-ink: var(--color-light);
+  --icon-bg: var(--sticker-bg);
+
+  gap: 0.35rem;
+  padding: 0.6rem 0.7rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.6rem;
+  transform: rotate(var(--r, 9deg));
+}
+
+.sticker.label {
+  --sticker-bg: #c3372c;
+  --sticker-ink: #fff;
+
+  position: relative;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  transform: rotate(var(--r, -4deg));
+}
+
+.sticker.label strong {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+/* a corner starting to peel */
+.sticker.label::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: linear-gradient(315deg, var(--case-color) 50%, #e8e3da 50%);
+  box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.stickerIcon {
+  display: block;
+  width: 2.75rem;
+}
+
+.stickerIcon svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+/* ---- Wooden ruler */
 .ruler {
   display: flex;
   align-items: flex-start;
-  width: 22rem;
+  width: var(--w, 22rem);
+  max-width: 100%;
   height: 3rem;
   padding-inline: 0.75rem;
   background: linear-gradient(180deg, #e9cf98, #d4b273);
   border-radius: 3px;
   box-shadow: 0 10px 25px -12px rgba(0, 0, 0, 0.7);
-  pointer-events: none;
+  transform: rotate(var(--r, 5deg));
 }
 
 .ruler span {
@@ -123,20 +393,26 @@
 }
 
 /* Desktop: the folder runs on below the sheet like a desk blotter, and the
-   items are scattered across it, free to drag around. */
+   papers are placed on it from their data, free to drag around. The desk's
+   top edge is the bottom of the sheet; its height comes from the review. */
 @media (min-width: 1025px) {
   .scrapbook {
-    position: static;
     display: block;
     width: auto;
     height: 0;
-    margin: 0 0 24rem;
+    margin: 0 0 var(--desk, 34rem);
     pointer-events: none;
   }
 
   .item {
     position: absolute;
     z-index: 15;
+    left: var(--x, 5%);
+    top: var(--y, 2rem);
+  }
+
+  .desktopOnly {
+    display: block;
   }
 
   .item [data-drag] {
@@ -144,21 +420,7 @@
     cursor: grab;
   }
 
-  /* overlaps the bottom-left corner of the sheet */
-  .noteItem {
-    left: 5%;
-    bottom: 19rem;
-  }
-
-  .stampItem {
-    left: 54%;
-    bottom: 10rem;
-  }
-
-  .rulerItem {
-    left: 20%;
-    bottom: 3.5rem;
-    margin-left: 0;
-    transform: rotate(8deg);
+  .print {
+    width: var(--w, 19rem);
   }
 }

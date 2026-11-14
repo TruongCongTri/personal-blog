@@ -1,23 +1,70 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import Image from "next/image";
 import { Draggable, useGSAP } from "@/lib/gsap";
-import { Paperclip } from "@/components/CaseSheet/CaseSheet";
+import Clip from "@/components/Clip/Clip";
+import Trailer from "@/components/Trailer/Trailer";
+import { Clapper, Reel } from "@/components/FilmIcons/FilmIcons";
+import type { ClipSpec, Scrap } from "@/lib/schema";
 import styles from "./Scrapbook.module.css";
 
-type Props = {
-  note: string;
-  noteLabel: string;
-  stamp: string;
-  stampLabel: string;
+/** What the papers can say about the film they belong to. */
+export type ScrapFilm = {
+  title: string;
+  year: number;
+  /** YouTube video id of the trailer. */
+  trailer?: string;
+  /** Verdict, already in words ("In between"). */
+  verdict: string;
 };
 
+export type ScrapLabels = {
+  note: string;
+  verdict: string;
+  trailer: string;
+  play: string;
+  close: string;
+  admit: string;
+  row: string;
+  seat: string;
+};
+
+type Props = {
+  scraps: Scrap[];
+  labels: ScrapLabels;
+  film?: ScrapFilm;
+  /** Height of the desk below the sheet on wide screens, in rem. */
+  desk?: number;
+};
+
+/** Stable fake seat numbers, so the ticket is the same on every visit. */
+function seatFor(title: string, year: number) {
+  const n = [...title].reduce((s, c) => s + c.charCodeAt(0), year);
+  return { row: String.fromCharCode(65 + (n % 12)), seat: 1 + (n % 24) };
+}
+
+/** A clip from the data, falling back to the way this kind of object is usually held. */
+function ClipFor({ spec, fallback }: { spec: ClipSpec | undefined; fallback: Exclude<ClipSpec, false> }) {
+  if (spec === false) return null;
+  const c = { ...fallback, ...spec };
+  return <Clip kind={c.kind} at={c.at ?? "top"} offset={c.offset} tilt={c.tilt} tone={c.tone} />;
+}
+
+const yt = (id: string, name: string) => `https://i.ytimg.com/vi/${id}/${name}.jpg`;
+
 /**
- * Loose items lying on the open folder: a note, a rubber stamp, a ruler.
- * Draggable with a mouse; on touch screens they sit in the flow so they
- * never fight with scrolling.
+ * Loose papers lying on the open folder. Every review lists its own (see
+ * CONTENT.md): notes, the verdict stamp, the trailer print, photos, a ticket
+ * stub, a film strip, stickers, newspaper clippings, a ruler. Each kind is
+ * held the way you'd really hold it unless the review says otherwise: a
+ * paperclip over the top of a note, a bulldog clip on a thick print, a clip
+ * across the side of a ticket, one over the corner of a film strip.
+ *
+ * Wide screens: placed on the desk from each paper's x/y, draggable with a
+ * mouse. Phones: a loose pile in list order, never fighting the scroll.
  */
-export default function Scrapbook({ note, noteLabel, stamp, stampLabel }: Props) {
+export default function Scrapbook({ scraps, labels, film, desk }: Props) {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP(
@@ -26,9 +73,12 @@ export default function Scrapbook({ note, noteLabel, stamp, stampLabel }: Props)
       const bounds = root.current?.closest("[data-case-inner]") ?? undefined;
       const drags = Draggable.create(root.current!.querySelectorAll("[data-drag]"), {
         type: "x,y",
-        bounds,
         zIndexBoost: true,
         onPress() {
+          // Bounds are applied on press, not at creation: while the entrance
+          // animation runs the papers sit 50vh lower, and bounds applied then
+          // would shove them up into the sheet for good.
+          if (bounds) this.applyBounds(bounds);
           (this.target as HTMLElement).classList.add(styles.grabbing);
         },
         onRelease() {
@@ -37,35 +87,171 @@ export default function Scrapbook({ note, noteLabel, stamp, stampLabel }: Props)
       });
       return () => drags.forEach((d) => d.kill());
     },
-    { scope: root },
+    { scope: root, dependencies: [scraps] },
   );
 
+  const render = (s: Scrap): ReactNode => {
+    switch (s.type) {
+      case "note":
+        return (
+          <div className={styles.note} data-drag>
+            <ClipFor spec={s.clip} fallback={{ at: "top", offset: "78%", tilt: 6 }} />
+            <div className={styles.notePaper} style={s.color ? { background: s.color } : undefined}>
+              <span className={styles.noteLabel}>{s.label ?? labels.note}</span>
+              <p>{s.text}</p>
+            </div>
+          </div>
+        );
+
+      case "stamp":
+        return (
+          <div className={styles.stamp} data-drag>
+            <span>{s.label ?? labels.verdict}</span>
+            <strong>{s.text ?? film?.verdict}</strong>
+          </div>
+        );
+
+      case "trailer":
+        if (!film?.trailer) return null;
+        return (
+          <div className={styles.print} data-drag>
+            <ClipFor spec={s.clip} fallback={{ kind: "binder", at: "top", offset: "50%", tilt: -3 }} />
+            <figure className={styles.printPaper}>
+              <div className={styles.printImage}>
+                {/* A static thumbnail: no YouTube script loads until play is pressed. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={yt(film.trailer, "hqdefault")} alt="" width={480} height={360} loading="lazy" decoding="async" draggable={false} />
+                <Trailer
+                  id={film.trailer}
+                  title={`${labels.trailer} — ${film.title} (${film.year})`}
+                  play={labels.play}
+                  close={labels.close}
+                />
+              </div>
+              <figcaption>
+                {labels.trailer} · {film.title} ({film.year})
+              </figcaption>
+            </figure>
+          </div>
+        );
+
+      case "photo":
+        return (
+          <div className={styles.print} data-drag>
+            <ClipFor spec={s.clip} fallback={{ at: "corner", offset: "1.1rem", tone: "silver" }} />
+            <figure className={styles.printPaper}>
+              <div className={styles.photoImage} style={{ aspectRatio: s.ratio ?? 4 / 3 }}>
+                <Image src={s.src} alt={s.alt ?? s.caption ?? ""} fill sizes="(min-width: 1025px) 20rem, 80vw" draggable={false} />
+              </div>
+              {s.caption && <figcaption>{s.caption}</figcaption>}
+            </figure>
+          </div>
+        );
+
+      case "ticket": {
+        if (!film) return null;
+        const seat = seatFor(film.title, film.year);
+        return (
+          <div className={styles.ticket} data-drag>
+            <ClipFor spec={s.clip} fallback={{ at: "left", offset: "50%", tilt: -8 }} />
+            <div className={styles.ticketPaper}>
+              <span className={styles.stub}>{labels.admit}</span>
+              <span className={styles.ticketMain}>
+                <strong>{film.title}</strong>
+                <span>
+                  {film.year} · {labels.row} {seat.row} · {labels.seat} {seat.seat}
+                </span>
+              </span>
+            </div>
+          </div>
+        );
+      }
+
+      case "strip": {
+        const frames = s.frames?.length ? s.frames : film?.trailer ? ["1", "2", "3"].map((n) => yt(film.trailer!, n)) : [];
+        if (!frames.length) return null;
+        return (
+          <div className={styles.strip} data-drag>
+            <ClipFor spec={s.clip} fallback={{ at: "corner-right", offset: "1.1rem", tone: "brass" }} />
+            <div className={styles.stripPaper}>
+              {frames.map((src) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img key={src} src={src} alt="" width={120} height={90} loading="lazy" decoding="async" draggable={false} />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case "sticker": {
+        const shape = s.shape ?? "round";
+        const style = { "--sticker-bg": s.color, "--sticker-ink": s.ink } as CSSProperties;
+        return (
+          <div className={`${styles.sticker} ${styles[shape]}`} style={style} data-drag>
+            {s.icon && (
+              <span className={styles.stickerIcon} aria-hidden="true">
+                {s.icon === "reel" ? <Reel /> : <Clapper />}
+              </span>
+            )}
+            {shape === "label" ? <strong>{s.text}</strong> : <span>{s.text}</span>}
+            {s.sub && <small>{s.sub}</small>}
+          </div>
+        );
+      }
+
+      case "clipping":
+        return (
+          <div className={styles.clipping} data-drag>
+            <ClipFor spec={s.clip} fallback={{ at: "top", offset: "22%", tilt: -5, tone: "silver" }} />
+            <div className={styles.clippingPaper}>
+              {s.title && <strong>{s.title}</strong>}
+              <p>{s.text}</p>
+              {s.source && <small>— {s.source}</small>}
+            </div>
+          </div>
+        );
+
+      case "ruler":
+        return (
+          <div className={styles.ruler} data-drag aria-hidden="true">
+            {Array.from({ length: 31 }, (_, i) => (
+              <span key={i} className={i % 5 === 0 ? styles.major : undefined}>
+                {i % 5 === 0 ? <em>{i}</em> : null}
+              </span>
+            ))}
+          </div>
+        );
+    }
+  };
+
   return (
-    <div ref={root} className={styles.scrapbook} data-scrapbook>
-      <div className={`${styles.item} ${styles.noteItem}`} data-scrap>
-        <div className={styles.note} data-drag>
-          <Paperclip className={styles.clip} />
-          <span className={styles.label}>{noteLabel}</span>
-          <p>{note}</p>
-        </div>
-      </div>
-
-      <div className={`${styles.item} ${styles.stampItem}`} data-scrap>
-        <div className={styles.stamp} data-drag>
-          <span>{stampLabel}</span>
-          <strong>{stamp}</strong>
-        </div>
-      </div>
-
-      <div className={`${styles.item} ${styles.rulerItem}`} data-scrap>
-        <div className={styles.ruler} data-drag aria-hidden="true">
-          {Array.from({ length: 31 }, (_, i) => (
-            <span key={i} className={i % 5 === 0 ? styles.major : undefined}>
-              {i % 5 === 0 ? <em>{i}</em> : null}
-            </span>
-          ))}
-        </div>
-      </div>
+    <div
+      ref={root}
+      className={styles.scrapbook}
+      style={desk ? ({ "--desk": `${desk}rem` } as CSSProperties) : undefined}
+      data-scrapbook
+    >
+      {scraps.map((s, i) => {
+        const content = render(s);
+        if (!content) return null;
+        const p = s.place ?? {};
+        const style = {
+          "--x": p.x !== undefined ? `${p.x}%` : undefined,
+          "--y": p.y !== undefined ? `${p.y}rem` : undefined,
+          "--r": p.r !== undefined ? `${p.r}deg` : undefined,
+          "--w": p.w !== undefined ? `${p.w}rem` : undefined,
+        } as CSSProperties;
+        return (
+          <div
+            key={i}
+            className={`${styles.item} ${styles[`${s.type}Item`] ?? ""} ${p.mobile === false ? styles.desktopOnly : ""}`}
+            style={style}
+            data-scrap
+          >
+            {content}
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -13,13 +13,6 @@
   pointer-events: auto;
 }
 
-.roses {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-}
-
 .bottom {
   position: relative;
   display: flex;

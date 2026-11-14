@@ -137,3 +137,11 @@
     right: 14rem;
   }
 }
+
+/* Weak devices: a 100px backdrop blur re-renders everything under the header
+   on every scrolled frame. A near-opaque fill looks almost the same. */
+:global(.is-lite) .header {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-color: #191919f2;
+}

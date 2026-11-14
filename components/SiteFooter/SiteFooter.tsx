@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import WindRose from "@/components/WindRose/WindRose";
+import FilmIcons from "@/components/FilmIcons/FilmIcons";
 import styles from "./SiteFooter.module.css";
 
 type Props = { dict: Dictionary["footer"]; locale: Locale; aboutLabel: string };
@@ -10,13 +10,7 @@ type Props = { dict: Dictionary["footer"]; locale: Locale; aboutLabel: string };
 export default function SiteFooter({ dict, locale, aboutLabel }: Props) {
   return (
     <footer className={styles.footer} data-site-footer>
-      <div className={styles.roses}>
-        <WindRose variant={0} hideOnMobile />
-        <WindRose variant={1} />
-        <WindRose variant={2} />
-        <WindRose variant={1} />
-        <WindRose variant={0} hideOnMobile />
-      </div>
+      <FilmIcons />
 
       <div className={styles.bottom}>
         <span className={styles.scale}>

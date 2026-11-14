@@ -1,0 +1,33 @@
+{
+  "slug": "",
+  "folder": "",
+  "tab": "Film title",
+  "title": "Film title",
+  "year": 2026,
+  "color": "#1E4BD7",
+  "theme": "light",
+  "date": "2026-11-14",
+  "minutes": 5,
+  "trailer": "",
+  "verdict": "between",
+  "genre": { "en": "Genre", "vi": "Thể loại" },
+  "quote": { "en": "The saying this film is tested against.", "vi": "Câu nói dùng để thử bộ phim." },
+  "quoteBy": { "en": "who said it", "vi": "ai đã nói" },
+  "excerpt": { "en": "One sentence: the answer in short.", "vi": "Một câu: câu trả lời ngắn gọn." },
+  "body": [
+    { "type": "p", "text": { "en": "First paragraph (gets the drop cap).", "vi": "Đoạn đầu tiên (có chữ hoa lớn)." } },
+    { "type": "h", "text": { "en": "A subheading", "vi": "Một tiêu đề nhỏ" } },
+    { "type": "p", "text": { "en": "Next paragraph.", "vi": "Đoạn tiếp theo." } },
+    { "type": "quote", "text": { "en": "A line from the film.", "vi": "Một câu thoại trong phim." }, "by": "Character" }
+  ],
+  "scraps": [
+    { "type": "note", "text": { "en": "One sentence: the answer in short.", "vi": "Một câu: câu trả lời ngắn gọn." }, "place": { "x": 4, "y": -4 } },
+    { "type": "trailer", "place": { "x": 37, "y": 4 } },
+    { "type": "stamp", "place": { "x": 71, "y": 2 } },
+    { "type": "ticket", "place": { "x": 67, "y": 15.5 } },
+    { "type": "strip", "place": { "x": 7, "y": 15 } },
+    { "type": "sticker", "shape": "round", "text": { "en": "Genre", "vi": "Thể loại" }, "place": { "x": 30, "y": 22 } },
+    { "type": "clipping", "title": "Headline", "text": "A short piece of a review or an interview.", "source": "Paper, 2026", "place": { "x": 88, "y": 7, "w": 12 } },
+    { "type": "ruler", "place": { "x": 4, "y": 29, "mobile": false } }
+  ]
+}

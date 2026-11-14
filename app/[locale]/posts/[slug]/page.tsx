@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getAllPostSlugs, getPost } from "@/lib/content";
+import { defaultScraps } from "@/lib/scraps";
+import { scrapLabels } from "@/i18n/labels";
 import CaseFolder from "@/components/CaseFolder/CaseFolder";
+import JsonLd from "@/components/JsonLd/JsonLd";
+import { SITE_URL, AUTHOR, alternates, baseOpenGraph } from "@/lib/site";
 
 const textOn = (theme: string) => (theme === "dark" ? "#000" : "#fff");
 
@@ -17,63 +21,171 @@ export async function generateMetadata({
 }: PageProps<"/[locale]/posts/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!hasLocale(locale)) return {};
-  const entry = await getPost(locale, slug);
+  const [dict, entry] = await Promise.all([
+    getDictionary(locale),
+    getPost(locale, slug),
+  ]);
   if (!entry) return {};
-  return { title: `${entry.post.title} (${entry.post.year})`, description: `${entry.post.quote} — ${entry.post.excerpt}` };
+  const { post, folder } = entry;
+  const title = `${post.title} (${post.year})`;
+  const description =
+    [post.quote && `“${post.quote}”`, post.excerpt ?? post.topic, post.body.length ? "" : dict.post.soon]
+      .filter(Boolean)
+      .join(" — ") || dict.meta.description;
+  return {
+    title,
+    description,
+    keywords: [post.title, folder.title, post.genre, String(post.year), post.topic ?? ""].filter(Boolean),
+    alternates: alternates(locale, `/posts/${slug}`),
+    openGraph: {
+      ...baseOpenGraph(locale, dict.meta.title),
+      type: "article",
+      title,
+      description,
+      url: `/${locale}/posts/${slug}`,
+      publishedTime: post.date,
+      authors: [AUTHOR],
+      section: folder.title,
+      tags: [post.genre, folder.title],
+    },
+    twitter: { card: "summary_large_image", title, description },
+  };
 }
 
-export default async function PostPage({ params }: PageProps<"/[locale]/posts/[slug]">) {
+export default async function PostPage({
+  params,
+}: PageProps<"/[locale]/posts/[slug]">) {
   const { locale, slug } = await params;
   if (!hasLocale(locale)) notFound();
 
-  const [dict, entry] = await Promise.all([getDictionary(locale), getPost(locale, slug)]);
+  const [dict, entry] = await Promise.all([
+    getDictionary(locale),
+    getPost(locale, slug),
+  ]);
   if (!entry) notFound();
   const { post, folder, next, groupIndex, groupCount, pageIndex } = entry;
 
+  const url = `${SITE_URL}/${locale}/posts/${post.slug}`;
+  const written = post.body.length > 0;
+  const verdict = post.verdict ? dict.post.verdict[post.verdict] : dict.post.pending;
   return (
-    <CaseFolder
-      key={post.slug}
-      locale={locale}
-      path={`/${locale}/posts/${post.slug}`}
-      title={post.title}
-      color={post.color}
-      coverColor={folder.posts[0].color}
-      textColor={textOn(post.theme)}
-      groupIndex={groupIndex}
-      groupCount={groupCount}
-      tags={folder.posts.map((p, i) => ({
-        label: p.tab,
-        href: `/${locale}/posts/${p.slug}`,
-        color: p.color,
-        textColor: textOn(p.theme),
-        active: i === pageIndex,
-      }))}
-      info={[
-        `${post.title} (${post.year})`,
-        `${dict.post.directedBy} ${folder.title}`,
-        post.genre,
-        `${dict.post.verdictLabel}: ${dict.post.verdict[post.verdict]}`,
-        `${post.dateLabel} · ${post.minutes} ${dict.post.minutes}`,
-      ]}
-      quote={{ label: dict.post.testing, text: post.quote, by: post.quoteBy }}
-      body={post.body}
-      plate={`${dict.post.plate} — ${post.title} (${post.year})`}
-      scrap={{
-        note: post.excerpt,
-        noteLabel: dict.post.noteLabel,
-        stamp: dict.post.verdict[post.verdict],
-        stampLabel: dict.post.verdictLabel,
-      }}
-      next={{
-        href: `/${locale}/posts/${next.post.slug}`,
-        title: `${next.post.title} (${next.post.year})`,
-        category: next.folder.title,
-        color: next.post.color,
-        textColor: textOn(next.post.theme),
-        label: dict.post.next,
-        keep: dict.post.keepScrolling,
-        sameGroup: next.folder.slug === folder.slug,
-      }}
-    />
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              // Until the analysis is written the page is a placeholder, not a review.
+              "@type": written ? "Review" : "WebPage",
+              "@id": `${url}#review`,
+              name: `${post.title} (${post.year})`,
+              headline: post.quote,
+              description: post.excerpt ?? post.topic,
+              reviewBody: written ? post.body.flatMap((b) => (b.type === "p" ? [b.text] : [])).join(" ") : undefined,
+              inLanguage: locale,
+              url,
+              datePublished: post.date,
+              author: { "@type": "Person", name: AUTHOR },
+              publisher: {
+                "@type": "Organization",
+                name: dict.meta.title,
+                url: `${SITE_URL}/${locale}`,
+              },
+              image: `${url}/opengraph-image`,
+              timeRequired: post.minutes ? `PT${post.minutes}M` : undefined,
+              [written ? "itemReviewed" : "about"]: {
+                "@type": "Movie",
+                name: post.title,
+                dateCreated: String(post.year),
+                genre: post.genre,
+                director: { "@type": "Person", name: folder.title },
+                trailer: post.trailer && {
+                  "@type": "VideoObject",
+                  name: `${post.title} (${post.year}) — ${dict.post.trailer}`,
+                  embedUrl: `https://www.youtube-nocookie.com/embed/${post.trailer}`,
+                  thumbnailUrl: `https://i.ytimg.com/vi/${post.trailer}/hqdefault.jpg`,
+                },
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: dict.meta.title,
+                  item: `${SITE_URL}/${locale}`,
+                },
+                { "@type": "ListItem", position: 2, name: folder.title },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: `${post.title} (${post.year})`,
+                  item: url,
+                },
+              ],
+            },
+          ],
+        }}
+      />
+      <CaseFolder
+        key={post.slug}
+        locale={locale}
+        path={`/${locale}/posts/${post.slug}`}
+        title={post.title}
+        color={post.color}
+        coverColor={folder.posts[0].color}
+        textColor={textOn(post.theme)}
+        groupIndex={groupIndex}
+        groupCount={groupCount}
+        tags={folder.posts.map((p, i) => ({
+          label: p.tab,
+          href: `/${locale}/posts/${p.slug}`,
+          color: p.color,
+          textColor: textOn(p.theme),
+          active: i === pageIndex,
+        }))}
+        info={[
+          `${post.title} (${post.year})`,
+          `${dict.post.directedBy} ${folder.title}`,
+          post.genre,
+          post.topic && `${dict.post.topic}: ${post.topic}`,
+          `${dict.post.verdictLabel}: ${verdict}`,
+          [post.dateLabel, post.minutes && `${post.minutes} ${dict.post.minutes}`].filter(Boolean).join(" · "),
+        ].filter((line): line is string => Boolean(line))}
+        quote={post.quote ? { label: dict.post.testing, text: post.quote, by: post.quoteBy ?? "" } : undefined}
+        body={post.body}
+        soon={dict.post.soon}
+        plate={`${dict.post.plate} — ${post.title} (${post.year})`}
+        still={post.still}
+        scrap={{
+          scraps:
+            post.scraps ??
+            defaultScraps({
+              // Unwritten: the note says what the analysis will be about.
+              note: post.excerpt ?? post.topic ?? dict.post.soon,
+              noteLabel: !post.excerpt && post.topic ? dict.post.topic : undefined,
+              hasTrailer: Boolean(post.trailer),
+              genre: post.genre,
+              director: folder.title,
+              year: post.year,
+              cutLabel: dict.post.cut,
+            }),
+          desk: post.desk,
+          film: { title: post.title, year: post.year, trailer: post.trailer, verdict },
+          labels: scrapLabels(dict),
+        }}
+        next={{
+          href: `/${locale}/posts/${next.post.slug}`,
+          title: `${next.post.title} (${next.post.year})`,
+          category: next.folder.title,
+          color: next.post.color,
+          textColor: textOn(next.post.theme),
+          label: dict.post.next,
+          keep: dict.post.keepScrolling,
+          sameGroup: next.folder.slug === folder.slug,
+        }}
+      />
+    </>
   );
 }

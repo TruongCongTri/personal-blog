@@ -1,7 +1,19 @@
 {
   "meta": {
     "title": "Hồ Sơ Phim",
-    "description": "Không phải điểm phim — mà là luyện suy nghĩ. Một câu nói về một thể loại hay chủ đề, một bộ phim, và một kết luận: phim đồng ý, phản bác, hay ở giữa?"
+    "description": "Không phải điểm phim — mà là luyện suy nghĩ. Một câu nói về một thể loại hay chủ đề, một bộ phim, và một kết luận: phim đồng ý, phản bác, hay ở giữa?",
+    "tagline": "Một câu nói, một bộ phim, một kết luận",
+    "keywords": [
+      "bình luận phim",
+      "phân tích phim",
+      "phê bình điện ảnh",
+      "luyện suy nghĩ",
+      "đạo diễn",
+      "Alex Garland",
+      "Denis Villeneuve",
+      "Christopher Nolan",
+      "Bong Joon-ho"
+    ]
   },
   "nav": {
     "logo": "Hồ Sơ Phim",
@@ -11,6 +23,13 @@
     "close": "Đóng hồ sơ",
     "prev": "Hồ sơ trước",
     "next": "Hồ sơ sau"
+  },
+  "cursor": {
+    "open": "Mở",
+    "drag": "Kéo",
+    "next": "Tiếp",
+    "close": "Đóng",
+    "play": "Phát"
   },
   "hero": {
     "title": "Hồ sơ phim",
@@ -34,7 +53,17 @@
       "against": "Phản bác",
       "between": "Ở giữa"
     },
-    "keepScrolling": "Cuộn tiếp để sang trang sau"
+    "keepScrolling": "Cuộn tiếp để sang trang sau",
+    "trailer": "Trailer",
+    "play": "Xem trailer",
+    "closeTrailer": "Đóng",
+    "admit": "Vé vào cửa",
+    "row": "Hàng",
+    "seat": "Ghế",
+    "cut": "Bản đạo diễn",
+    "soon": "Bài phân tích sắp ra mắt",
+    "pending": "Đang chờ",
+    "topic": "Chủ đề"
   },
   "about": {
     "title": "Giới thiệu",

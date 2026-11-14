@@ -1,0 +1,134 @@
+/*
+ * Every clip is positioned by the point where it crosses the object's edge
+ * (--x, --y), then turned about that point (--a + --tilt). The drawing's legs
+ * point down, so 0deg grips the top edge, 90deg the right, and so on.
+ */
+.clip {
+  --w: 1.5rem;
+  --ratio: 2.4615; /* 64 / 26 */
+  --edge: 0.375; /* where the edge crosses the drawing, from the top */
+
+  position: absolute;
+  left: calc(var(--x) - var(--w) / 2);
+  top: calc(var(--y) - var(--w) * var(--ratio) * var(--edge));
+  width: var(--w);
+  height: calc(var(--w) * var(--ratio));
+  overflow: visible;
+  transform-origin: 50% calc(var(--edge) * 100%);
+  transform: rotate(calc(var(--a) + var(--tilt, 0deg)));
+  pointer-events: none;
+}
+
+.binder {
+  --w: 2.75rem;
+  --ratio: 1.4; /* 56 / 40 */
+  --edge: 0.393; /* 22 / 56 */
+}
+
+.back {
+  z-index: 0;
+}
+
+.front {
+  z-index: 2;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
+/* Edges */
+.top {
+  --x: var(--offset, 72%);
+  --y: 0%;
+  --a: 0deg;
+}
+
+.right {
+  --x: 100%;
+  --y: var(--offset, 28%);
+  --a: 90deg;
+}
+
+.bottom {
+  --x: var(--offset, 30%);
+  --y: 100%;
+  --a: 180deg;
+}
+
+.left {
+  --x: 0%;
+  --y: var(--offset, 30%);
+  --a: -90deg;
+}
+
+.corner {
+  --x: var(--offset, 1rem);
+  --y: var(--offset, 1rem);
+  --a: -45deg;
+}
+
+.corner_right {
+  --x: calc(100% - var(--offset, 1rem));
+  --y: var(--offset, 1rem);
+  --a: 45deg;
+}
+
+/* Metal */
+.wire,
+.shine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wire {
+  stroke: var(--metal);
+  stroke-width: 2.3;
+}
+
+.shine {
+  stroke: var(--metal-hi);
+  stroke-width: 0.7;
+  opacity: 0.8;
+}
+
+.body {
+  fill: var(--body, #1b1b1b);
+}
+
+.rim {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  opacity: 0.22;
+}
+
+.silver {
+  --metal: #9aa1a8;
+  --metal-hi: #fff;
+}
+
+.brass {
+  --metal: #b08a35;
+  --metal-hi: #ffeeb5;
+}
+
+.red {
+  --metal: #c3372c;
+  --metal-hi: #ffb2a8;
+}
+
+.blue {
+  --metal: #2c55c9;
+  --metal-hi: #b9cbff;
+}
+
+.black {
+  --metal: #a5abb2;
+  --metal-hi: #fff;
+  --body: #1b1b1b;
+}
+
+/* Weak devices: no per-clip shadow filter. */
+:global(.is-lite) .front {
+  filter: none;
+}

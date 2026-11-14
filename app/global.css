@@ -295,3 +295,10 @@ html.lenis body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Custom cursor (components/Cursor): the native pointer hides only once the
+   custom one is actually running, so it never disappears if JS fails. */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
