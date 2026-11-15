@@ -45,3 +45,9 @@ export function r2PublicUrl(key: string) {
   const base = (env.NEXT_PUBLIC_R2_PUBLIC_URL || "").replace(/\/+$/, "");
   return `${base}/${R2_PREFIX}/${key}`;
 }
+
+/** Public URL of a file anywhere in the bucket (outside R2_PREFIX), e.g. movies/<id>/poster.webp. */
+export function r2BucketUrl(key: string) {
+  const base = (env.NEXT_PUBLIC_R2_PUBLIC_URL || "").replace(/\/+$/, "");
+  return `${base}/${key.replace(/^\/+/, "")}`;
+}

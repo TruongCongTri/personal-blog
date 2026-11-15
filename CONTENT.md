@@ -137,3 +137,32 @@ them in the order they should appear on phones.
 See `.env.example`. `R2_*` gives access to the bucket. `NEXT_PUBLIC_R2_PUBLIC_URL` is its public
 address; use a custom domain in production, because `r2.dev` is rate-limited. `REVALIDATE_SECRET`
 lets a push refresh the live site.
+
+## Soundtracks
+
+Music for a folder is set in `lib/discography.ts`, not in the review files. Each movie lists its
+tracks and the review it belongs to (`postSlug`). Opening that folder plays its tracks in order
+and loops them; elsewhere the site is quiet. Each film resumes where it stopped, down to the
+second, and that is remembered across visits.
+
+Upload the files to the bucket under `movies/<id>/`. They should be AAC `.m4a` at 128–160 kbps,
+next to a `poster.webp`, which is used for the lock-screen / Dynamic Island artwork.
+
+The music keeps playing in the background: other tabs, other apps, and a locked screen, on
+desktop, Android and iOS. The lock screen / notification / Dynamic Island shows play, pause,
+skip and a scrubber.
+
+**For a fast start**, export new tracks as *faststart* m4a, so the index sits at the front of the
+file and playback can begin after the first few kilobytes. The current files already are:
+
+```bash
+ffmpeg -i input.wav -c:a aac -b:a 144k -movflags +faststart track.m4a
+```
+
+**Copyright:** the songs belong to their rights holders. The Terms of Use (`/legal/terms`, the
+"Music" section) say so, list every song automatically from `lib/discography.ts`, and promise
+removal on request. To take a song down:
+
+1. Remove the track (or the whole entry) from `lib/discography.ts` and deploy.
+2. Delete its `.m4a` from the bucket (`movies/<id>/`) in the Cloudflare dashboard, so the file
+   can't be reached directly either.

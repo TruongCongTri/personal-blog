@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { preconnect } from "react-dom";
 import { Newsreader, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -7,6 +8,9 @@ import SmoothScroll from "@/components/SmoothScroll/SmoothScroll";
 import Header from "@/components/Header/Header";
 import { SITE_URL, AUTHOR, baseOpenGraph } from "@/lib/site";
 import Cursor from "@/components/Cursor/Cursor";
+import { AudioProvider } from "@/components/Audio/AudioProvider";
+import AudioControl from "@/components/Audio/AudioControl";
+import ConsentBanner from "@/components/Consent/ConsentBanner";
 import { liteScript } from "@/lib/perf";
 import "../global.css";
 
@@ -74,6 +78,11 @@ export default async function LocaleLayout({
   if (!hasLocale(locale)) notFound();
   const dict = await getDictionary(locale);
 
+  // Soundtracks and images stream from R2: open that connection (DNS + TLS)
+  // while the page loads, so the first note doesn't wait for it.
+  const r2 = process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
+  if (r2) preconnect(new URL(r2).origin);
+
   return (
     <html
       lang={locale}
@@ -92,8 +101,13 @@ export default async function LocaleLayout({
         </a>
         <SmoothScroll />
         <Cursor labels={dict.cursor} />
-        <Header locale={locale} dict={dict.nav} />
-        <main id="main">{children}</main>
+        {/* One audio element for the whole visit: the soundtrack of the open folder. */}
+        <AudioProvider>
+          <Header locale={locale} dict={dict.nav} />
+          <main id="main">{children}</main>
+          <AudioControl labels={dict.audio} />
+          <ConsentBanner locale={locale} dict={dict.consent} legal={dict.legal} />
+        </AudioProvider>
       </body>
     </html>
   );

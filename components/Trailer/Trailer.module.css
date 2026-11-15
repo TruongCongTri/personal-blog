@@ -99,3 +99,49 @@
     transform: translateY(2rem) scale(0.97);
   }
 }
+
+/* Before YouTube is allowed: a short notice in place of the player */
+.ask {
+  display: grid;
+  place-content: center;
+  gap: 1.25rem;
+  height: 100%;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--color-light);
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.4;
+}
+
+.ask p {
+  max-width: 32rem;
+}
+
+.ask div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.ask button,
+.ask a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 1.1rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.ask button {
+  background: var(--color-accent);
+  color: var(--color-dark);
+}
+
+.ask a {
+  border: 1px solid rgba(253, 250, 247, 0.4);
+}

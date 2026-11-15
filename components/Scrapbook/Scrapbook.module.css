@@ -115,6 +115,11 @@
   aspect-ratio: 16 / 10;
 }
 
+/* The poster standing in for the trailer thumbnail: its upper middle */
+.posterCrop {
+  object-position: center 30%;
+}
+
 .printImage img,
 .photoImage img {
   width: 100%;
@@ -221,9 +226,25 @@
   box-shadow: 0 10px 22px -10px rgba(0, 0, 0, 0.7);
 }
 
+.frame {
+  display: block;
+  padding: 0;
+  transition: filter var(--dur-fast) var(--ease);
+}
+
+.frame:hover,
+.frame:focus-visible {
+  filter: brightness(1.15);
+}
+
+.frame:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .stripPaper img {
-  width: 5.2rem;
-  height: 3.9rem;
+  width: 5.6rem;
+  height: 3.15rem;
   object-fit: cover;
   filter: sepia(0.35) contrast(1.05);
   pointer-events: none;

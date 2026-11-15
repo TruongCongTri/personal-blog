@@ -147,7 +147,7 @@ async function check() {
       const collect = (v, key) => {
         if (Array.isArray(v)) v.forEach((x) => collect(x, key === "frames" ? "src" : undefined));
         else if (v && typeof v === "object") Object.entries(v).forEach(([k, x]) => collect(x, k));
-        else if (typeof v === "string" && (key === "src" || key === "still") && !/^(https?:)?\/\//.test(v)) images.push(v);
+        else if (typeof v === "string" && ["src", "still", "poster"].includes(key) && !/^(https?:)?\/\/|^r2:/.test(v)) images.push(v);
       };
       collect(r);
       for (const img of images) {

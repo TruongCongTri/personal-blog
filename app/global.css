@@ -302,3 +302,49 @@ html.has-cursor,
 html.has-cursor * {
   cursor: none !important;
 }
+
+/* Open dialogs (film frames, trailer) sit in the browser's top layer, above
+   the custom cursor, so they get the normal pointer back. */
+html.has-cursor dialog[open],
+html.has-cursor dialog[open] * {
+  cursor: default !important;
+}
+
+html.has-cursor dialog[open] :is(button, a, [role="button"]) {
+  cursor: pointer !important;
+}
+
+/* Scrollbar: the open folder's colour (CaseFolder sets --scroll-thumb), a
+   neutral paper tone everywhere else. Phones use overlay scrollbars and
+   ignore this. */
+:root {
+  --scroll-thumb: rgba(253, 250, 247, 0.35);
+  --scroll-track: var(--color-dark);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border: 2px solid var(--scroll-track);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-width: 1px;
+}
+
+/* Browsers without ::-webkit-scrollbar (Firefox) use the standard properties. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+    scrollbar-width: thin;
+  }
+}

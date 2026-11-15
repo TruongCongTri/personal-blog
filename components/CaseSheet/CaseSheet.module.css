@@ -1,12 +1,23 @@
+/* The pages, one above the other, with a strip of folder between them. */
+.stack {
+  position: relative;
+  z-index: 0;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* A sliver of folder shows on the hinge side of the paper */
+  width: calc(100% - 0.25rem);
+}
+
+/* One page of paper. Tablet/desktop: A4 (see the 769px rule below). */
 .sheet {
   --padding-l: 1.5rem;
   --clip-size: 2.5rem;
 
   position: relative;
   z-index: 0;
-  flex: 0 0 auto;
-  /* A sliver of folder shows on the hinge side of the sheet */
-  width: calc(100% - 0.25rem);
+  width: 100%;
   padding: var(--padding-l) var(--padding-l) var(--padding-l) calc(var(--clip-size) + 1rem);
   background-color: var(--color-paper);
   color: var(--color-dark);
@@ -194,6 +205,16 @@
 @media (min-width: 769px) {
   .sheet {
     --clip-size: 5rem;
+
+    /* A4 paper: 210 × 297. Longer text continues on the next page (CaseSheet.tsx). */
+    aspect-ratio: 210 / 297;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Fills the page, so the closing line sits at the foot of the A4, not under the last word. */
+  .inner {
+    flex: 1;
   }
 
   .inner {
@@ -230,6 +251,9 @@
 @media (min-width: 1440px) {
   .sheet {
     --padding-l: 5.625rem;
+  }
+
+  .stack {
     width: calc(100% - var(--container-offset));
   }
 }
@@ -387,4 +411,73 @@
   50% {
     opacity: 0;
   }
+}
+
+/* The film's poster in the clipped print: portrait, no grain over it. */
+.isPoster {
+  aspect-ratio: 2 / 3;
+}
+
+.isPoster::after {
+  display: none;
+}
+
+/* Links typed at the foot of the sheet (About: the policies) */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed #b8b3ae;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.links a,
+.links button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+}
+
+.links a:hover,
+.links button:hover {
+  color: var(--case-color);
+}
+
+/* ---- Following pages */
+/* No drop cap: the text carries on from the page before. */
+.cont > p:first-child {
+  text-indent: 2.5rem;
+}
+
+.cont > p:first-child::first-letter {
+  float: none;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+/* "Civil War — 2 / 3" at the top of the side column */
+.contHead {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+}
+
+/* Page number, under the closing line */
+.folio {
+  position: absolute;
+  right: var(--padding-l);
+  bottom: calc(var(--padding-l) / 2 - 0.4rem);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  opacity: 0.55;
 }

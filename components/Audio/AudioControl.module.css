@@ -1,0 +1,283 @@
+/* Floating soundtrack control, bottom-left (the Next button owns the right). */
+.control {
+  position: fixed;
+  left: max(var(--container-offset), env(safe-area-inset-left));
+  bottom: calc(var(--container-offset) + var(--safe-bottom));
+  z-index: 950;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+  max-width: min(18rem, calc(100vw - 2 * var(--container-offset) - 11rem));
+  opacity: 0;
+  translate: 0 1.5rem;
+  pointer-events: none;
+  transition:
+    opacity var(--dur) var(--ease),
+    translate var(--dur) var(--ease);
+}
+
+.control[data-visible="true"] {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+  transition-delay: 0.6s; /* after the folder has opened */
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+/* Cookie & music settings, beside the player (alone on pages without music) */
+.settings {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: rgba(25, 25, 25, 0.88);
+  color: var(--color-light);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.settings svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.settings:hover {
+  color: var(--color-accent);
+}
+
+.settings:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.control[data-has-album="false"] .pill {
+  display: none;
+}
+
+.pill {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: 100%;
+  padding: 0.3rem 0.9rem 0.3rem 0.3rem;
+  border-radius: 999px;
+  background: rgba(25, 25, 25, 0.88);
+  color: var(--color-light);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* Poster as a little record; play/pause sits on it */
+.disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+}
+
+.ring {
+  --p: 0;
+
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(var(--color-accent) calc(var(--p) * 360deg), rgba(253, 250, 247, 0.15) 0);
+  -webkit-mask: radial-gradient(circle, #0000 calc(50% - 2px), #000 calc(50% - 1.5px));
+  mask: radial-gradient(circle, #0000 calc(50% - 2px), #000 calc(50% - 1.5px));
+}
+
+.poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon svg,
+.skip svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .control[data-playing="true"] .poster {
+    animation: spin 8s linear infinite;
+  }
+
+  .control[data-blocked="true"] .disc {
+    animation: pulse 1.6s var(--ease) infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 233, 39, 0.25);
+  }
+}
+
+.meta {
+  display: grid;
+  min-width: 0;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.title,
+.sub {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+}
+
+.sub {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* Little level meter while playing */
+.bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.6rem;
+}
+
+.bars i {
+  width: 2px;
+  height: 100%;
+  background: currentColor;
+  transform-origin: bottom;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bars i {
+    animation: level 0.9s ease-in-out infinite alternate;
+  }
+
+  .bars i:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+
+  .bars i:nth-child(3) {
+    animation-delay: -0.6s;
+  }
+}
+
+@keyframes level {
+  from {
+    transform: scaleY(0.3);
+  }
+}
+
+.skip {
+  display: flex;
+  gap: 0.2rem;
+  flex: none;
+}
+
+.skip button {
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+}
+
+.skip button:hover,
+.disc:hover .icon {
+  color: var(--color-accent);
+}
+
+/* Track list, opened from the title (playlists only) */
+.list {
+  display: grid;
+  gap: 0.1rem;
+  max-height: 14rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: rgba(25, 25, 25, 0.94);
+  color: var(--color-light);
+  list-style: none;
+}
+
+.list button {
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.list button span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.list button[aria-current="true"] {
+  color: var(--color-accent);
+}
+
+.list button:hover {
+  background: rgba(253, 250, 247, 0.08);
+}
+
+/* Narrow phones: just the record, so it never crowds the Next button. */
+@media (max-width: 359px) {
+  .meta {
+    display: none;
+  }
+
+  .pill {
+    padding-right: 0.3rem;
+  }
+}
+
+/* Weak devices: no spinning poster. */
+:global(.is-lite) .poster {
+  animation: none !important;
+}

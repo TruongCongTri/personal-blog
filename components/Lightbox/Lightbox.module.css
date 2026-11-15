@@ -1,0 +1,109 @@
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: calc(var(--safe-top) + 4rem) var(--container-offset) calc(var(--safe-bottom) + 5rem);
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  touch-action: pan-y;
+}
+
+.lightbox::backdrop {
+  background: rgba(10, 10, 10, 0.94);
+}
+
+.frame {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.frame img {
+  display: block;
+  max-width: min(100%, 1280px);
+  max-height: calc(100dvh - 11rem);
+  width: auto;
+  height: auto;
+  /* a print of the frame: white border like the strip's photos */
+  border: 6px solid #fbf8f2;
+  box-shadow: 0 30px 80px -20px #000;
+  user-select: none;
+}
+
+.frame figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-light);
+  opacity: 0.6;
+}
+
+.nav,
+.close {
+  position: fixed;
+  min-height: 44px;
+  color: var(--color-light);
+  font-family: var(--font-mono);
+}
+
+.nav {
+  top: 50%;
+  width: 3rem;
+  height: 3rem;
+  translate: 0 -50%;
+  border: 1px solid rgba(253, 250, 247, 0.35);
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+
+.prev {
+  left: var(--container-offset);
+}
+
+.next {
+  right: var(--container-offset);
+}
+
+.close {
+  left: 50%;
+  bottom: calc(var(--safe-bottom) + 1.25rem);
+  translate: -50% 0;
+  padding-inline: 1.25rem;
+  border: 1px solid rgba(253, 250, 247, 0.4);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.nav:hover,
+.close:hover {
+  background: rgba(253, 250, 247, 0.1);
+}
+
+/* Phones: swipe between frames; the arrow buttons sit below instead of over the image. */
+@media (max-width: 768px) {
+  .nav {
+    top: auto;
+    bottom: calc(var(--safe-bottom) + 1.25rem);
+    translate: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lightbox[open] .frame img {
+    animation: rise 0.4s var(--ease);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}

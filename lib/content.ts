@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Locale } from "@/i18n/config";
-import { r2Configured, r2GetJson, r2PublicUrl } from "@/lib/r2";
+import { r2BucketUrl, r2Configured, r2GetJson, r2PublicUrl } from "@/lib/r2";
 import type { Block, Scrap, Theme, Verdict } from "@/lib/schema";
 
 export type { Block, Scrap, Theme, Verdict } from "@/lib/schema";
@@ -53,8 +53,10 @@ export type Post = {
   excerpt?: string;
   /** YouTube video id */
   trailer?: string;
-  /** Image for the clipped print at the top of the sheet. */
+  /** Image for the clipped print at the top of the sheet (overrides the poster). */
   still?: string;
+  /** The film's poster, shown in the clipped print at the top of the sheet. */
+  poster?: string;
   body: Block[];
   /** Loose papers on the folder. Missing = the standard set. */
   scraps?: Scrap[];
@@ -110,7 +112,7 @@ const isText = (v: unknown): v is Record<Locale, string> =>
   typeof (v as Record<string, unknown>).en === "string" &&
   typeof (v as Record<string, unknown>).vi === "string";
 
-const IMAGE_KEYS = new Set(["src", "still"]);
+const IMAGE_KEYS = new Set(["src", "still", "poster"]);
 
 /** Picks the locale's text everywhere and turns relative image paths into URLs. */
 function resolve(value: unknown, locale: Locale, media: (file: string) => string, key?: string): unknown {
@@ -125,6 +127,8 @@ function resolve(value: unknown, locale: Locale, media: (file: string) => string
 function mediaFor(source: Archive["source"], slug: string) {
   return (file: string) => {
     if (/^(https?:)?\/\//.test(file) || file.startsWith("/")) return file;
+    // "r2:movies/rose/poster.webp": anywhere in the bucket, outside the content folder
+    if (file.startsWith("r2:")) return r2BucketUrl(file.slice(3));
     const key = `reviews/${slug}/${file}`;
     return source === "r2" ? r2PublicUrl(key) : `/media/${key}`;
   };

@@ -35,6 +35,10 @@ type Props = {
   plate: string;
   /** Image for the clipped print at the top of the sheet. */
   still?: string;
+  /** The print is a poster (portrait 2:3). */
+  stillIsPoster?: boolean;
+  /** Links at the foot of the sheet (About: the policies). */
+  links?: { label: string; items: { href: string; label: string }[]; settings?: string };
   scrap: { scraps: Scrap[]; labels: ScrapLabels; film?: ScrapFilm; desk?: number };
   next?: {
     href: string;
@@ -80,6 +84,15 @@ export default function CaseFolder(props: Props) {
     gsap.set(sheet, { width: sheet.offsetWidth, flexShrink: 0 });
     gsap.set(scrapbook, { width: scrapbook.offsetWidth });
   }, [q]);
+
+  // The page scrollbar takes this folder's colour while it is open.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--scroll-thumb", props.color);
+    return () => {
+      root.style.removeProperty("--scroll-thumb");
+    };
+  }, [props.color]);
 
   // ---- Enter --------------------------------------------------------------
   useEntrance(
@@ -456,7 +469,7 @@ export default function CaseFolder(props: Props) {
           <div className={styles.folder} data-case-folder data-preload>
             <div className={styles.folderInner} data-folder-inner>
               <div className={styles.sheetWrap} data-sheet-wrap>
-                <CaseSheet info={props.info} quote={props.quote} body={props.body} soon={props.soon} plate={props.plate} title={props.title} still={props.still} />
+                <CaseSheet info={props.info} quote={props.quote} body={props.body} soon={props.soon} plate={props.plate} title={props.title} still={props.still} stillIsPoster={props.stillIsPoster} links={props.links} />
               </div>
               {/* Loose items lie on the folder itself, below and over the sheet. */}
               <Scrapbook {...props.scrap} />

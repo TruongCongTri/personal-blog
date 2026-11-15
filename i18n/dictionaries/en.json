@@ -37,7 +37,11 @@
   },
   "footer": {
     "signature": "Watched, argued with, and filed by hand, somewhere in Saigon",
-    "scale": "Scale 1:1"
+    "scale": "Scale 1:1",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "terms": "Terms of Use",
+    "settings": "Cookie settings"
   },
   "post": {
     "minutes": "min read",
@@ -63,7 +67,11 @@
     "cut": "Director’s cut",
     "soon": "The analysis is coming out soon",
     "pending": "Pending",
-    "topic": "On"
+    "topic": "On",
+    "poster": "Poster",
+    "frame": "View frame",
+    "prevFrame": "Previous frame",
+    "nextFrame": "Next frame"
   },
   "about": {
     "title": "About",
@@ -84,5 +92,58 @@
     "title": "File missing",
     "body": "This folder is empty — or someone misfiled it.",
     "cta": "Back to the drawer"
+  },
+  "audio": {
+    "play": "Play soundtrack",
+    "pause": "Pause soundtrack",
+    "next": "Next track",
+    "prev": "Previous track",
+    "tap": "Tap for sound",
+    "tracks": "Tracks",
+    "settings": "Cookie & music settings"
+  },
+  "consent": {
+    "title": "Cookies & sound",
+    "text": "Film Files uses only what it needs to work. With your consent it can also remember where each soundtrack stopped, show YouTube trailers and stills (Google may set cookies), and keep the music playing in the background.",
+    "acceptAll": "Accept all",
+    "customize": "Choose",
+    "rejectAll": "Reject all",
+    "save": "Save choices",
+    "back": "Back",
+    "cookiesHeading": "Cookies & storage",
+    "soundHeading": "Sound",
+    "always": "Always on",
+    "necessary": {
+      "title": "Strictly necessary",
+      "text": "Your language and these choices. Needed for the site to work."
+    },
+    "preferences": {
+      "title": "Preferences",
+      "text": "Remember each soundtrack’s position and your play/pause choice on this device."
+    },
+    "media": {
+      "title": "YouTube media",
+      "text": "Trailer player and trailer stills, served by YouTube (Google), which receives your IP address and may set cookies."
+    },
+    "autoplay": {
+      "title": "Play music automatically",
+      "text": "Start a folder’s soundtrack by itself after your first tap."
+    },
+    "background": {
+      "title": "Keep playing in the background",
+      "text": "Continue the music when you switch tabs or apps, or lock your screen."
+    },
+    "trailerNotice": "This trailer is hosted on YouTube. Playing it connects to Google, which receives your IP address and may set cookies.",
+    "allowPlay": "Allow YouTube and play",
+    "external": "Watch on YouTube"
+  },
+  "legal": {
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "terms": "Terms of Use",
+    "settings": "Cookie settings",
+    "updated": "Last updated",
+    "contactFallback": "the contact address published on this page (to be added)",
+    "hostFallback": "the website’s hosting provider"
   }
 }

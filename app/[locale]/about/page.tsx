@@ -39,6 +39,15 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
       tags={[{ label: dict.about.tab, href: `/${locale}/about`, color, textColor: "#fff", active: true }]}
       info={dict.about.info}
       body={dict.about.body.map((text) => ({ type: "p" as const, text }))}
+      links={{
+        label: dict.legal.privacy,
+        items: [
+          { href: `/${locale}/legal/privacy`, label: dict.legal.privacy },
+          { href: `/${locale}/legal/terms`, label: dict.legal.terms },
+          { href: `/${locale}/legal/cookies`, label: dict.legal.cookies },
+        ],
+        settings: dict.legal.settings,
+      }}
       plate={`${dict.post.plate} 00 — ${dict.about.tab}`}
       scrap={{
         scraps: [

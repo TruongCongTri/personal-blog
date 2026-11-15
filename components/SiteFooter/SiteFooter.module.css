@@ -13,6 +13,32 @@
   pointer-events: auto;
 }
 
+/* Privacy, cookies, terms, cookie settings */
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  margin-block: -2rem -1rem;
+}
+
+.legal a,
+.legal button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  pointer-events: auto;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.legal a:hover,
+.legal button:hover {
+  opacity: 1;
+}
+
 .bottom {
   position: relative;
   display: flex;

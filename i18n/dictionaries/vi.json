@@ -37,7 +37,11 @@
   },
   "footer": {
     "signature": "Xem, tranh luận, và lưu trữ thủ công, đâu đó ở Sài Gòn",
-    "scale": "Tỉ lệ 1:1"
+    "scale": "Tỉ lệ 1:1",
+    "privacy": "Chính sách quyền riêng tư",
+    "cookies": "Chính sách cookie",
+    "terms": "Điều khoản sử dụng",
+    "settings": "Cài đặt cookie"
   },
   "post": {
     "minutes": "phút đọc",
@@ -63,7 +67,11 @@
     "cut": "Bản đạo diễn",
     "soon": "Bài phân tích sắp ra mắt",
     "pending": "Đang chờ",
-    "topic": "Chủ đề"
+    "topic": "Chủ đề",
+    "poster": "Áp phích",
+    "frame": "Xem khung hình",
+    "prevFrame": "Khung trước",
+    "nextFrame": "Khung sau"
   },
   "about": {
     "title": "Giới thiệu",
@@ -84,5 +92,58 @@
     "title": "Thất lạc hồ sơ",
     "body": "Tập hồ sơ này trống — hoặc ai đó đã xếp nhầm chỗ.",
     "cta": "Quay lại ngăn kéo"
+  },
+  "audio": {
+    "play": "Phát nhạc phim",
+    "pause": "Tạm dừng nhạc phim",
+    "next": "Bài tiếp",
+    "prev": "Bài trước",
+    "tap": "Chạm để bật nhạc",
+    "tracks": "Danh sách bài",
+    "settings": "Cài đặt cookie & âm nhạc"
+  },
+  "consent": {
+    "title": "Cookie & âm thanh",
+    "text": "Hồ Sơ Phim chỉ dùng những gì cần để trang hoạt động. Nếu bạn đồng ý, trang có thể ghi nhớ vị trí đang phát của từng bản nhạc phim, hiển thị trailer và hình ảnh từ YouTube (Google có thể đặt cookie), và tiếp tục phát nhạc khi chạy nền.",
+    "acceptAll": "Đồng ý tất cả",
+    "customize": "Tùy chọn",
+    "rejectAll": "Từ chối tất cả",
+    "save": "Lưu lựa chọn",
+    "back": "Quay lại",
+    "cookiesHeading": "Cookie & lưu trữ",
+    "soundHeading": "Âm thanh",
+    "always": "Luôn bật",
+    "necessary": {
+      "title": "Thiết yếu",
+      "text": "Ngôn ngữ bạn chọn và các lựa chọn này. Cần thiết để trang hoạt động."
+    },
+    "preferences": {
+      "title": "Tùy chọn cá nhân",
+      "text": "Ghi nhớ vị trí đang phát của từng bản nhạc phim và lựa chọn phát/tạm dừng trên thiết bị này."
+    },
+    "media": {
+      "title": "Nội dung YouTube",
+      "text": "Trình phát trailer và hình ảnh trailer do YouTube (Google) cung cấp; Google nhận địa chỉ IP của bạn và có thể đặt cookie."
+    },
+    "autoplay": {
+      "title": "Tự động phát nhạc",
+      "text": "Tự phát nhạc phim của từng hồ sơ sau lần chạm đầu tiên."
+    },
+    "background": {
+      "title": "Phát nhạc khi chạy nền",
+      "text": "Tiếp tục phát nhạc khi bạn chuyển tab, chuyển ứng dụng hoặc khóa màn hình."
+    },
+    "trailerNotice": "Trailer này được lưu trữ trên YouTube. Khi phát, trình duyệt sẽ kết nối với Google; Google nhận địa chỉ IP của bạn và có thể đặt cookie.",
+    "allowPlay": "Cho phép YouTube và phát",
+    "external": "Xem trên YouTube"
+  },
+  "legal": {
+    "privacy": "Chính sách quyền riêng tư",
+    "cookies": "Chính sách cookie",
+    "terms": "Điều khoản sử dụng",
+    "settings": "Cài đặt cookie",
+    "updated": "Cập nhật lần cuối",
+    "contactFallback": "địa chỉ liên hệ đăng trên trang này (sẽ được bổ sung)",
+    "hostFallback": "đơn vị lưu trữ trang web"
   }
 }

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales, defaultLocale } from "@/i18n/config";
 import { getFolders } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
+import { LEGAL_DOCS, LEGAL_UPDATED } from "@/i18n/legal";
 
 const languages = (path: string) => ({
   ...Object.fromEntries(locales.map((l) => [l, `${SITE_URL}/${l}${path}`])),
@@ -31,6 +32,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: { languages: languages(`/posts/${p.slug}`) },
       });
     }
+    for (const doc of LEGAL_DOCS)
+      entries.push({
+        url: `${SITE_URL}/${l}/legal/${doc}`,
+        lastModified: LEGAL_UPDATED,
+        changeFrequency: "yearly",
+        priority: 0.2,
+        alternates: { languages: languages(`/legal/${doc}`) },
+      });
     entries.push({
       url: `${SITE_URL}/${l}/about`,
       changeFrequency: "yearly",

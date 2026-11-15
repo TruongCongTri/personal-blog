@@ -11,4 +11,8 @@ export const scrapLabels = (dict: Dictionary): ScrapLabels => ({
   admit: dict.post.admit,
   row: dict.post.row,
   seat: dict.post.seat,
+  ask: { notice: dict.consent.trailerNotice, allow: dict.consent.allowPlay, external: dict.consent.external },
+  frame: dict.post.frame,
+  prevFrame: dict.post.prevFrame,
+  nextFrame: dict.post.nextFrame,
 });

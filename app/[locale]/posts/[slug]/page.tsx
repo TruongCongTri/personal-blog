@@ -156,8 +156,9 @@ export default async function PostPage({
         quote={post.quote ? { label: dict.post.testing, text: post.quote, by: post.quoteBy ?? "" } : undefined}
         body={post.body}
         soon={dict.post.soon}
-        plate={`${dict.post.plate} — ${post.title} (${post.year})`}
-        still={post.still}
+        plate={`${!post.still && post.poster ? dict.post.poster : dict.post.plate} — ${post.title} (${post.year})`}
+        still={post.still ?? post.poster}
+        stillIsPoster={!post.still && Boolean(post.poster)}
         scrap={{
           scraps:
             post.scraps ??
@@ -172,7 +173,7 @@ export default async function PostPage({
               cutLabel: dict.post.cut,
             }),
           desk: post.desk,
-          film: { title: post.title, year: post.year, trailer: post.trailer, verdict },
+          film: { title: post.title, year: post.year, trailer: post.trailer, verdict, poster: post.poster },
           labels: scrapLabels(dict),
         }}
         next={{

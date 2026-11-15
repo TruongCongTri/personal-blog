@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
 import { Draggable, useGSAP } from "@/lib/gsap";
 import Clip from "@/components/Clip/Clip";
 import Trailer from "@/components/Trailer/Trailer";
+import Lightbox, { type LightboxImage } from "@/components/Lightbox/Lightbox";
 import { Clapper, Reel } from "@/components/FilmIcons/FilmIcons";
 import type { ClipSpec, Scrap } from "@/lib/schema";
+import { useConsent } from "@/components/Consent/useConsent";
 import styles from "./Scrapbook.module.css";
 
 /** What the papers can say about the film they belong to. */
@@ -17,6 +19,8 @@ export type ScrapFilm = {
   trailer?: string;
   /** Verdict, already in words ("In between"). */
   verdict: string;
+  /** The film's poster: stands in for YouTube images until they're allowed. */
+  poster?: string;
 };
 
 export type ScrapLabels = {
@@ -28,6 +32,12 @@ export type ScrapLabels = {
   admit: string;
   row: string;
   seat: string;
+  /** Trailer notice before YouTube is allowed. */
+  ask: { notice: string; allow: string; external: string };
+  /** "View frame 1" etc. */
+  frame: string;
+  prevFrame: string;
+  nextFrame: string;
 };
 
 type Props = {
@@ -53,6 +63,49 @@ function ClipFor({ spec, fallback }: { spec: ClipSpec | undefined; fallback: Exc
 
 const yt = (id: string, name: string) => `https://i.ytimg.com/vi/${id}/${name}.jpg`;
 
+type Frame = { thumb: string } & LightboxImage;
+
+/** A strip of 35mm film; each frame opens large. */
+function FilmStrip({ frames, clip, labels }: { frames: Frame[]; clip: ClipSpec | undefined; labels: ScrapLabels }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className={styles.strip} data-drag>
+      <ClipFor spec={clip} fallback={{ at: "corner-right", offset: "1.1rem", tone: "brass" }} />
+      <div className={styles.stripPaper}>
+        {frames.map((f, i) => (
+          // Buttons: a click opens the frame, and Draggable never starts a drag on them.
+          <button
+            key={f.thumb}
+            type="button"
+            className={styles.frame}
+            onClick={() => setOpen(i)}
+            aria-label={`${labels.frame} ${i + 1}`}
+            data-cursor="open"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={f.thumb}
+              alt=""
+              width={160}
+              height={90}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              style={f.thumb.includes("#") ? { objectPosition: `center ${f.thumb.split("#")[1]}` } : undefined}
+            />
+          </button>
+        ))}
+      </div>
+      <Lightbox
+        images={frames}
+        index={open}
+        onIndex={setOpen}
+        labels={{ close: labels.close, prev: labels.prevFrame, next: labels.nextFrame }}
+      />
+    </div>
+  );
+}
+
 /**
  * Loose papers lying on the open folder. Every review lists its own (see
  * CONTENT.md): notes, the verdict stamp, the trailer print, photos, a ticket
@@ -66,6 +119,8 @@ const yt = (id: string, name: string) => `https://i.ytimg.com/vi/${id}/${name}.j
  */
 export default function Scrapbook({ scraps, labels, film, desk }: Props) {
   const root = useRef<HTMLDivElement>(null);
+  // YouTube images (thumbnails, trailer frames) only with media consent.
+  const { media } = useConsent();
 
   useGSAP(
     () => {
@@ -118,14 +173,23 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
             <ClipFor spec={s.clip} fallback={{ kind: "binder", at: "top", offset: "50%", tilt: -3 }} />
             <figure className={styles.printPaper}>
               <div className={styles.printImage}>
-                {/* A static thumbnail: no YouTube script loads until play is pressed. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={yt(film.trailer, "hqdefault")} alt="" width={480} height={360} loading="lazy" decoding="async" draggable={false} />
+                {/* A static thumbnail: no YouTube script loads until play is pressed
+                    (and no Google image at all without media consent: the poster instead). */}
+                {media || !film.poster ? (
+                  media && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={yt(film.trailer, "hqdefault")} alt="" width={480} height={360} loading="lazy" decoding="async" draggable={false} />
+                  )
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={film.poster} alt="" width={600} height={900} loading="lazy" decoding="async" draggable={false} className={styles.posterCrop} />
+                )}
                 <Trailer
                   id={film.trailer}
                   title={`${labels.trailer} — ${film.title} (${film.year})`}
                   play={labels.play}
                   close={labels.close}
+                  ask={labels.ask}
                 />
               </div>
               <figcaption>
@@ -168,19 +232,22 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
       }
 
       case "strip": {
-        const frames = s.frames?.length ? s.frames : film?.trailer ? ["1", "2", "3"].map((n) => yt(film.trailer!, n)) : [];
+        // The review's own frames, or three frames from the trailer: small
+        // ones on the strip, full-size (1280px) in the large view.
+        const frames: Frame[] = s.frames?.length
+          ? s.frames.map((src) => ({ thumb: src, src }))
+          : !media && film?.poster
+            ? // Without YouTube: three crops of the poster stand in for the frames.
+              ["top", "center", "bottom"].map((pos) => ({ thumb: `${film.poster}#${pos}`, src: film.poster! }))
+            : media && film?.trailer
+            ? ["1", "2", "3"].map((n) => ({
+                thumb: yt(film.trailer!, `mq${n}`),
+                src: yt(film.trailer!, `maxres${n}`),
+                fallback: yt(film.trailer!, `hq${n}`),
+              }))
+            : [];
         if (!frames.length) return null;
-        return (
-          <div className={styles.strip} data-drag>
-            <ClipFor spec={s.clip} fallback={{ at: "corner-right", offset: "1.1rem", tone: "brass" }} />
-            <div className={styles.stripPaper}>
-              {frames.map((src) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={src} src={src} alt="" width={120} height={90} loading="lazy" decoding="async" draggable={false} />
-              ))}
-            </div>
-          </div>
-        );
+        return <FilmStrip frames={frames} clip={s.clip} labels={labels} />;
       }
 
       case "sticker": {

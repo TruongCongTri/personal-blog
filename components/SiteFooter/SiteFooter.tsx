@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import FilmIcons from "@/components/FilmIcons/FilmIcons";
+import CookieSettingsButton from "@/components/Consent/CookieSettingsButton";
 import styles from "./SiteFooter.module.css";
 
 type Props = { dict: Dictionary["footer"]; locale: Locale; aboutLabel: string };
@@ -11,6 +12,13 @@ export default function SiteFooter({ dict, locale, aboutLabel }: Props) {
   return (
     <footer className={styles.footer} data-site-footer>
       <FilmIcons />
+
+      <nav className={styles.legal} aria-label={dict.privacy}>
+        <Link href={`/${locale}/legal/privacy`}>{dict.privacy}</Link>
+        <Link href={`/${locale}/legal/cookies`}>{dict.cookies}</Link>
+        <Link href={`/${locale}/legal/terms`}>{dict.terms}</Link>
+        <CookieSettingsButton label={dict.settings} />
+      </nav>
 
       <div className={styles.bottom}>
         <span className={styles.scale}>
