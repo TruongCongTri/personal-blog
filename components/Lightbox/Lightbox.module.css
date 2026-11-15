@@ -31,8 +31,6 @@
   max-height: calc(100dvh - 11rem);
   width: auto;
   height: auto;
-  /* a print of the frame: white border like the strip's photos */
-  border: 6px solid #fbf8f2;
   box-shadow: 0 30px 80px -20px #000;
   user-select: none;
 }

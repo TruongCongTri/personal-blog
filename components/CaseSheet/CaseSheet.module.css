@@ -73,6 +73,9 @@
 
 .photo {
   position: relative;
+  /* Lies on top of the paper: above the holes column (and its rule line,
+     z-index 5) and the paper grain, so nothing on the sheet is drawn over it. */
+  z-index: 6;
   width: 90%;
   min-width: 140px;
   margin-top: calc(var(--padding-l) * -1 + 1rem);
@@ -93,8 +96,10 @@
   background:
     radial-gradient(120% 80% at 30% 20%, color-mix(in srgb, var(--case-color) 35%, #fff) 0%, transparent 60%),
     linear-gradient(160deg, color-mix(in srgb, var(--case-color) 70%, #fff), color-mix(in srgb, var(--case-color) 80%, #000));
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  border: 6px solid #fff;
+  /* A tight contact shadow plus a soft lift: a print resting on the page */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 12px 24px -12px rgba(0, 0, 0, 0.45);
 }
 
 .plate::after {
@@ -361,7 +366,6 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-  border: 6px solid #fff;
   background: color-mix(in srgb, var(--case-color) 50%, #000);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
