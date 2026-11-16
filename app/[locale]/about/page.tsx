@@ -4,6 +4,7 @@ import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import CaseFolder from "@/components/CaseFolder/CaseFolder";
 import { scrapLabels } from "@/i18n/labels";
+import { contentMediaUrl } from "@/lib/content";
 import { alternates, baseOpenGraph } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/about">): Promise<Metadata> {
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/about">)
 export default async function AboutPage({ params }: PageProps<"/[locale]/about">) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
-  const dict = await getDictionary(locale);
+  const [dict, still] = await Promise.all([getDictionary(locale), contentMediaUrl("pages/about/blade-runner-2049.webp")]);
   const color = "#1E4BD7";
 
   return (
@@ -48,7 +49,9 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         ],
         settings: dict.legal.settings,
       }}
-      plate={`${dict.post.plate} 00 — ${dict.about.tab}`}
+      plate={`${dict.post.plate} — Blade Runner 2049 (2017)`}
+      still={still}
+      stillIsPoster
       footer={{ dict: dict.footer, aboutLabel: dict.nav.about }}
       scrap={{
         scraps: [

@@ -206,3 +206,11 @@ export async function getAllPostSlugs() {
 export async function contentSource() {
   return (await loadArchive()).source;
 }
+
+/**
+ * Public URL of a file in the content folder (e.g. "pages/about/still.webp"):
+ * served from R2 once pushed, from content/ (at /media/…) while previewing.
+ */
+export async function contentMediaUrl(key: string) {
+  return (await contentSource()) === "r2" ? r2PublicUrl(key) : `/media/${key}`;
+}
