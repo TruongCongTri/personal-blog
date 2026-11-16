@@ -11,7 +11,6 @@
   display: inline-flex;
   width: 100%;
   max-width: 4.5rem;
-  will-change: transform;
 }
 
 .icon svg {
@@ -58,27 +57,26 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .icons[data-play] .arm,
-  .icon:hover .arm {
+  .icon[data-act] .arm {
     animation: clap 0.9s var(--ease);
   }
 
-  .icons[data-play] .spin,
-  .icon:hover .spin {
+  .icons[data-play] .spin {
     animation: spin 1.4s var(--ease);
   }
 
   .icons[data-play] .rock,
-  .icon:hover .rock {
+  .icon[data-act] .rock {
     animation: rock 1s var(--ease);
   }
 
   .icons[data-play] .shout,
-  .icon:hover .shout {
+  .icon[data-act] .shout {
     animation: shout 0.6s var(--ease);
   }
 
   .icons[data-play] .wave,
-  .icon:hover .wave {
+  .icon[data-act] .wave {
     animation: wave 0.9s ease-out;
   }
 

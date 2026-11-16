@@ -186,56 +186,82 @@ export default function FilmIcons() {
     return () => io.disconnect();
   }, []);
 
-  // Each icon turns to face the cursor (shortest way round, eased). Touch
-  // screens have no cursor: the icons drift round as the page scrolls.
+  // Each icon acts out its own move when the cursor comes near: the slate
+  // slaps shut, the chair rocks, the megaphone shouts (CSS animations,
+  // restarted on approach), and the reels wind round with the cursor's
+  // movement while it's close.
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
-    const icons = Array.from(el.querySelectorAll<HTMLElement>(`.${styles.icon}`));
-    const turns = icons.map((icon) => ({
-      icon,
-      current: 0,
-      rotate: gsap.quickTo(icon, "rotation", { duration: 0.9, ease: "power3.out" }),
-    }));
-    const turnTo = (t: (typeof turns)[number], deg: number) => {
-      t.current += ((deg - t.current + 540) % 360) - 180;
-      t.rotate(t.current);
+    if (!el || prefersReducedMotion() || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    const NEAR = 170; // px from an icon's centre
+    const icons = Array.from(el.querySelectorAll<HTMLElement>(`.${styles.icon}`)).map((icon) => {
+      // Each reel turns on its own centre: the CSS `rotate` property uses the
+      // reel's transform-origin (set on it in the markup), and doesn't fight
+      // the in-view spin, which animates `transform`.
+      const reels = Array.from(icon.querySelectorAll<SVGGElement>(`.${styles.spin}`)).map((g) => {
+        const angle = { v: 0 };
+        const to = gsap.quickTo(angle, "v", {
+          duration: 0.6,
+          ease: "power3.out",
+          onUpdate: () => g.style.setProperty("rotate", `${angle.v}deg`),
+        });
+        return { turn: 0, rotate: to };
+      });
+      return { icon, reels, near: false, last: 0 };
+    });
+
+    // Restart the moving parts' animations (they may have already run once
+    // when the footer came into view, which a class change alone won't redo).
+    const parts = `.${styles.arm}, .${styles.rock}, .${styles.shout}, .${styles.wave}`;
+    const act = (icon: HTMLElement) => {
+      icon.setAttribute("data-act", "");
+      const moving = Array.from(icon.querySelectorAll<SVGElement>(parts));
+      moving.forEach((m) => (m.style.animation = "none"));
+      void icon.getBoundingClientRect(); // flush, so "none" takes effect
+      moving.forEach((m) => (m.style.animation = ""));
     };
 
     let frame = 0;
-    let px = 0;
-    let py = 0;
+    let px = -1e4;
+    let py = -1e4;
+    let lastX = 0;
+    let lastY = 0;
     let visible = false;
-    const face = () => {
+    const update = () => {
       frame = 0;
-      for (const t of turns) {
+      const travel = Math.hypot(px - lastX, py - lastY);
+      const dir = px >= lastX ? 1 : -1;
+      lastX = px;
+      lastY = py;
+      const now = performance.now();
+      for (const t of icons) {
         const r = t.icon.getBoundingClientRect();
         if (!r.width) continue; // hidden on phones
-        const angle = Math.atan2(py - (r.top + r.height / 2), px - (r.left + r.width / 2));
-        turnTo(t, (angle * 180) / Math.PI + 90); // the icon's top points at the cursor
+        const near = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < NEAR;
+        // arriving near it: perform (at most once a second)
+        if (near && !t.near && now - t.last > 1000) {
+          t.last = now;
+          if (!t.reels.length) act(t.icon);
+        }
+        t.near = near;
+        // reels wind with the cursor's movement, the way it moves
+        if (near) for (const reel of t.reels) reel.rotate((reel.turn += dir * Math.min(travel, 80) * 1.1));
       }
     };
     const onPointer = (e: PointerEvent) => {
       if (e.pointerType !== "mouse" || !visible) return;
       px = e.clientX;
       py = e.clientY;
-      if (!frame) frame = requestAnimationFrame(face);
-    };
-    const onScroll = () => {
-      if (!visible || window.matchMedia("(hover: hover)").matches) return;
-      turns.forEach((t, i) => turnTo(t, window.scrollY * 0.2 * (i % 2 ? -1 : 1)));
+      if (!frame) frame = requestAnimationFrame(update);
     };
     // only while the footer is on screen
     const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
     io.observe(el);
     window.addEventListener("pointermove", onPointer, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
       io.disconnect();
       window.removeEventListener("pointermove", onPointer);
-      window.removeEventListener("scroll", onScroll);
-      gsap.killTweensOf(icons);
     };
   }, []);
 

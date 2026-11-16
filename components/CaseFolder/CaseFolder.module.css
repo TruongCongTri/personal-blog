@@ -179,3 +179,17 @@
 :global(.is-lite) .coverShadow {
   display: none;
 }
+
+/* The site footer, after the folder: light text on the dark desk */
+.footer {
+  /* bottom: room for the floating music / next controls */
+  padding-block: 4rem 7rem;
+  color: var(--color-light);
+}
+
+@media (min-width: 1025px) {
+  .footer {
+    width: calc(100% - var(--tag-height));
+    padding-block: 6rem 4.5rem;
+  }
+}

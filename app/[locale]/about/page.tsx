@@ -49,6 +49,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         settings: dict.legal.settings,
       }}
       plate={`${dict.post.plate} 00 — ${dict.about.tab}`}
+      footer={{ dict: dict.footer, aboutLabel: dict.nav.about }}
       scrap={{
         scraps: [
           { type: "note", text: dict.about.note, place: { x: 4, y: -4 } },

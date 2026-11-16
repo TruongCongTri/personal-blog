@@ -14,6 +14,8 @@ import Scrapbook, { type ScrapFilm, type ScrapLabels } from "@/components/Scrapb
 import type { Block, Scrap } from "@/lib/schema";
 import NextWidget from "@/components/NextWidget/NextWidget";
 import NextFolder from "@/components/NextFolder/NextFolder";
+import SiteFooter from "@/components/SiteFooter/SiteFooter";
+import type { Dictionary } from "@/i18n/dictionaries";
 import { useFolderScroll } from "@/lib/useFolderScroll";
 import styles from "./CaseFolder.module.css";
 
@@ -40,6 +42,8 @@ type Props = {
   /** Links at the foot of the sheet (About: the policies). */
   links?: { label: string; items: { href: string; label: string }[]; settings?: string };
   scrap: { scraps: Scrap[]; labels: ScrapLabels; film?: ScrapFilm; desk?: number };
+  /** The site footer (film icons, policies, credits), after the folder. */
+  footer?: { dict: Dictionary["footer"]; aboutLabel: string };
   next?: {
     href: string;
     title: string;
@@ -105,7 +109,7 @@ export default function CaseFolder(props: Props) {
       // A restored page (React Activity) may still hold its leave styles.
       gsap.set(
         root.current!.querySelectorAll(
-          "[data-case-folder], [data-case-inner], [data-sheet-wrap], [data-folder-inner], [data-sheet], [data-cover], [data-cover-front], [data-cover-front-shadow], [data-cover-shadow], [data-case-title] [data-char], [data-scrap], [data-scrapbook], [data-next-widget], [data-next-folder], [data-next-folder] > *, [data-case-title], [data-case-tag] [data-tag]",
+          "[data-case-folder], [data-case-inner], [data-sheet-wrap], [data-folder-inner], [data-sheet], [data-cover], [data-cover-front], [data-cover-front-shadow], [data-cover-shadow], [data-case-title] [data-char], [data-scrap], [data-scrapbook], [data-next-widget], [data-next-folder], [data-next-folder] > *, [data-case-title], [data-case-tag] [data-tag], [data-folder-footer]",
         ),
         { clearProps: RESET_PROPS },
       );
@@ -324,7 +328,7 @@ export default function CaseFolder(props: Props) {
           .to(frontShadow, { opacity: 1, duration: 1 }, 0)
           .to(frontShadow, { opacity: 0, duration: 0.4 }, 1)
           .to(q("[data-cover-front]"), { backgroundColor: props.coverColor, duration: 0.4, ease: "none" }, DUR - 0.4)
-          .to(qa("[data-scrapbook], [data-next-widget], [data-next-folder]"), { opacity: 0, duration: 0.75 }, 0);
+          .to(qa("[data-scrapbook], [data-next-widget], [data-next-folder], [data-folder-footer]"), { opacity: 0, duration: 0.75 }, 0);
       },
     });
   }, [props.locale, props.groupIndex, props.coverColor, q, qa, router, freezeContents]);
@@ -358,7 +362,7 @@ export default function CaseFolder(props: Props) {
         .to(chars, { xPercent: 150, opacity: 0, duration: 0.5, stagger: each(chars.length, 0.02, 0.3) }, 0.15)
         .fromTo(q("[data-cover]"), { rotateY: -180 }, { rotateY: 0 }, 0.15)
         .fromTo(q("[data-cover-front-shadow]"), { opacity: 0 }, { opacity: 1 }, 0.15)
-        .to(qa("[data-next-widget]"), { opacity: 0, duration: 0.3 }, 0);
+        .to(qa("[data-next-widget], [data-folder-footer]"), { opacity: 0, duration: 0.3 }, 0);
       // Another director's folder has a different set of tabs: tuck these away.
       if (!sameGroup) tl.to(qa("[data-case-tag] [data-tag]"), { yPercent: 110, duration: 0.4 }, 0.15);
     },
@@ -426,7 +430,7 @@ export default function CaseFolder(props: Props) {
         .to(inner, { y: -(inner.getBoundingClientRect().bottom + 40), ease: "power2.in" }, 0)
         .to(block, { y: restTop - from.top, height: "100vh" }, 0)
         .to(Array.from(block.children), { opacity: 0, duration: 0.3, ease: "none" }, 0)
-        .to(qa("[data-next-widget]"), { opacity: 0, duration: 0.3, ease: "none" }, 0);
+        .to(qa("[data-next-widget], [data-folder-footer]"), { opacity: 0, duration: 0.3, ease: "none" }, 0);
     },
     [q, qa, router],
   );
@@ -487,6 +491,12 @@ export default function CaseFolder(props: Props) {
             {props.tags.length > 0 && <CaseTags tags={props.tags} onSelect={turn} />}
           </div>
         </div>
+
+        {props.footer && (
+          <div className={styles.footer} data-folder-footer>
+            <SiteFooter dict={props.footer.dict} locale={props.locale} aboutLabel={props.footer.aboutLabel} />
+          </div>
+        )}
 
         {props.next && (
           <>

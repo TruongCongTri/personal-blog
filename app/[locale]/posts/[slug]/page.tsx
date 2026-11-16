@@ -182,6 +182,7 @@ export default async function PostPage({
           film: { title: post.title, year: post.year, trailer: post.trailer, verdict, poster: post.poster },
           labels: scrapLabels(dict),
         }}
+        footer={{ dict: dict.footer, aboutLabel: dict.nav.about }}
         next={{
           href: `/${locale}/posts/${next.post.slug}`,
           title: `${next.post.title} (${next.post.year})`,

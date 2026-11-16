@@ -87,3 +87,17 @@
     width: 8.75rem;
   }
 }
+
+/* "Created by Công Trí": the author's link */
+.credit a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  pointer-events: auto;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.credit a:hover {
+  opacity: 0.75;
+}

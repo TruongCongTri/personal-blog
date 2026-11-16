@@ -22,6 +22,19 @@ type Props = {
 const isMouse = (e: PointerEvent) => e.pointerType === "mouse";
 
 /** One folder (post). Clicking it lifts it out of the drawer. */
+/**
+ * Over the footer on the front folder (film icons, links): no hover changes.
+ * Moving across it crosses between the folder and the footer's links, and
+ * each crossing would peek the folder in and out, bobbing the page.
+ */
+function inFooter(e: { clientX: number; clientY: number }) {
+  // (other pages' footers may be mounted but hidden: zero-size, never a match)
+  return Array.from(document.querySelectorAll("[data-site-footer]")).some((footer) => {
+    const r = footer.getBoundingClientRect();
+    return r.width > 0 && e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top - 24 && e.clientY <= r.bottom + 24;
+  });
+}
+
 export default function StackPage(props: Props) {
   const style = {
     "--color": props.textColor,
@@ -36,8 +49,8 @@ export default function StackPage(props: Props) {
       style={style}
       onClick={props.onClick}
       data-cursor="open"
-      onPointerEnter={(e) => isMouse(e) && props.onEnter()}
-      onPointerLeave={(e) => isMouse(e) && props.onLeave()}
+      onPointerEnter={(e) => isMouse(e) && !inFooter(e) && props.onEnter()}
+      onPointerLeave={(e) => isMouse(e) && !inFooter(e) && props.onLeave()}
       aria-label={props.title}
       data-page
     >
@@ -55,8 +68,8 @@ export default function StackPage(props: Props) {
       </span>
       <span
         className={styles.unfold}
-        onPointerEnter={(e) => isMouse(e) && props.onUnfoldEnter()}
-        onPointerLeave={(e) => isMouse(e) && props.onUnfoldLeave()}
+        onPointerEnter={(e) => isMouse(e) && !inFooter(e) && props.onUnfoldEnter()}
+        onPointerLeave={(e) => isMouse(e) && !inFooter(e) && props.onUnfoldLeave()}
       />
     </Link>
   );

@@ -41,7 +41,8 @@
     "privacy": "Chính sách quyền riêng tư",
     "cookies": "Chính sách cookie",
     "terms": "Điều khoản sử dụng",
-    "settings": "Cài đặt cookie"
+    "settings": "Cài đặt cookie",
+    "createdBy": "Thực hiện bởi"
   },
   "post": {
     "minutes": "phút đọc",

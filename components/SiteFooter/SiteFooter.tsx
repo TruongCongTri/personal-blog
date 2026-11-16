@@ -37,6 +37,12 @@ export default function SiteFooter({ dict, locale, aboutLabel }: Props) {
             {aboutLabel} →
           </Link>
           <span>{dict.signature}</span>
+          <span className={styles.credit}>
+            {dict.createdBy}{" "}
+            <a href="https://truong-cong-tri-portfolio.vercel.app/en" target="_blank" rel="noopener noreferrer">
+              Công Trí ↗
+            </a>
+          </span>
         </span>
       </div>
     </footer>

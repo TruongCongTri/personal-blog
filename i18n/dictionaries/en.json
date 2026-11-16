@@ -41,7 +41,8 @@
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy",
     "terms": "Terms of Use",
-    "settings": "Cookie settings"
+    "settings": "Cookie settings",
+    "createdBy": "Created by"
   },
   "post": {
     "minutes": "min read",
