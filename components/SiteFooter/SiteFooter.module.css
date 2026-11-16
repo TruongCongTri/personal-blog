@@ -7,6 +7,8 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   transform: translateZ(1px);
+  /* takes its own clicks (see CreditSecret), not the folder's under it */
+  pointer-events: auto;
 }
 
 .footer a {
@@ -100,4 +102,109 @@
 
 .credit a:hover {
   opacity: 0.75;
+}
+
+/* ---- The secret credit card (five clicks on the footer) */
+.secret {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--safe-bottom) + 6.5rem);
+  z-index: 1200;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  width: min(20rem, calc(100vw - 2 * var(--container-offset)));
+  padding: 1.6rem 1.5rem 1.4rem;
+  translate: -50% 0;
+  border-radius: 1.25rem;
+  background: var(--color-accent);
+  color: var(--color-dark);
+  text-align: center;
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.7);
+  animation: secret-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.secret p {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.secret strong {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.secret a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.secretReel {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.25rem;
+  transform-origin: 50% 50%;
+  animation: secret-spin 2.4s linear infinite;
+}
+
+/* Closing: the opening move, backwards (its own keyframes: reusing the
+   opening animation's name wouldn't restart it) */
+.secret[data-closing] {
+  animation: secret-out 0.4s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
+}
+
+.secretClose {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-size: 0.9rem;
+}
+
+.secretClose:hover {
+  background: rgba(25, 25, 25, 0.08);
+}
+
+@keyframes secret-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.85);
+  }
+}
+
+@keyframes secret-out {
+  to {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.85);
+  }
+}
+
+@keyframes secret-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .secret,
+  .secretReel {
+    animation: none;
+  }
+
+  /* still fade out, quickly, so closing finishes */
+  .secret[data-closing] {
+    animation: secret-out 0.15s linear forwards;
+  }
 }

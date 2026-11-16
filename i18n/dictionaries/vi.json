@@ -42,7 +42,9 @@
     "cookies": "Chính sách cookie",
     "terms": "Điều khoản sử dụng",
     "settings": "Cài đặt cookie",
-    "createdBy": "Thực hiện bởi"
+    "createdBy": "Thực hiện bởi",
+    "secretClose": "Đóng",
+    "secretVisit": "Xem portfolio"
   },
   "post": {
     "minutes": "phút đọc",

@@ -42,7 +42,9 @@
     "cookies": "Cookie Policy",
     "terms": "Terms of Use",
     "settings": "Cookie settings",
-    "createdBy": "Created by"
+    "createdBy": "Created by",
+    "secretClose": "Close",
+    "secretVisit": "Visit the portfolio"
   },
   "post": {
     "minutes": "min read",
