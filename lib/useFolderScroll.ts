@@ -17,8 +17,13 @@ const BOTTOM_ZONE = 100;
 const OVERSCROLL = 1500;
 /** One wheel/touch event can add at most this much, so a single flick can't skip the wait. */
 const MAX_STEP = 100;
-/** A finger drags far less than a wheel spins: count its travel this many times. */
-const TOUCH_GAIN = 2.5;
+/**
+ * Phones and tablets: finger travel (px) at the bottom that fills the button.
+ * About a third of a phone screen: one or two short swipes.
+ */
+const TOUCH_TRAVEL = 170;
+/** Finger moving back up by more than this (px) cancels the progress; less is jitter. */
+const TOUCH_CANCEL = 24;
 
 /**
  * Scroll behaviour of an open folder:
@@ -78,25 +83,34 @@ export function useFolderScroll(root: RefObject<HTMLElement | null>, title: stri
 
     // At the bottom the page can't scroll any further, so wheel and touch
     // travel is counted instead and shown as progress in the button.
-    const push = (delta: number) => {
+    // `amount` is a share of the way (0..1), so wheel and touch fill at their own pace.
+    const push = (share: number, cap: number) => {
       if (fired || isBusy() || !onNextRef.current || !atBottom()) return;
-      if (delta > 0) amount += Math.min(delta, MAX_STEP);
-      else if (delta < 0) amount = 0;
-      const progress = Math.min(amount / OVERSCROLL, 1);
+      if (share > 0) amount += Math.min(share, cap);
+      else if (share < 0) amount = 0;
+      const progress = Math.min(amount, 1);
       setProgress(progress);
       if (progress >= 1) {
         fired = true;
         onNextRef.current();
       }
     };
-    const onWheel = (e: WheelEvent) => push(e.deltaY);
+    const onWheel = (e: WheelEvent) => push(e.deltaY / OVERSCROLL, MAX_STEP / OVERSCROLL);
+    let touchUp = 0;
     const onTouchStart = (e: TouchEvent) => {
       touchY = e.touches[0].clientY;
+      touchUp = 0;
     };
     const onTouchMove = (e: TouchEvent) => {
       const y = e.touches[0].clientY;
-      push((touchY - y) * TOUCH_GAIN);
+      const d = touchY - y; // > 0: finger moving up = scrolling on
       touchY = y;
+      if (d >= 0) {
+        touchUp = 0;
+        push(d / TOUCH_TRAVEL, 0.25);
+      } else if ((touchUp -= d) > TOUCH_CANCEL) {
+        push(-1, 0);
+      }
     };
 
     window.addEventListener("scroll", schedule, { passive: true });

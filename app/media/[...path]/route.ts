@@ -28,7 +28,12 @@ export async function GET(_req: Request, { params }: RouteContext<"/media/[...pa
   if (!type || !file.startsWith(ROOT + path.sep)) return new Response("Not found", { status: 404 });
   try {
     const body = await fs.readFile(file);
-    return new Response(body, { headers: { "content-type": type, "cache-control": "public, max-age=60" } });
+    // Cached for a day (rename an image to replace it), revalidated cheaply by ETag.
+    const etag = `"${body.length.toString(36)}-${(await fs.stat(file)).mtimeMs.toString(36)}"`;
+    if (_req.headers.get("if-none-match") === etag) return new Response(null, { status: 304, headers: { etag } });
+    return new Response(body, {
+      headers: { "content-type": type, "cache-control": "public, max-age=86400, stale-while-revalidate=604800", etag },
+    });
   } catch {
     return new Response("Not found", { status: 404 });
   }

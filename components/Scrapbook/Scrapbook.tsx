@@ -127,8 +127,10 @@ function ObjectPhoto({
   alt,
   credit,
   url,
+  width = 16,
   labels,
 }: {
+  width?: number;
   src: string;
   ratio?: number;
   title?: string;
@@ -151,7 +153,18 @@ function ObjectPhoto({
         title={credit}
         data-cursor="open"
       >
-        <Image src={src} alt={alt ?? title ?? ""} fill sizes="(min-width: 1025px) 30rem, 80vw" draggable={false} />
+        <Image
+          src={src}
+          alt={alt ?? title ?? ""}
+          fill
+          // Its real size on screen, so phones get a small file (not a 30rem one)
+          sizes={`(min-width: 1025px) ${width}rem, min(85vw, ${width}rem)`}
+          // Fetched with the page (at low priority), not when scrolled to:
+          // it is there by the time the reader reaches the desk.
+          loading="eager"
+          fetchPriority="low"
+          draggable={false}
+        />
       </button>
       <Lightbox
         images={[{ src, thumb: src, ratio, title, alt, source: credit, sourceUrl: url, contain: true }]}
@@ -493,7 +506,18 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
 
       case "object":
         if (s.src)
-          return <ObjectPhoto src={s.src} ratio={s.ratio} title={s.title} alt={s.alt} credit={s.credit} url={s.url} labels={labels} />;
+          return (
+            <ObjectPhoto
+              src={s.src}
+              ratio={s.ratio}
+              title={s.title}
+              alt={s.alt}
+              credit={s.credit}
+              url={s.url}
+              width={(s.place?.w ?? 16) * (s.place?.s ?? 1)}
+              labels={labels}
+            />
+          );
         if (!s.kind) return null;
         return (
           <div className={styles.object} data-object={s.kind} data-drag aria-hidden="true">
