@@ -71,7 +71,10 @@
     "poster": "Áp phích",
     "frame": "Xem khung hình",
     "prevFrame": "Khung trước",
-    "nextFrame": "Khung sau"
+    "nextFrame": "Khung sau",
+    "read": "đã đọc",
+    "source": "Nguồn",
+    "trailerSource": "Trailer chính thức, qua YouTube"
   },
   "about": {
     "title": "Giới thiệu",

@@ -25,6 +25,34 @@
   --edge: 0.393; /* 22 / 56 */
 }
 
+/* Masking tape: long side along the edge, half on the paper, half off */
+.tape {
+  --w: 4.25rem;
+  --ratio: 0.32;
+  --edge: 0.5;
+
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.04)),
+    rgba(236, 226, 196, 0.72);
+  /* torn ends */
+  clip-path: polygon(
+    3% 0, 97% 0, 100% 18%, 96% 35%, 100% 52%, 97% 70%, 100% 86%, 97% 100%,
+    3% 100%, 0 84%, 4% 66%, 0 50%, 3% 33%, 0 16%
+  );
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Push pin: its head sits a little inside the edge */
+.pin {
+  --w: 1.35rem;
+  --ratio: 1;
+  --edge: -0.45;
+}
+
+.pinHead {
+  fill: var(--pin, #c3372c);
+}
+
 .back {
   z-index: 0;
 }
@@ -105,21 +133,25 @@
 .silver {
   --metal: #9aa1a8;
   --metal-hi: #fff;
+  --pin: #e9e6df;
 }
 
 .brass {
   --metal: #b08a35;
   --metal-hi: #ffeeb5;
+  --pin: #d9a521;
 }
 
 .red {
   --metal: #c3372c;
   --metal-hi: #ffb2a8;
+  --pin: #c3372c;
 }
 
 .blue {
   --metal: #2c55c9;
   --metal-hi: #b9cbff;
+  --pin: #2c55c9;
 }
 
 .black {

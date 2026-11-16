@@ -48,7 +48,11 @@ export default function Trailer({ id, title, play, close, ask }: Props) {
         ref={opener}
         type="button"
         className={styles.play}
-        onClick={() => setOpen(true)}
+        onClick={(e) => {
+          // the release at the end of dragging the print isn't a click
+          if (e.currentTarget.closest<HTMLElement>("[data-drag]")?.dataset.dragged === "true") return;
+          setOpen(true);
+        }}
         data-cursor="play"
         aria-label={`${play}: ${title}`}
       >

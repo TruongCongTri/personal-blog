@@ -9,6 +9,21 @@
   "date": "2026-11-15",
   "trailer": "KrmkNoxS6t4",
   "poster": "r2:movies/rose/poster.webp",
+  "object": {
+    "src": "object.webp",
+    "ratio": 1.211,
+    "w": 16,
+    "title": {
+      "en": "A sealed charter (Urkunde), Lower Saxony, around 1300",
+      "vi": "Văn tự có đóng dấu sáp (Urkunde), Hạ Saxony, khoảng năm 1300"
+    },
+    "alt": {
+      "en": "A medieval parchment charter with eight wax seals hanging on strips",
+      "vi": "Văn tự da thuộc thời trung cổ với tám con dấu sáp treo trên dải giấy"
+    },
+    "credit": "Public domain, via Wikimedia Commons (background removed)",
+    "url": "https://commons.wikimedia.org/wiki/File:1300_Urkunde_Edelherren_von_Meinersen.png"
+  },
   "genre": {
     "en": "Historical drama",
     "vi": "Chính kịch lịch sử"

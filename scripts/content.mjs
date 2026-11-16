@@ -140,6 +140,9 @@ async function check() {
       if (!/^#[0-9a-f]{6}$/i.test(r.color ?? "")) problems.push(`${rel}: "color" must be like "#D71E1E"`);
       if (r.verdict !== undefined && !["agrees", "against", "between"].includes(r.verdict))
         problems.push(`${rel}: "verdict" must be agrees | against | between (or left out until it's written)`);
+      if (r.object !== undefined && typeof r.object === "string" && !["dogtags", "press", "rifle", "deed"].includes(r.object))
+        problems.push(`${rel}: "object" must be a photo { "src", "credit", … } or dogtags | press | rifle | deed`);
+      if (r.object && typeof r.object === "object" && !r.object.src) problems.push(`${rel}: "object" photo needs "src"`);
       if (Number.isNaN(Date.parse(r.date))) problems.push(`${rel}: "date" must be like "2026-09-14"`);
       if (r.body !== undefined && !Array.isArray(r.body)) problems.push(`${rel}: "body" must be a list of blocks ([] = coming soon)`);
       // Every relative image the review mentions must exist next to it.

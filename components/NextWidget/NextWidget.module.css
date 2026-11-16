@@ -61,6 +61,33 @@
   transition-delay: 0.22s;
 }
 
+/* Reading progress of this folder: "42% read" over a thin bar */
+.read {
+  display: grid;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.readBar {
+  position: relative;
+  height: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--fg) 25%, transparent);
+}
+
+.readBar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: scaleX(var(--read, 0));
+  transform-origin: left;
+  transition: transform 0.2s linear;
+}
+
 .name {
   font-family: var(--font-serif);
   font-size: 1.15rem;
@@ -112,7 +139,9 @@
   padding-inline: 0.75rem;
   text-align: center;
   text-wrap: balance;
-  transition: opacity var(--dur-fast) var(--ease);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.45s var(--ease);
 }
 
 .next svg {
@@ -122,6 +151,7 @@
 
 .keep {
   opacity: 0;
+  transform: translateX(-60%);
   font-size: 0.8rem;
   line-height: 1.2;
 }
@@ -141,12 +171,17 @@
   background-color: var(--color-light);
 }
 
+/* "Next" slides off to the right as "keep scrolling…" comes in from the left
+   (and back the other way when the reader scrolls up again). */
 .widget[data-state="merge"] .next {
   opacity: 0;
+  transform: translateX(70%);
 }
 
 .widget[data-state="merge"] .keep {
   opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.12s;
 }
 
 .button:active {

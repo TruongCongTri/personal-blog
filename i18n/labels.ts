@@ -15,4 +15,6 @@ export const scrapLabels = (dict: Dictionary): ScrapLabels => ({
   frame: dict.post.frame,
   prevFrame: dict.post.prevFrame,
   nextFrame: dict.post.nextFrame,
+  source: dict.post.source,
+  trailerSource: dict.post.trailerSource,
 });

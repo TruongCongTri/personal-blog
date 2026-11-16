@@ -22,7 +22,9 @@ export type LegalBlock =
   | { list: string[] }
   | { table: { head: string[]; rows: string[][] } }
   /** The songs that play on the site, listed from lib/discography.ts. */
-  | { music: true };
+  | { music: true }
+  /** Credits for the object photos, listed from the reviews. */
+  | { credits: true };
 export type LegalDoc = {
   title: string;
   description: string;
@@ -246,6 +248,13 @@ const en: Record<LegalDocId, LegalDoc> = {
         body: [
           "Film titles, posters, stills and trailers belong to their respective rights holders and appear here for criticism, commentary and review. Trailers are embedded from YouTube under YouTube’s terms.",
           "If you hold rights in any of this material and want it credited differently or removed, write to {contact}. Requests are dealt with promptly.",
+        ],
+      },
+      {
+        h: "Photographs of objects",
+        body: [
+          "The objects lying on each folder are real photographs, cut out from their backgrounds. They are shared by their authors under the licences below; the cut-out versions are shared under the same licence.",
+          { credits: true },
         ],
       },
       {
@@ -505,6 +514,13 @@ const vi: Record<LegalDocId, LegalDoc> = {
         body: [
           "Tên phim, áp phích, hình ảnh và trailer thuộc về chủ sở hữu quyền tương ứng, và xuất hiện tại đây cho mục đích phê bình, bình luận và giới thiệu. Trailer được nhúng từ YouTube theo điều khoản của YouTube.",
           "Nếu bạn là chủ sở hữu quyền đối với bất kỳ nội dung nào trong số này và muốn được ghi nhận khác đi hoặc gỡ bỏ, hãy viết tới {contact}. Yêu cầu sẽ được xử lý nhanh chóng.",
+        ],
+      },
+      {
+        h: "Ảnh chụp đồ vật",
+        body: [
+          "Các đồ vật đặt trên mỗi hồ sơ là ảnh chụp thật, đã được tách khỏi nền. Chúng được tác giả chia sẻ theo các giấy phép dưới đây; bản đã tách nền được chia sẻ theo cùng giấy phép.",
+          { credits: true },
         ],
       },
       {

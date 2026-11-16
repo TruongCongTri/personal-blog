@@ -10,14 +10,21 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  gap: 3rem 1.5rem;
+  /* Phones: a loose pile, the papers overlapping a little */
+  gap: 0.5rem 0;
   width: 92%;
   margin-left: 4%;
   margin-block: -4rem 4rem;
 }
 
 .item {
+  position: relative;
   max-width: 100%;
+}
+
+/* Size of each paper (--s from its data), without touching its layout box */
+.item > * {
+  scale: var(--s, 1);
 }
 
 .desktopOnly {
@@ -63,6 +70,12 @@
 /* ---- Note, clipped over its top edge */
 .noteItem {
   flex-basis: 100%;
+}
+
+@media (max-width: 1024px) {
+  .item {
+    margin: 0.5rem -0.75rem;
+  }
 }
 
 .note {
@@ -432,6 +445,11 @@
     display: block;
   }
 
+  /* Lying on the sheet: from the top of page 1, y as a share of its height */
+  .onPaper {
+    top: calc(var(--paper-top, 0px) + var(--page-h, 0px) * var(--yp, 0) / 100);
+  }
+
   .item [data-drag] {
     pointer-events: auto;
     cursor: grab;
@@ -440,4 +458,171 @@
   .print {
     width: var(--w, 19rem);
   }
+}
+
+/* ---- Paper for notes */
+.paper_lined {
+  background:
+    linear-gradient(90deg, #0000 2.2rem, rgba(215, 30, 30, 0.35) 2.2rem 2.3rem, #0000 2.3rem),
+    repeating-linear-gradient(#0000 0 1.45rem, rgba(30, 75, 215, 0.22) 1.45rem 1.5rem),
+    #fbfaf5;
+  background-position: 0 0, 0 0.4rem, 0 0;
+  padding-left: 2.8rem;
+  line-height: 1.5rem;
+}
+
+.paper_grid {
+  background:
+    repeating-linear-gradient(90deg, #0000 0 0.95rem, rgba(30, 75, 215, 0.14) 0.95rem 1rem),
+    repeating-linear-gradient(#0000 0 0.95rem, rgba(30, 75, 215, 0.14) 0.95rem 1rem),
+    #fbfbf7;
+}
+
+.paper_kraft {
+  background:
+    radial-gradient(120% 80% at 20% 0%, #d8b98a, #0000 70%),
+    #c9a777;
+  color: #2b2116;
+}
+
+.paper_index {
+  background:
+    linear-gradient(#0000 2.6rem, rgba(215, 30, 30, 0.45) 2.6rem 2.7rem, #0000 2.7rem),
+    repeating-linear-gradient(#0000 0 1.45rem, rgba(30, 75, 215, 0.18) 1.45rem 1.5rem),
+    #fffefb;
+  background-position: 0 0, 0 1.25rem, 0 0;
+  line-height: 1.5rem;
+}
+
+/* A still from the film: the picture is the button that opens it large */
+button.photoImage {
+  display: block;
+  width: 100%;
+  padding: 0;
+  transition: filter var(--dur-fast) var(--ease);
+}
+
+button.photoImage:hover {
+  filter: brightness(1.06);
+}
+
+.photoItem .print {
+  width: var(--w, 18rem);
+}
+
+/* ---- Torn paper: a takeaway, ripped off a coloured sheet */
+.torn {
+  --paper: #f6d97a;
+
+  position: relative;
+  width: var(--w, 19rem);
+  max-width: 100%;
+  transform: rotate(var(--r, -1.5deg));
+  /* drop-shadow follows the torn outline (box-shadow would be clipped away) */
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.3));
+}
+
+.tornPaper {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.5rem 1.5rem 2.25rem;
+  background:
+    radial-gradient(140% 90% at 0% 0%, rgba(255, 255, 255, 0.25), transparent 60%),
+    var(--paper);
+  color: #191919;
+}
+
+.tornPaper h3 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.tornPaper strong {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.tornPaper p {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+/* Ragged edges (each point a little off the line, like a real tear) */
+.torn_bottom .tornPaper {
+  clip-path: polygon(
+    0 0, 100% 0, 100% 93%, 96% 95%, 92% 92.5%, 87% 96%, 83% 93%, 78% 97%, 73% 94%, 69% 96.5%, 64% 93%,
+    59% 97%, 54% 94.5%, 49% 98%, 44% 94%, 40% 96.5%, 35% 93.5%, 30% 97%, 25% 94%, 20% 97.5%, 15% 94%,
+    10% 96%, 5% 93.5%, 0 96%
+  );
+}
+
+.torn_top .tornPaper {
+  padding-top: 2.25rem;
+  padding-bottom: 1.5rem;
+  clip-path: polygon(
+    0 4%, 5% 6.5%, 10% 3.5%, 15% 6%, 20% 2.5%, 25% 6%, 30% 3%, 35% 6.5%, 40% 3.5%, 44% 6%, 49% 2%, 54% 5.5%,
+    59% 3%, 64% 7%, 69% 3.5%, 73% 6%, 78% 3%, 83% 7%, 87% 4%, 92% 7.5%, 96% 5%, 100% 7%, 100% 100%, 0 100%
+  );
+}
+
+.torn_both .tornPaper {
+  padding-top: 2.25rem;
+  clip-path: polygon(
+    0 4%, 6% 6.5%, 12% 3%, 18% 6%, 25% 2.5%, 31% 6%, 37% 3%, 44% 6.5%, 50% 3%, 56% 6%, 62% 2.5%, 69% 6.5%,
+    75% 3%, 81% 6%, 87% 3.5%, 94% 6.5%, 100% 4%, 100% 94%, 94% 96.5%, 87% 93%, 81% 97%, 75% 94%, 69% 97.5%,
+    62% 93.5%, 56% 97%, 50% 94%, 44% 97.5%, 37% 94%, 31% 97%, 25% 93.5%, 18% 97%, 12% 94%, 6% 96.5%, 0 94%
+  );
+}
+
+:global(.is-lite) .torn {
+  filter: none;
+}
+
+/* ---- An object from the film (drawn), each at its natural size */
+.object {
+  width: var(--w, 16rem);
+  max-width: 100%;
+  transform: rotate(var(--r, 0deg));
+}
+
+.object[data-object="dogtags"] {
+  width: var(--w, 15rem);
+}
+
+.object[data-object="press"] {
+  width: var(--w, 8.5rem);
+}
+
+.object[data-object="rifle"] {
+  width: var(--w, 30rem);
+}
+
+.object[data-object="deed"] {
+  width: var(--w, 16rem);
+}
+
+/* A real object (cut-out photo): its shadow follows its outline */
+.objectPhoto {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+}
+
+.objectPhoto img {
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+:global(.is-lite) .objectPhoto {
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.35));
 }

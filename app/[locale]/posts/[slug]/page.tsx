@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getAllPostSlugs, getPost } from "@/lib/content";
-import { defaultScraps } from "@/lib/scraps";
+import { DEFAULT_DESK, defaultScraps } from "@/lib/scraps";
 import { scrapLabels } from "@/i18n/labels";
 import CaseFolder from "@/components/CaseFolder/CaseFolder";
 import JsonLd from "@/components/JsonLd/JsonLd";
@@ -163,16 +163,22 @@ export default async function PostPage({
           scraps:
             post.scraps ??
             defaultScraps({
-              // Unwritten: the note says what the analysis will be about.
-              note: post.excerpt ?? post.topic ?? dict.post.soon,
-              noteLabel: !post.excerpt && post.topic ? dict.post.topic : undefined,
+              seed: post.slug,
+              note: post.excerpt ?? dict.post.soon,
+              title: `${post.title} (${post.year})`,
+              quote: post.quote,
+              quoteBy: post.quoteBy,
+              topic: post.topic,
+              takeaways: post.takeaways,
+              object: post.object,
+              labels: { saying: dict.post.testing, topic: dict.post.topic },
               hasTrailer: Boolean(post.trailer),
               genre: post.genre,
               director: folder.title,
               year: post.year,
               cutLabel: dict.post.cut,
             }),
-          desk: post.desk,
+          desk: post.desk ?? (post.scraps ? undefined : DEFAULT_DESK),
           film: { title: post.title, year: post.year, trailer: post.trailer, verdict, poster: post.poster },
           labels: scrapLabels(dict),
         }}
@@ -184,6 +190,7 @@ export default async function PostPage({
           textColor: textOn(next.post.theme),
           label: dict.post.next,
           keep: dict.post.keepScrolling,
+          read: dict.post.read,
           sameGroup: next.folder.slug === folder.slug,
         }}
       />

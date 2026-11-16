@@ -9,6 +9,21 @@
   "date": "2026-11-15",
   "trailer": "UHaSQU-4wss",
   "poster": "r2:movies/come-and-see/poster.webp",
+  "object": {
+    "src": "object.webp",
+    "ratio": 6.275,
+    "w": 30,
+    "title": {
+      "en": "SVT-40 rifle, Soviet Union, 1940s",
+      "vi": "Súng trường SVT-40, Liên Xô, thập niên 1940"
+    },
+    "alt": {
+      "en": "A Soviet SVT-40 semi-automatic rifle with a wooden stock",
+      "vi": "Súng trường bán tự động SVT-40 của Liên Xô, báng gỗ"
+    },
+    "credit": "Armémuseum (The Swedish Army Museum), CC BY-SA 4.0, via Wikimedia Commons (background removed)",
+    "url": "https://commons.wikimedia.org/wiki/File:SVT-40_(cropped,_nb).jpg"
+  },
   "genre": {
     "en": "War",
     "vi": "Chiến tranh"

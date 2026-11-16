@@ -71,7 +71,10 @@
     "poster": "Poster",
     "frame": "View frame",
     "prevFrame": "Previous frame",
-    "nextFrame": "Next frame"
+    "nextFrame": "Next frame",
+    "read": "read",
+    "source": "Source",
+    "trailerSource": "Official trailer, via YouTube"
   },
   "about": {
     "title": "About",

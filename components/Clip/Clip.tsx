@@ -6,8 +6,11 @@ export type ClipEdge =
 export type ClipTone = "silver" | "brass" | "red" | "blue" | "black";
 
 type Props = {
-  /** paper: a wire paperclip; binder: a black bulldog clip for thicker things. */
-  kind?: "paper" | "binder";
+  /**
+   * paper: a wire paperclip · binder: a black bulldog clip for thicker things ·
+   * tape: a strip of masking tape across the edge · pin: a push pin through it.
+   */
+  kind?: "paper" | "binder" | "tape" | "pin";
   /** Which edge of the object it grips. Corners grip diagonally. */
   at: ClipEdge;
   /** Where along that edge (any CSS length/percentage). */
@@ -46,7 +49,7 @@ export default function Clip({
   at,
   offset,
   tilt = 0,
-  tone = kind === "binder" ? "black" : "silver",
+  tone = kind === "binder" ? "black" : kind === "pin" ? "red" : "silver",
   size,
 }: Props) {
   const style = {
@@ -55,6 +58,22 @@ export default function Clip({
     "--w": size,
   } as CSSProperties;
   const cls = `${styles.clip} ${styles[kind]} ${styles[at.replace("-", "_")]} ${styles[tone]}`;
+
+  if (kind === "tape") {
+    // Masking tape: a translucent strip lying across the edge, on top.
+    return <span className={`${cls} ${styles.front}`} style={style} aria-hidden="true" />;
+  }
+
+  if (kind === "pin") {
+    // Push pin: a round head pushed through, a little inside the edge.
+    return (
+      <svg className={`${cls} ${styles.front}`} style={style} viewBox="0 0 24 24" aria-hidden="true">
+        <ellipse cx="13.5" cy="15" rx="7" ry="5" fill="rgba(0,0,0,.22)" />
+        <circle cx="12" cy="12" r="7.5" className={styles.pinHead} />
+        <circle cx="9.5" cy="9.5" r="2.4" fill="#fff" opacity=".45" />
+      </svg>
+    );
+  }
 
   if (kind === "binder") {
     // A bulldog clip sits wholly in front; its back plate is hidden by the paper.

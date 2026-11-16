@@ -4,7 +4,7 @@ import path from "node:path";
 import { cacheLife, cacheTag } from "next/cache";
 import type { Locale } from "@/i18n/config";
 import { r2BucketUrl, r2Configured, r2GetJson, r2PublicUrl } from "@/lib/r2";
-import type { Block, Scrap, Theme, Verdict } from "@/lib/schema";
+import type { Block, FilmObjectPhoto, Scrap, Theme, Verdict } from "@/lib/schema";
 
 export type { Block, Scrap, Theme, Verdict } from "@/lib/schema";
 
@@ -60,6 +60,10 @@ export type Post = {
   body: Block[];
   /** Loose papers on the folder. Missing = the standard set. */
   scraps?: Scrap[];
+  /** An object that matters in the film, on its desk: a cut-out photo, or a drawn kind. */
+  object?: FilmObjectPhoto | "dogtags" | "press" | "rifle" | "deed";
+  /** Short takeaways from the essay, put on the desk as torn-off papers. */
+  takeaways?: { title?: string; label?: string; text: string }[];
   /** Height of the desk area under the sheet on wide screens, in rem. */
   desk?: number;
 };

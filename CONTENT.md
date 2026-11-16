@@ -69,6 +69,8 @@ Any text field can be one string, used in both languages, or one string per lang
 | `still` | image for the clipped print at the top of the sheet (optional; otherwise a colour plate) |
 | `body` | the text, as a list of blocks (below). Leave it out or `[]` and the sheet says "The analysis is coming out soon" |
 | `scraps` | the loose papers on the folder (below; optional, otherwise the standard set) |
+| `object` | the film's object on the standard desk: a real photo `{ "src", "ratio", "w", "title", "alt", "credit", "url" }`, or a drawn one (`dogtags` · `press` · `rifle` · `deed`) |
+| `takeaways` | short points from the essay, each put on the desk as a torn-off paper: `[{ "title", "label", "text" }]` (optional, up to three in the standard set) |
 | `desk` | height of the desk under the sheet on wide screens, in rem (default 34) |
 
 ### Body blocks
@@ -93,14 +95,16 @@ them in the order they should appear on phones.
 
 | type | fields (besides `place`) | held by default with |
 |---|---|---|
-| `note` | `text`, `label`, `color` (paper colour) | paperclip over the top |
+| `note` | `text`, `label`, `paper` (`sticky` · `lined` · `grid` · `kraft` · `index`), `color` | paperclip over the top |
 | `stamp` | `label`, `text` (default: the verdict) | — |
 | `trailer` | (uses the review's `trailer`) | bulldog clip |
-| `photo` | `src`, `caption`, `alt`, `ratio` | paperclip over a corner |
+| `photo` | `src` (an image next to the review, or `yt:maxres1`…`yt:maxres3` for a trailer frame), `caption`, `source`, `alt`, `ratio`. Opens large on click | masking tape |
+| `torn` | `title`, `label`, `text`, `color`, `edge` (`bottom` · `top` · `both`): a piece of coloured paper torn off a sheet | — |
 | `ticket` | (film title and year, a seat) | paperclip across the side |
 | `strip` | `frames`: up to 3 images (default: frames from the trailer) | clip over a corner |
 | `sticker` | `text`, `sub`, `shape` (`round` · `label` · `badge`), `color`, `ink`, `icon` (`reel` · `clapper`) | — |
 | `clipping` | `title`, `text`, `source`: a newspaper cutting | paperclip over the top |
+| `object` | `kind`: `dogtags` · `press` · `rifle` · `deed`, an object from the film, drawn | — |
 | `ruler` | — | — |
 
 **`place`** is where a paper lies on wide screens:
@@ -111,19 +115,31 @@ them in the order they should appear on phones.
 | `y` | rem below the bottom of the sheet; negative values overlap the sheet |
 | `r` | rotation, in degrees |
 | `w` | width, in rem |
+| `s` | size, as a scale: `0.8` smaller, `1.2` bigger |
+| `on` | `"paper"` to lay it on the sheet itself; `y` is then % down page 1 (0 = top, 100 = bottom) |
 | `mobile` | `false` hides the paper on phones |
 
 **`clip`** overrides how a paper is held. Use `false` for no clip, or an object:
 
 | key | values |
 |---|---|
-| `kind` | `paper` · `binder` |
+| `kind` | `paper` (paperclip) · `binder` (bulldog clip) · `tape` (masking tape) · `pin` (push pin) |
 | `at` | `top` · `right` · `bottom` · `left` · `corner` · `corner-right` |
 | `offset` | position along that edge, e.g. `"70%"` or `"2rem"` |
 | `tilt` | degrees |
 | `tone` | `silver` · `brass` · `red` · `blue` · `black` |
 
 `scripts/review.template.json` shows every kind of paper.
+
+**Stills open large:** clicking a photo or a film-strip frame grows it out of the desk into a
+large view with a caption card (title and `source`); closing shrinks it back.
+
+**Without a `scraps` list,** a review gets the standard set, varied for that film from its slug:
+the note's paper, how each thing is held, sizes, sticker colours and small shifts in position.
+The same film always gets the same desk. On wide screens papers overlap; some lie on the sheet, the rest on
+the desk. They can be dragged off the folder; dropped too far away, they spring back to rest just
+beside it. The one touched last comes
+to the top of the pile.
 
 ## Images
 
@@ -166,3 +182,11 @@ removal on request. To take a song down:
 1. Remove the track (or the whole entry) from `lib/discography.ts` and deploy.
 2. Delete its `.m4a` from the bucket (`movies/<id>/`) in the Cloudflare dashboard, so the file
    can't be reached directly either.
+
+## Object photos
+
+Each folder's object is a real photograph, cut out of its background (a transparent `object.webp`
+next to the review). Use only photos you may reuse, such as public domain, CC0 or Creative Commons
+images from Wikimedia Commons, and fill in `credit` and `url`. The credit appears in the large
+view and in the Terms of Use ("Photographs of objects"). For CC BY-SA images, note
+"(background removed)": the cut-out counts as an adaptation and is shared under the same licence.

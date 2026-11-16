@@ -9,6 +9,21 @@
   "date": "2026-09-14",
   "trailer": "aDyQxtg0V2w",
   "poster": "r2:movies/civil-war/poster.webp",
+  "object": {
+    "src": "object.webp",
+    "ratio": 1.351,
+    "w": 15,
+    "title": {
+      "en": "Nikon FE2, a 35mm film camera",
+      "vi": "Nikon FE2, máy ảnh phim 35mm"
+    },
+    "alt": {
+      "en": "A silver and black Nikon FE2 film camera with a 50mm lens",
+      "vi": "Máy ảnh phim Nikon FE2 màu bạc và đen, ống kính 50mm"
+    },
+    "credit": "Bertrand Labévue, CC BY-SA 4.0, via Wikimedia Commons (background removed)",
+    "url": "https://commons.wikimedia.org/wiki/File:Nikon_FE2_BL.jpg"
+  },
   "genre": {
     "en": "War",
     "vi": "Chiến tranh"

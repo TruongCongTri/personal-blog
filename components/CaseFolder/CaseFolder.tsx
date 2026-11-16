@@ -48,6 +48,7 @@ type Props = {
     textColor: string;
     label: string;
     keep: string; // button text at the bottom of the page
+    read: string; // "read" in "42% read" on the card
     sameGroup: boolean; // next file belongs to the same director
   };
 };
@@ -506,6 +507,7 @@ export default function CaseFolder(props: Props) {
               textColor={props.next.textColor}
               label={props.next.label}
               keepLabel={props.next.keep}
+              readLabel={props.next.read}
               state={nextState}
               onNext={next}
             />

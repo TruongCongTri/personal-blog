@@ -9,6 +9,21 @@
   "date": "2026-10-28",
   "trailer": "JER0Fkyy3tw",
   "poster": "r2:movies/warfare/poster.webp",
+  "object": {
+    "src": "object.webp",
+    "ratio": 1.168,
+    "w": 13,
+    "title": {
+      "en": "US identification tag (dog tag), M-1940 pattern, 1943–44",
+      "vi": "Thẻ bài quân nhân Mỹ, mẫu M-1940, 1943–44"
+    },
+    "alt": {
+      "en": "A stamped steel US military dog tag on a bead chain",
+      "vi": "Thẻ bài quân nhân Mỹ bằng thép dập chữ, đeo trên dây bi"
+    },
+    "credit": "Paris Musées / Musée de la Libération de Paris – musée Jean Moulin, CC0, via Wikimedia Commons",
+    "url": "https://commons.wikimedia.org/wiki/File:Plaque_d%27identit%C3%A9_am%C3%A9ricaine_M-1940_de_Marie-Th%C3%A9r%C3%A8se_Pezet,_2002.1603B.jpg"
+  },
   "genre": {
     "en": "War",
     "vi": "Chiến tranh"

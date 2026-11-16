@@ -1,62 +1,143 @@
 .lightbox {
+  --backdrop: 1;
+
   width: 100vw;
   max-width: 100vw;
   height: 100dvh;
   max-height: 100dvh;
   margin: 0;
-  padding: calc(var(--safe-top) + 4rem) var(--container-offset) calc(var(--safe-bottom) + 5rem);
+  padding: calc(var(--safe-top) + 4.5rem) var(--container-offset) calc(var(--safe-bottom) + 5rem);
   border: 0;
-  background: transparent;
+  background: rgba(10, 10, 10, calc(0.92 * var(--backdrop)));
   display: grid;
   place-items: center;
   touch-action: pan-y;
+  overflow: hidden;
 }
 
+/* The dialog paints its own fading backdrop (so it can animate). */
 .lightbox::backdrop {
-  background: rgba(10, 10, 10, 0.94);
+  background: transparent;
+}
+
+/* Picture with its caption card beside it (below it on phones) */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 100%;
 }
 
 .frame {
-  display: grid;
-  justify-items: center;
-  gap: 0.75rem;
-  margin: 0;
-  max-width: 100%;
-  max-height: 100%;
+  position: relative;
+  /* As big as fits, keeping the picture's proportions */
+  width: min(100%, 1280px, calc((100dvh - 13rem) * var(--ratio)));
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 30px 80px -20px #000;
+  transform-origin: center;
+  will-change: transform;
 }
 
 .frame img {
-  display: block;
-  max-width: min(100%, 1280px);
-  max-height: calc(100dvh - 11rem);
-  width: auto;
-  height: auto;
-  box-shadow: 0 30px 80px -20px #000;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   user-select: none;
 }
 
-.frame figcaption {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-light);
-  opacity: 0.6;
+.placeholder {
+  filter: blur(2px);
 }
 
-.nav,
+.card {
+  display: grid;
+  gap: 0.75rem;
+  width: min(100%, 20rem);
+  padding: 1.1rem 1.25rem 1.25rem;
+  border-radius: 1rem;
+  background: var(--case-color, #2c55c9);
+  color: var(--case-ink, #fff);
+}
+
+.card strong {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.card span {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.count {
+  opacity: 0.6 !important;
+}
+
+@media (min-width: 1025px) {
+  .stage {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+
+  .frame {
+    width: min(calc(100vw - 2 * var(--container-offset) - 23rem), 1280px, calc((100dvh - 10rem) * var(--ratio)));
+  }
+
+  .card {
+    width: 16rem;
+    min-height: 11rem;
+    align-content: space-between;
+  }
+}
+
+/* Round red close button, top right */
 .close {
   position: fixed;
-  min-height: 44px;
-  color: var(--color-light);
-  font-family: var(--font-mono);
+  top: calc(var(--safe-top) + 1.25rem);
+  right: var(--container-offset);
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: #e0392b;
+  color: #fff;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+  transition: scale var(--dur-fast) var(--ease);
+}
+
+.close svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.close:hover {
+  scale: 1.07;
 }
 
 .nav {
+  position: fixed;
   top: 50%;
   width: 3rem;
   height: 3rem;
   translate: 0 -50%;
   border: 1px solid rgba(253, 250, 247, 0.35);
   border-radius: 50%;
+  color: var(--color-light);
+  font-family: var(--font-mono);
   font-size: 1.1rem;
 }
 
@@ -68,23 +149,11 @@
   right: var(--container-offset);
 }
 
-.close {
-  left: 50%;
-  bottom: calc(var(--safe-bottom) + 1.25rem);
-  translate: -50% 0;
-  padding-inline: 1.25rem;
-  border: 1px solid rgba(253, 250, 247, 0.4);
-  border-radius: 999px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-.nav:hover,
-.close:hover {
+.nav:hover {
   background: rgba(253, 250, 247, 0.1);
 }
 
-/* Phones: swipe between frames; the arrow buttons sit below instead of over the image. */
+/* Phones: swipe between pictures; the arrows sit at the bottom. */
 @media (max-width: 768px) {
   .nav {
     top: auto;
@@ -93,15 +162,20 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .lightbox[open] .frame img {
-    animation: rise 0.4s var(--ease);
-  }
+/* Cut-out objects: whole, no box behind, a shadow that follows the outline */
+.contain {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.6));
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
+.contain img {
+  object-fit: contain;
+}
+
+.card a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
