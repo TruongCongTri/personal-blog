@@ -77,7 +77,9 @@
     "nextFrame": "Khung sau",
     "read": "đã đọc",
     "source": "Nguồn",
-    "trailerSource": "Trailer chính thức, qua YouTube"
+    "trailerSource": "Trailer chính thức, qua YouTube",
+    "intro": "Mở đầu",
+    "contents": "Mục lục"
   },
   "about": {
     "title": "Giới thiệu",

@@ -485,3 +485,37 @@
   font-size: 0.7rem;
   opacity: 0.55;
 }
+
+/* A point within a part (level-3 heading) */
+.point {
+  margin-top: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* Jumped to from the contents: land below the fixed header */
+.subhead,
+.desc > p:first-child {
+  scroll-margin-top: calc(var(--header-h) + var(--safe-top) + 1.5rem);
+}
+
+/* The rest of a paragraph, carried on from the page before: no indent, no drop cap */
+.desc > p.contPiece {
+  text-indent: 0;
+}
+
+.desc > p.contPiece::first-letter {
+  float: none;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+/* Hidden copy of the text, at the text's width, for measuring line breaks */
+.measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}

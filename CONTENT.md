@@ -69,6 +69,7 @@ Any text field can be one string, used in both languages, or one string per lang
 | `still` | image for the clipped print at the top of the sheet (optional; otherwise a colour plate) |
 | `body` | the text, as a list of blocks (below). Leave it out or `[]` and the sheet says "The analysis is coming out soon" |
 | `scraps` | the loose papers on the folder (below; optional, otherwise the standard set) |
+| `extraScraps` | papers added to the standard set, e.g. a newspaper clipping pinned beside a paragraph (`place.on: "paper"`, `place.near`) |
 | `object` | the film's object on the standard desk: a real photo `{ "src", "ratio", "w", "title", "alt", "credit", "url" }`, or a drawn one (`dogtags` · `press` · `rifle` · `deed`) |
 | `takeaways` | short points from the essay, each put on the desk as a torn-off paper: `[{ "title", "label", "text" }]` (optional, up to three in the standard set) |
 | `desk` | height of the desk under the sheet on wide screens, in rem (default 34) |
@@ -84,6 +85,11 @@ Any text field can be one string, used in both languages, or one string per lang
     "clip": { "at": "corner-right", "tone": "brass" } }
 ]
 ```
+
+Headings mark the essay's parts: `"level": 2` (the default) for a main part, `"level": 3` for a
+point within it. They are listed in the progress card on the right as "#" links that jump to
+them, with a check for each part read and a bar filling up for the current one. The opening
+paragraphs before the first heading are listed as "Introduction".
 
 The first paragraph gets the drop cap. Each image is a photo clipped onto the page. `ratio` is
 width ÷ height, so the page keeps the space while the image loads. Use `"clip": false` for no clip.

@@ -248,13 +248,38 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
       const page = sheet.querySelector<HTMLElement>("[data-page]") ?? sheet;
       el.style.setProperty("--paper-top", `${sheet.offsetTop - el.offsetTop}px`);
       el.style.setProperty("--page-h", `${page.offsetHeight}px`);
+      // Papers pinned next to a block of the essay: that block's level, in
+      // the same box the papers are placed in (layout sizes, so transforms
+      // of the entrance animation don't count).
+      // Layout offsets (offsetTop up to the folder), never screen positions:
+      // those include the folder's entrance/transition transforms.
+      const topIn = (node: HTMLElement | null) => {
+        let y = 0;
+        while (node && node !== folder) {
+          y += node.offsetTop;
+          node = node.offsetParent as HTMLElement | null;
+        }
+        return y;
+      };
+      const base = topIn(el);
+      el.querySelectorAll<HTMLElement>("[data-near]").forEach((item) => {
+        const n = item.dataset.near;
+        // "after": below the block's last piece, if it runs on to another page
+        const pieces = sheet.querySelectorAll<HTMLElement>(`[data-block="${n}"], [data-block-cont="${n}"]`);
+        const block = item.dataset.after !== undefined ? pieces[pieces.length - 1] : pieces[0];
+        if (!block) return;
+        const at = topIn(block) + (item.dataset.after !== undefined ? block.offsetHeight : 0) - base;
+        item.style.setProperty("--near-top", `${Math.round(at)}px`);
+      });
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(sheet);
     ro.observe(el);
+    // the essay re-flows into pages once the fonts are in
+    document.fonts?.ready.then(measure);
     return () => ro.disconnect();
-  }, []);
+  }, [scraps]);
 
   useGSAP(
     () => {
@@ -422,7 +447,7 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
               title: s.caption ?? `${film!.title} (${film!.year})`,
               source: s.source ?? labels.trailerSource,
             }
-          : { src: s.src, thumb: s.src, ratio: s.ratio ?? 4 / 3, title: s.caption, source: s.source, alt: s.alt };
+          : { src: s.src, thumb: s.src, ratio: s.ratio ?? 4 / 3, title: s.title ?? s.caption, source: s.source, alt: s.alt };
         return <Still image={image} caption={name ? undefined : s.caption} clip={s.clip} labels={labels} />;
       }
 
@@ -552,7 +577,8 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
         const style = {
           "--x": p.x !== undefined ? `${p.x}%` : undefined,
           "--y": p.y !== undefined && p.on !== "paper" ? `${p.y}rem` : undefined,
-          "--yp": p.on === "paper" && p.y !== undefined ? String(p.y) : undefined,
+          "--yp": p.on === "paper" && p.y !== undefined && p.near === undefined ? String(p.y) : undefined,
+          "--ny": p.near !== undefined && p.y !== undefined ? `${p.y}rem` : undefined,
           "--r": p.r !== undefined ? `${p.r}deg` : undefined,
           "--w": p.w !== undefined ? `${p.w}rem` : undefined,
           "--s": p.s !== undefined ? String(p.s) : undefined,
@@ -563,6 +589,8 @@ export default function Scrapbook({ scraps, labels, film, desk }: Props) {
             className={`${styles.item} ${styles[`${s.type}Item`] ?? ""} ${p.mobile === false ? styles.desktopOnly : ""} ${p.on === "paper" ? styles.onPaper : ""}`}
             style={style}
             data-scrap
+            data-near={p.near}
+            data-after={p.after ? "" : undefined}
           >
             {content}
           </div>

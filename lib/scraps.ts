@@ -65,7 +65,9 @@ export function defaultScraps(opts: {
   /** The film's object (a cut-out photo, or a drawn kind), in place of the old ruler. */
   object?: FilmObjectPhoto | "dogtags" | "press" | "rifle" | "deed";
   /** The essay's takeaways: one torn-off paper each (up to three). */
-  takeaways?: { title?: string; label?: string; text: string }[];
+  takeaways?: { title?: string; label?: string; text: string; near?: number }[];
+  /** Index of the essay's last block: the note goes under it ("In short", at the end). */
+  lastBlock?: number;
   labels: { saying: string; topic: string };
 }): Scrap[] {
   const rnd = seeded(opts.seed);
@@ -114,9 +116,15 @@ export function defaultScraps(opts: {
     [44, 29, -3, 17],
     [80, 32, 4, 15],
   ];
-  notes.forEach((t, i) => {
+  notes.forEach(({ near, ...t }, i) => {
     const [x, y, r, w] = slots[i];
-    papers.push({ type: "torn", ...t, color: torn[i + 1], edge: edge(), place: { ...at(x, y, r, [0.9, 1.05]), w } });
+    // A takeaway that names its paragraph lies beside it on the sheet, in the
+    // side column, over the text if it has to. Otherwise: on the desk.
+    const place =
+      near !== undefined
+        ? { ...at(3 + (i % 2) * 2, 0, i % 2 ? 3 : -3, [0.95, 1.03]), y: rnd.range(-0.5, 1.5), on: "paper" as const, near, w: 17 }
+        : { ...at(x, y, r, [0.9, 1.05]), w };
+    papers.push({ type: "torn", ...t, color: torn[i + 1], edge: edge(), place });
   });
 
   const list: Scrap[] = [
@@ -131,7 +139,11 @@ export function defaultScraps(opts: {
         { kind: "pin", at: "top", offset: "50%", tone: rnd.pick(["red", "blue", "brass"] as const) },
         { kind: "tape", at: "corner" },
       ]),
-      place: at(3, -6, -3, [0.95, 1.1]),
+      // At the end of the essay, under its last line; without one, on the desk.
+      place:
+        opts.lastBlock !== undefined
+          ? { ...at(60, 0, -3, [0.95, 1.05]), y: 1.5, on: "paper" as const, near: opts.lastBlock, after: true }
+          : at(3, -6, -3, [0.95, 1.1]),
     },
     ...papers,
     { type: "stamp", place: paper(14, 84, 8, [0.85, 1.15]) },

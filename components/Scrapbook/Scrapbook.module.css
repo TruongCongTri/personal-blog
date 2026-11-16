@@ -450,6 +450,22 @@
     top: calc(var(--paper-top, 0px) + var(--page-h, 0px) * var(--yp, 0) / 100);
   }
 
+  /* ...or next to a block of the essay (measured in Scrapbook.tsx) */
+  .onPaper[data-near] {
+    top: calc(var(--near-top, 0px) + var(--ny, 0rem));
+  }
+
+  /* A rubber stamp on the white sheet: black ink (on the folder it uses the folder's ink) */
+  .onPaper .stamp {
+    color: var(--color-dark);
+    opacity: 0.85;
+  }
+
+  /* captions under prints lying on the white sheet */
+  .onPaper .printPaper {
+    color: var(--color-dark);
+  }
+
   .item [data-drag] {
     pointer-events: auto;
     cursor: grab;

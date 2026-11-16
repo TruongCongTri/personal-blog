@@ -16,6 +16,7 @@ import NextWidget from "@/components/NextWidget/NextWidget";
 import NextFolder from "@/components/NextFolder/NextFolder";
 import SiteFooter from "@/components/SiteFooter/SiteFooter";
 import type { Dictionary } from "@/i18n/dictionaries";
+import type { Part } from "@/lib/parts";
 import { useFolderScroll } from "@/lib/useFolderScroll";
 import styles from "./CaseFolder.module.css";
 
@@ -53,6 +54,8 @@ type Props = {
     label: string;
     keep: string; // button text at the bottom of the page
     read: string; // "read" in "42% read" on the card
+    parts?: Part[]; // the essay's parts, listed in the card
+    partsLabel?: string;
     sameGroup: boolean; // next file belongs to the same director
   };
 };
@@ -518,6 +521,8 @@ export default function CaseFolder(props: Props) {
               label={props.next.label}
               keepLabel={props.next.keep}
               readLabel={props.next.read}
+              parts={props.next.parts}
+              partsLabel={props.next.partsLabel}
               state={nextState}
               onNext={next}
             />

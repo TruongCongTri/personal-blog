@@ -4,6 +4,7 @@ import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getAllPostSlugs, getPost } from "@/lib/content";
 import { DEFAULT_DESK, defaultScraps } from "@/lib/scraps";
+import { essayParts } from "@/lib/parts";
 import { scrapLabels } from "@/i18n/labels";
 import CaseFolder from "@/components/CaseFolder/CaseFolder";
 import JsonLd from "@/components/JsonLd/JsonLd";
@@ -29,13 +30,23 @@ export async function generateMetadata({
   const { post, folder } = entry;
   const title = `${post.title} (${post.year})`;
   const description =
-    [post.quote && `“${post.quote}”`, post.excerpt ?? post.topic, post.body.length ? "" : dict.post.soon]
+    [
+      post.quote && `“${post.quote}”`,
+      post.excerpt ?? post.topic,
+      post.body.length ? "" : dict.post.soon,
+    ]
       .filter(Boolean)
       .join(" — ") || dict.meta.description;
   return {
     title,
     description,
-    keywords: [post.title, folder.title, post.genre, String(post.year), post.topic ?? ""].filter(Boolean),
+    keywords: [
+      post.title,
+      folder.title,
+      post.genre,
+      String(post.year),
+      post.topic ?? "",
+    ].filter(Boolean),
     alternates: alternates(locale, `/posts/${slug}`),
     openGraph: {
       ...baseOpenGraph(locale, dict.meta.title),
@@ -67,7 +78,9 @@ export default async function PostPage({
 
   const url = `${SITE_URL}/${locale}/posts/${post.slug}`;
   const written = post.body.length > 0;
-  const verdict = post.verdict ? dict.post.verdict[post.verdict] : dict.post.pending;
+  const verdict = post.verdict
+    ? dict.post.verdict[post.verdict]
+    : dict.post.pending;
   return (
     <>
       <JsonLd
@@ -81,7 +94,11 @@ export default async function PostPage({
               name: `${post.title} (${post.year})`,
               headline: post.quote,
               description: post.excerpt ?? post.topic,
-              reviewBody: written ? post.body.flatMap((b) => (b.type === "p" ? [b.text] : [])).join(" ") : undefined,
+              reviewBody: written
+                ? post.body
+                    .flatMap((b) => (b.type === "p" ? [b.text] : []))
+                    .join(" ")
+                : undefined,
               inLanguage: locale,
               url,
               datePublished: post.date,
@@ -151,18 +168,30 @@ export default async function PostPage({
           post.genre,
           post.topic && `${dict.post.topic}: ${post.topic}`,
           `${dict.post.verdictLabel}: ${verdict}`,
-          [post.dateLabel, post.minutes && `${post.minutes} ${dict.post.minutes}`].filter(Boolean).join(" · "),
+          [
+            post.dateLabel,
+            post.minutes && `${post.minutes} ${dict.post.minutes}`,
+          ]
+            .filter(Boolean)
+            .join(" · "),
         ].filter((line): line is string => Boolean(line))}
-        quote={post.quote ? { label: dict.post.testing, text: post.quote, by: post.quoteBy ?? "" } : undefined}
+        quote={
+          post.quote
+            ? {
+                label: dict.post.testing,
+                text: post.quote,
+                by: post.quoteBy ?? "",
+              }
+            : undefined
+        }
         body={post.body}
         soon={dict.post.soon}
         plate={`${!post.still && post.poster ? dict.post.poster : dict.post.plate} — ${post.title} (${post.year})`}
         still={post.still ?? post.poster}
         stillIsPoster={!post.still && Boolean(post.poster)}
         scrap={{
-          scraps:
-            post.scraps ??
-            defaultScraps({
+          scraps: post.scraps ?? [
+            ...defaultScraps({
               seed: post.slug,
               note: post.excerpt ?? dict.post.soon,
               title: `${post.title} (${post.year})`,
@@ -171,6 +200,7 @@ export default async function PostPage({
               topic: post.topic,
               takeaways: post.takeaways,
               object: post.object,
+              lastBlock: post.body.length ? post.body.length - 1 : undefined,
               labels: { saying: dict.post.testing, topic: dict.post.topic },
               hasTrailer: Boolean(post.trailer),
               genre: post.genre,
@@ -178,8 +208,16 @@ export default async function PostPage({
               year: post.year,
               cutLabel: dict.post.cut,
             }),
+            ...(post.extraScraps ?? []),
+          ],
           desk: post.desk ?? (post.scraps ? undefined : DEFAULT_DESK),
-          film: { title: post.title, year: post.year, trailer: post.trailer, verdict, poster: post.poster },
+          film: {
+            title: post.title,
+            year: post.year,
+            trailer: post.trailer,
+            verdict,
+            poster: post.poster,
+          },
           labels: scrapLabels(dict),
         }}
         footer={{ dict: dict.footer, aboutLabel: dict.nav.about }}
@@ -192,6 +230,8 @@ export default async function PostPage({
           label: dict.post.next,
           keep: dict.post.keepScrolling,
           read: dict.post.read,
+          parts: essayParts(post.body, dict.post.intro),
+          partsLabel: dict.post.contents,
           sameGroup: next.folder.slug === folder.slug,
         }}
       />

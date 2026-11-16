@@ -34,12 +34,8 @@
 .card {
   position: relative;
   z-index: 1; /* always under the button */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   width: var(--w);
   height: var(--card-h);
-  padding: 0.9rem 1rem;
   overflow: hidden;
   background-color: var(--bg);
   color: var(--fg);
@@ -100,12 +96,29 @@
   line-height: 1.3;
 }
 
-.card > span {
+/* What the card holds; its height sets the card's (--card-h, from JS) */
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: var(--card-min, 7rem);
+  padding: 0.9rem 1rem;
+}
+
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  gap: 0.6rem;
+}
+
+.cardInner > * {
   transition: opacity var(--dur-fast) var(--ease);
 }
 
-.widget[data-state="hidden"] .card > span,
-.widget[data-state="merge"] .card > span {
+.widget[data-state="hidden"] .cardInner > *,
+.widget[data-state="merge"] .cardInner > * {
   opacity: 0;
 }
 
@@ -196,7 +209,9 @@
     --gap: 1rem;
   }
 
-  .card {
+  .cardInner {
+    --card-min: 11.25rem;
+
     padding: 1.25rem;
   }
 
@@ -210,5 +225,111 @@
 
   .keep {
     font-size: 0.9rem;
+  }
+}
+
+/* ---- Contents: the essay's parts, each a "#" link with its own progress */
+.parts ol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr); /* never wider than the card */
+  gap: 0.15rem;
+  list-style: none;
+}
+
+.parts li {
+  position: relative;
+  --part: 0;
+}
+
+.parts a {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0.45rem;
+  min-height: 1.6rem;
+  padding: 0.15rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  opacity: 0.6;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.parts li[data-level="3"] a {
+  padding-left: 1.1rem;
+  font-size: 0.66rem;
+}
+
+.parts a:hover,
+.parts li[data-state="now"] a {
+  opacity: 1;
+}
+
+.parts li[data-state="done"] a {
+  opacity: 0.85;
+}
+
+.hash {
+  flex: none;
+  width: 0.7rem;
+  font-weight: 700;
+}
+
+/* a finished part: its "#" becomes a check */
+.parts li[data-state="done"] .hash {
+  font-size: 0;
+}
+
+.parts li[data-state="done"] .hash::before {
+  content: "✓";
+  font-size: 0.72rem;
+}
+
+.partLabel {
+  min-width: 0; /* lets a long label shorten with "…" inside the card */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* the part being read fills a thin line under it */
+.partBar {
+  position: absolute;
+  left: 1.15rem;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: color-mix(in srgb, var(--fg) 20%, transparent);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+
+.parts li[data-level="3"] .partBar {
+  left: 2.25rem;
+}
+
+.partBar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform: scaleX(var(--part));
+  transform-origin: left;
+  transition: transform 0.2s linear;
+}
+
+.parts li[data-state="now"] .partBar {
+  opacity: 1;
+}
+
+.parts a:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+/* Phones: the main parts only, so the card stays small */
+@media (max-width: 768px) {
+  .parts li[data-level="3"] {
+    display: none;
   }
 }

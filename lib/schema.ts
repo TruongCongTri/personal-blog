@@ -33,6 +33,13 @@ export type Place = {
   mobile?: boolean;
   /** "paper": lies on the sheet itself; y is then % down page 1 (0 top, 100 bottom). */
   on?: "paper" | "desk";
+  /**
+   * Lie on the sheet next to this block of the essay (its index in `body`),
+   * at the level where it starts (or, with `after`, just below where it ends).
+   * Wide screens only; y then nudges it in rem. Overlaps the text freely.
+   */
+  near?: number;
+  after?: boolean;
 };
 
 type Base = { place?: Place };
@@ -54,6 +61,8 @@ export type Scrap =
       /** An image, or "yt:maxresdefault" / "yt:maxres1".."yt:maxres3" for a still from the trailer. */
       src: string;
       caption?: string;
+      /** Shown only in the large view (when there's no room for a caption on the desk). */
+      title?: string;
       /** Credited on the large view ("Source: …"). */
       source?: string;
       alt?: string;
@@ -107,7 +116,8 @@ export type FilmObjectPhoto = {
 
 export type Block =
   | { type: "p"; text: string }
-  | { type: "h"; text: string }
+  /** A heading. level 2 (default): a main part, listed in the contents; 3: a point within it. */
+  | { type: "h"; text: string; level?: 2 | 3 }
   | { type: "quote"; text: string; by?: string }
   | {
       type: "image";

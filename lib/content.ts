@@ -60,10 +60,12 @@ export type Post = {
   body: Block[];
   /** Loose papers on the folder. Missing = the standard set. */
   scraps?: Scrap[];
+  /** Papers added to the standard set (when `scraps` isn't given). */
+  extraScraps?: Scrap[];
   /** An object that matters in the film, on its desk: a cut-out photo, or a drawn kind. */
   object?: FilmObjectPhoto | "dogtags" | "press" | "rifle" | "deed";
   /** Short takeaways from the essay, put on the desk as torn-off papers. */
-  takeaways?: { title?: string; label?: string; text: string }[];
+  takeaways?: { title?: string; label?: string; text: string; near?: number }[];
   /** Height of the desk area under the sheet on wide screens, in rem. */
   desk?: number;
 };

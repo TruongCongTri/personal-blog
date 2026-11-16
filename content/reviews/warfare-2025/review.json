@@ -6,7 +6,8 @@
   "year": 2025,
   "color": "#0C7866",
   "theme": "light",
-  "date": "2026-10-28",
+  "date": "2026-11-16",
+  "minutes": 4,
   "trailer": "JER0Fkyy3tw",
   "poster": "r2:movies/warfare/poster.webp",
   "object": {
@@ -28,6 +29,7 @@
     "en": "War",
     "vi": "Chiến tranh"
   },
+  "verdict": "between",
   "quote": {
     "en": "There is no such thing as an anti-war film.",
     "vi": "Không có thứ gọi là phim phản chiến."
@@ -36,5 +38,189 @@
     "en": "attributed to François Truffaut",
     "vi": "được cho là của François Truffaut"
   },
-  "body": []
+  "excerpt": {
+    "en": "Not a textbook anti-war film, never a pro-war one: Warfare is so honest that even its heroism is just the truth.",
+    "vi": "Không phải phim phản chiến kiểu sách giáo khoa, càng không phải phim cổ vũ chiến tranh: Warfare trung thực đến mức ngay cả chủ nghĩa anh hùng trong phim cũng chỉ là sự thật."
+  },
+  "takeaways": [
+    {
+      "title": {
+        "en": "Limits, not cowardice",
+        "vi": "Giới hạn, không phải hèn nhát"
+      },
+      "text": {
+        "en": "Handing over command with a concussion isn't cowardice; it's an honest look at human limits under extreme duress.",
+        "vi": "Trao lại quyền chỉ huy khi bị chấn động não không phải là hèn nhát; đó là cái nhìn trung thực về giới hạn của con người dưới áp lực tột cùng."
+      },
+      "near": 3
+    },
+    {
+      "title": {
+        "en": "Truffaut's trap",
+        "vi": "Cái bẫy của Truffaut"
+      },
+      "text": {
+        "en": "Elite precision and a real rescue look badass on screen, because they were. That is where the film edges into glamour.",
+        "vi": "Sự chính xác tinh nhuệ và một cuộc giải cứu có thật trông thật ngầu trên màn ảnh, vì chúng vốn như vậy. Đó là chỗ bộ phim chạm vào sự tô vẽ."
+      },
+      "near": 7
+    },
+    {
+      "title": {
+        "en": "The machine",
+        "vi": "Bộ máy"
+      },
+      "text": {
+        "en": "No one on that street died because of a choice they made. The decisions were made miles away.",
+        "vi": "Không ai trên con phố ấy chết vì lựa chọn của chính mình. Những quyết định đã được đưa ra ở nơi cách đó hàng dặm."
+      },
+      "near": 15
+    }
+  ],
+  "body": [
+    {
+      "type": "p",
+      "text": {
+        "en": "François Truffaut famously said that there is no such thing as an anti-war film, arguing that every movie about war ends up being pro-war, because to show something on screen is, in some way, to ennoble or glamorize it.",
+        "vi": "François Truffaut từng có câu nói nổi tiếng rằng không có thứ gọi là phim phản chiến. Theo ông, mọi bộ phim về chiến tranh rốt cuộc đều cổ vũ chiến tranh, bởi đưa một điều gì đó lên màn ảnh, theo cách này hay cách khác, là tôn vinh hoặc tô vẽ nó."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "When you look at Warfare (2025), directed by Ray Mendoza and Alex Garland, it initially seems to fit squarely into Truffaut’s paradox. It portrays the absolute horrors of combat in Ramadi, Iraq, but at no point does it take an overt, didactic political stance. You never hear two soldiers sitting in the dust questioning the geopolitical machinery behind the invasion. It simply depicts what happened, refusing to wrap itself in a neat anti-war moralizing bow.",
+        "vi": "Nhìn vào Warfare (2025) của Ray Mendoza và Alex Garland, thoạt đầu bộ phim có vẻ nằm gọn trong nghịch lý của Truffaut. Phim khắc họa sự khủng khiếp tột cùng của trận chiến ở Ramadi, Iraq, nhưng không lúc nào đưa ra một lập trường chính trị lộ liễu hay mang tính giáo huấn. Bạn sẽ không bao giờ nghe hai người lính ngồi giữa bụi đất chất vấn bộ máy địa chính trị đứng sau cuộc xâm lược. Phim chỉ đơn giản kể lại những gì đã xảy ra, từ chối gói mình trong một chiếc nơ đạo đức phản chiến gọn gàng."
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "Down the middle",
+        "vi": "Đứng giữa"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "If a film is purely documenting and journaling real-world memories, then it ought to be completely down the middle. And compared to 90% of Hollywood war movies, Warfare practically strips away conventional cinematic glamorization. For instance, Will Poulter’s character, suffering from a severe concussion and completely overwhelmed, asks a captain from another squad to take over command. In terms of traditional Hollywood heroism, where leaders are expected to push forward even with their limbs hanging off, this looks like cowardice. But Warfare isn’t interested in making a Hollywood action hero; it sticks strictly to the truth of what these men experienced. It isn’t a reflection on character cowardice, but an unvarnished window into human limits under extreme duress.",
+        "vi": "Nếu một bộ phim chỉ thuần túy ghi lại và thuật lại ký ức có thật, thì nó lẽ ra phải hoàn toàn trung lập. Và so với 90% phim chiến tranh Hollywood, Warfare gần như lột bỏ hết lối tô vẽ điện ảnh quen thuộc. Chẳng hạn, nhân vật của Will Poulter, bị chấn động não nặng và hoàn toàn quá tải, đã nhờ một đại úy của tiểu đội khác nắm quyền chỉ huy. Theo chuẩn anh hùng Hollywood truyền thống, nơi người chỉ huy phải tiến lên ngay cả khi tay chân đã rã rời, điều này trông như hèn nhát. Nhưng Warfare không hề muốn tạo ra một người hùng hành động kiểu Hollywood; phim bám chặt vào sự thật về những gì những con người này đã trải qua. Đó không phải là sự hèn nhát của nhân vật, mà là một ô cửa không tô vẽ nhìn vào giới hạn của con người dưới áp lực tột cùng."
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "Truffaut’s trap",
+        "vi": "Cái bẫy của Truffaut"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Yet, as close as the film gets to raw, it can’t entirely escape Truffaut’s trap. There are distinct elements where the film accidentally edges into glamorization, particularly in its second half, for two major reasons.",
+        "vi": "Thế nhưng, dù tiến gần đến sự trần trụi đến đâu, bộ phim vẫn không thể hoàn toàn thoát khỏi cái bẫy của Truffaut. Có những yếu tố rõ ràng khiến phim vô tình chạm vào sự tô vẽ, nhất là ở nửa sau, vì hai lý do chính."
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "1. The terrifying efficiency of elite military capability",
+        "vi": "1. Hiệu quả đáng sợ của năng lực quân sự tinh nhuệ"
+      },
+      "level": 3
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Because the film is dedicated to being brutally true to life, it showcases just how impossibly well-trained the U.S. military is. Watching these squads communicate entirely in precise tactical jargon and grid coordinates, with seamless tactical execution, is mesmerizing. It is fascinating to watch a high-level killing machine operate with such precision. Even though the military is a horrific engine of death, it is hard to watch professional competence at that scale without thinking: “Okay, these guys are absolute badasses.”",
+        "vi": "Vì bộ phim quyết tâm chân thực đến tàn nhẫn, nó cho thấy quân đội Mỹ được huấn luyện bài bản đến mức khó tin. Xem những tiểu đội này giao tiếp hoàn toàn bằng thuật ngữ chiến thuật chính xác và tọa độ, phối hợp nhịp nhàng không một kẽ hở, thật sự cuốn hút. Thật lôi cuốn khi nhìn một cỗ máy giết chóc cao cấp vận hành chính xác đến vậy. Dù quân đội là một động cơ chết chóc khủng khiếp, thật khó để chứng kiến năng lực chuyên nghiệp ở quy mô ấy mà không nghĩ: “Được rồi, mấy người này đúng là ngầu thật.”"
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "2. The rescue and the value of life",
+        "vi": "2. Cuộc giải cứu và giá trị của sinh mạng"
+      },
+      "level": 3
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "These men are trapped in an impossible nightmare, desperately needing backup. When that second squad finally pushes in to save them, it is inherently heroic. Notice, too, how the film handles casualties: unlike standard action cinema, where nameless, faceless enemies are mowed down by the hundreds without a second thought, Warfare keeps enemy deaths sparse and off camera for much of the first half, deliberately subverting the casual dehumanization common in war tropes. But when the second squad arrives, we see a captain take up a street position and open fire, and it looks undeniably badass. Because the narrative is built directly from the memory of the first squad, the arrival of their saviors was heroic in real life. Risking your life to pull your brothers out of a slaughterhouse is genuine heroism.",
+        "vi": "Những người lính này bị mắc kẹt trong một cơn ác mộng không lối thoát, tuyệt vọng chờ tiếp viện. Khi tiểu đội thứ hai cuối cùng cũng xông vào giải cứu, điều đó tự thân đã mang tính anh hùng. Hãy để ý cách bộ phim xử lý thương vong: khác với phim hành động thông thường, nơi hàng trăm kẻ địch vô danh, không mặt mũi bị quét sạch không chút đắn đo, Warfare giữ cho cái chết của phía đối phương thưa thớt và nằm ngoài khung hình trong phần lớn nửa đầu, cố ý lật ngược lối phi nhân hóa dễ dãi vốn quen thuộc trong phim chiến tranh. Nhưng khi tiểu đội thứ hai đến, ta thấy một đại úy chiếm lĩnh vị trí trên phố và nổ súng, và cảnh đó ngầu không thể chối cãi. Vì câu chuyện được dựng trực tiếp từ ký ức của tiểu đội đầu tiên, sự xuất hiện của những người giải cứu họ đã thật sự là anh hùng ngoài đời. Liều mạng để kéo đồng đội ra khỏi lò sát sinh là chủ nghĩa anh hùng đích thực."
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "Telling the truth",
+        "vi": "Nói ra sự thật"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "This brings us back to the core question:",
+        "vi": "Điều này đưa ta trở lại câu hỏi cốt lõi:"
+      }
+    },
+    {
+      "type": "quote",
+      "text": {
+        "en": "Is it glamorizing something just to tell the truth?",
+        "vi": "Chỉ nói ra sự thật thôi, có phải là đang tô vẽ?"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "The truth is that these men were genuinely heroic in real life, not because of a scriptwriter’s imagination, but because of how they looked out for each other under fire. Showing real courage sitting right next to raw fear isn’t artificial glamorization; it’s historical honesty.",
+        "vi": "Sự thật là những người đàn ông này đã thật sự anh hùng ngoài đời, không phải nhờ trí tưởng tượng của biên kịch, mà vì cách họ che chở cho nhau dưới làn đạn. Cho thấy lòng can đảm thật nằm ngay cạnh nỗi sợ trần trụi không phải là tô vẽ giả tạo; đó là sự trung thực với lịch sử."
+      }
+    },
+    {
+      "type": "h",
+      "text": {
+        "en": "Verdict",
+        "vi": "Kết luận"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "As for Truffaut’s famous quote, I don’t know if I would label Warfare a neat, textbook anti-war film, but I certainly wouldn’t call it pro-war either. Any sane person watching its suffocating, hellish intensity would never want to live through it. Yet it also celebrates the profound bond and survival of these men. Ultimately, Warfare transcends simple labels by being a radically honest film. It reminds us that none of the soldiers on that street died because of choices they made; those catastrophic decisions were made miles away by leadership sitting far above them. By stripping away political preachiness, the film leaves us with something much more powerful: a profound sympathy for human beings caught in a machine they couldn’t control, and an undeniable testament to the courage they showed for one another.",
+        "vi": "Còn với câu nói nổi tiếng của Truffaut, tôi không chắc mình sẽ gọi Warfare là một bộ phim phản chiến gọn gàng, đúng sách giáo khoa, nhưng chắc chắn tôi cũng không gọi nó là phim cổ vũ chiến tranh. Bất kỳ ai tỉnh táo xem cường độ ngột ngạt, địa ngục của phim cũng sẽ không bao giờ muốn trải qua điều đó. Thế nhưng phim cũng tôn vinh sợi dây gắn bó sâu sắc và sự sống sót của những con người này. Rốt cuộc, Warfare vượt lên trên những nhãn dán đơn giản nhờ sự trung thực triệt để. Phim nhắc ta rằng không người lính nào trên con phố ấy chết vì lựa chọn của chính mình; những quyết định thảm khốc ấy được đưa ra ở nơi cách xa hàng dặm, bởi giới lãnh đạo ngồi tít phía trên họ. Bằng cách gạt bỏ lối rao giảng chính trị, bộ phim để lại cho ta một điều mạnh mẽ hơn nhiều: niềm cảm thông sâu sắc dành cho những con người bị cuốn vào một bộ máy họ không thể kiểm soát, và một minh chứng không thể chối cãi cho lòng can đảm họ dành cho nhau."
+      }
+    }
+  ],
+  "extraScraps": [
+    {
+      "type": "photo",
+      "src": "r2:movies/warfare/truffaut-quote.webp",
+      "ratio": 0.49,
+      "alt": {
+        "en": "Newspaper clipping of a 1973 interview in which François Truffaut says every film about war ends up being pro-war",
+        "vi": "Mẩu báo phỏng vấn năm 1973, trong đó François Truffaut nói mọi phim về chiến tranh rốt cuộc đều cổ vũ chiến tranh"
+      },
+      "source": "Chicago Tribune, 1973 (interview by Gene Siskel)",
+      "clip": {
+        "kind": "tape",
+        "at": "top",
+        "offset": "50%",
+        "tilt": -4
+      },
+      "place": {
+        "on": "paper",
+        "near": 0,
+        "x": 17,
+        "y": 9,
+        "r": -3,
+        "w": 8.5
+      },
+      "title": {
+        "en": "Truffaut, interviewed in 1973",
+        "vi": "Truffaut, phỏng vấn năm 1973"
+      }
+    }
+  ]
 }
