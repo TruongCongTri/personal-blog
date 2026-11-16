@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import styles from "./FilmIcons.module.css";
 
 // Rounded so the server and the browser print exactly the same numbers.
@@ -183,6 +184,59 @@ export default function FilmIcons() {
     );
     io.observe(el);
     return () => io.disconnect();
+  }, []);
+
+  // Each icon turns to face the cursor (shortest way round, eased). Touch
+  // screens have no cursor: the icons drift round as the page scrolls.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || prefersReducedMotion()) return;
+    const icons = Array.from(el.querySelectorAll<HTMLElement>(`.${styles.icon}`));
+    const turns = icons.map((icon) => ({
+      icon,
+      current: 0,
+      rotate: gsap.quickTo(icon, "rotation", { duration: 0.9, ease: "power3.out" }),
+    }));
+    const turnTo = (t: (typeof turns)[number], deg: number) => {
+      t.current += ((deg - t.current + 540) % 360) - 180;
+      t.rotate(t.current);
+    };
+
+    let frame = 0;
+    let px = 0;
+    let py = 0;
+    let visible = false;
+    const face = () => {
+      frame = 0;
+      for (const t of turns) {
+        const r = t.icon.getBoundingClientRect();
+        if (!r.width) continue; // hidden on phones
+        const angle = Math.atan2(py - (r.top + r.height / 2), px - (r.left + r.width / 2));
+        turnTo(t, (angle * 180) / Math.PI + 90); // the icon's top points at the cursor
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse" || !visible) return;
+      px = e.clientX;
+      py = e.clientY;
+      if (!frame) frame = requestAnimationFrame(face);
+    };
+    const onScroll = () => {
+      if (!visible || window.matchMedia("(hover: hover)").matches) return;
+      turns.forEach((t, i) => turnTo(t, window.scrollY * 0.2 * (i % 2 ? -1 : 1)));
+    };
+    // only while the footer is on screen
+    const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
+    io.observe(el);
+    window.addEventListener("pointermove", onPointer, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      io.disconnect();
+      window.removeEventListener("pointermove", onPointer);
+      window.removeEventListener("scroll", onScroll);
+      gsap.killTweensOf(icons);
+    };
   }, []);
 
   return (
