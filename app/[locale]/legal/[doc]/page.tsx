@@ -17,6 +17,9 @@ import { alternates, baseOpenGraph } from "@/lib/site";
 import CookieSettingsButton from "@/components/Consent/CookieSettingsButton";
 import styles from "@/components/LegalDoc/LegalDoc.module.css";
 
+// Allow blocking route navigation when reading params outside of <Suspense>
+export const instant = false;
+
 const isDoc = (d: string): d is LegalDocId =>
   (LEGAL_DOCS as readonly string[]).includes(d);
 
@@ -52,10 +55,15 @@ export default async function LegalPage({
 }: PageProps<"/[locale]/legal/[doc]">) {
   const { locale, doc } = await params;
   if (!hasLocale(locale) || !isDoc(doc)) notFound();
-  const dict = await getDictionary(locale);
+
+  const [dict, folders] = await Promise.all([
+    getDictionary(locale),
+    getFolders(locale),
+  ]);
   const d = LEGAL[locale][doc];
+
   // Object photos and their credits, from the reviews
-  const credits = (await getFolders(locale))
+  const credits = folders
     .flatMap((f) => f.posts)
     .flatMap((p) =>
       p.object && typeof p.object === "object" && p.object.credit
