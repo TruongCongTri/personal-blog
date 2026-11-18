@@ -83,6 +83,45 @@ export default function CaseFolder(props: Props) {
   // Always scoped to this page: the router can keep other pages mounted but hidden.
   const qa = useCallback((sel: string) => Array.from(root.current!.querySelectorAll<HTMLElement>(sel)), []);
 
+  // Scrolls to a #part-... anchor once A4 pagination and entrance transforms settle.
+  const scrollToHash = useCallback((hash: string | null) => {
+    if (!hash || !hash.startsWith("#")) return;
+    const id = decodeURIComponent(hash.slice(1));
+    if (!id) return;
+
+    let attempts = 0;
+    const tryScroll = () => {
+      const el = root.current;
+      if (!el) return;
+      const sheetReady = el.querySelector('[data-sheet-ready="true"]');
+      const target = document.getElementById(id);
+
+      if ((!sheetReady || !target || !el.contains(target)) && attempts < 30) {
+        attempts++;
+        requestAnimationFrame(tryScroll);
+        return;
+      }
+      if (!target || !el.contains(target)) return;
+
+      // Restore the hash in case a scroll observer cleared it while at the top
+      if (window.location.hash !== hash) {
+        history.replaceState(null, "", hash);
+      }
+      target.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
+    };
+
+    requestAnimationFrame(tryScroll);
+  }, []);
+
+  useEffect(() => {
+    const onHashChange = () => scrollToHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [scrollToHash]);
+
   // While the folder changes shape in flight, its contents must not reflow:
   // the sheet keeps its own width (so every line of text sits still on the
   // paper) and stays pinned to the tab edge, where the folder simply crops it.
@@ -109,6 +148,9 @@ export default function CaseFolder(props: Props) {
       // Navigating away to another page: this one is leaving, hands off.
       if (pending === "leaving") return;
 
+      // Capture the initial URL hash before entrance animations or scroll resets run.
+      const hash = window.location.hash;
+
       // A restored page (React Activity) may still hold its leave styles.
       gsap.set(
         root.current!.querySelectorAll(
@@ -116,9 +158,15 @@ export default function CaseFolder(props: Props) {
         ),
         { clearProps: RESET_PROPS },
       );
-      if (prefersReducedMotion()) {
+
+      const done = () => {
         setBusy(false);
         clearPending(props.path);
+        if (hash) scrollToHash(hash);
+      };
+
+      if (prefersReducedMotion()) {
+        done();
         return;
       }
       const folder = q("[data-case-folder]");
@@ -128,10 +176,6 @@ export default function CaseFolder(props: Props) {
       const chars = qa("[data-case-title] [data-char]");
       const scraps = qa("[data-scrap]");
       const otherTags = qa("[data-case-tag='other'] [data-tag]");
-      const done = () => {
-        setBusy(false);
-        clearPending(props.path);
-      };
 
       if (pending?.type === "open") {
         const S = pending.rect;
@@ -252,7 +296,10 @@ export default function CaseFolder(props: Props) {
       // "next", a direct visit (preload) or arriving from another page: the
       // open folder rises up from below the screen while the title slides in.
       // Start states are set now; a first load plays once the preload gate opens.
-      const top = folder.getBoundingClientRect().top;
+      if (hash && window.scrollY > 0) {
+        window.scrollTo(0, 0);
+      }
+      const top = folder.getBoundingClientRect().top + window.scrollY;
       const rise = gsap
         .timeline({ paused: true, defaults: { ease: "power3.out" }, onComplete: done })
         .from(chars, { xPercent: -100, opacity: 0, duration: 0.65, stagger: each(chars.length, 0.025, 0.4) }, 0)

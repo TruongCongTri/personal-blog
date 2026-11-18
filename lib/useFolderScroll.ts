@@ -113,6 +113,10 @@ export function useFolderScroll(root: RefObject<HTMLElement | null>, title: stri
       }
     };
 
+    // Re-measure when CaseSheet finishes A4 pagination and changes document height
+    const ro = new ResizeObserver(schedule);
+    ro.observe(el);
+
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -122,6 +126,7 @@ export function useFolderScroll(root: RefObject<HTMLElement | null>, title: stri
 
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      ro.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       window.removeEventListener("wheel", onWheel);

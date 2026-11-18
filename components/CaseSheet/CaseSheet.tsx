@@ -146,7 +146,7 @@ function linesOf(p: HTMLElement) {
  * Re-measured on resize and once the web fonts are in. On phones: one page.
  */
 function usePages(root: React.RefObject<HTMLDivElement | null>, body: Block[]) {
-  const [paged, setPaged] = useState(false);
+  const [paged, setPaged] = useState<boolean | null>(null);
   const [pages, setPages] = useState<Seg[][]>([]);
 
   useIsoLayoutEffect(() => {
@@ -258,7 +258,8 @@ function usePages(root: React.RefObject<HTMLDivElement | null>, body: Block[]) {
     };
   }, [root, body, paged]);
 
-  return { paged, pages };
+  const ready = paged === false || (paged === true && (body.length === 0 || pages.length > 0));
+  return { paged: Boolean(paged), pages, ready };
 }
 
 /**
@@ -272,14 +273,14 @@ function usePages(root: React.RefObject<HTMLDivElement | null>, body: Block[]) {
  */
 export default function CaseSheet({ info, quote, body, soon, plate, title, still, stillIsPoster, links }: Props) {
   const root = useRef<HTMLDivElement>(null);
-  const { paged, pages: laid } = usePages(root, body);
+  const { paged, pages: laid, ready } = usePages(root, body);
 
   // Until it's measured (and always on phones): one page holding everything.
   const pages: Seg[][] = laid.length ? laid : [body.map((_, i) => ({ i, from: 0 }))];
   const total = pages.length;
 
   return (
-    <div ref={root} className={styles.stack} data-sheet>
+    <div ref={root} className={styles.stack} data-sheet data-sheet-ready={ready ? "true" : "false"}>
       {pages.map((segs, p) => (
         <div key={p} className={styles.sheet} data-page>
           {/* Nine punched holes down the binding edge, on every page */}
