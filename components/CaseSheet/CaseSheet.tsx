@@ -49,12 +49,28 @@ function BodyBlock({ block, index, piece, measure }: { block: Block; index: numb
       : { "data-block": index };
   switch (block.type) {
     case "p": {
-      const text = piece ? block.text.slice(piece.from, piece.to) : block.text;
+      const raw = piece ? block.text.slice(piece.from, piece.to) : block.text;
+      // When a page break lands inside a hyphenated word, keep the trailing "-"
+      const splitWord =
+        piece?.to !== undefined &&
+        piece.to < block.text.length &&
+        /\S/.test(block.text[piece.to - 1]) &&
+        /\S/.test(block.text[piece.to]) &&
+        !/[-–—/\u00AD]/.test(block.text[piece.to - 1]);
+      const text = splitWord ? `${raw.replace(/\u00AD$/, "")}-` : raw.replace(/\u00AD$/, "-");
+      const className =
+        [
+          piece && piece.from > 0 ? styles.contPiece : "",
+          piece && piece.to !== undefined ? styles.splitPiece : "",
+        ]
+          .filter(Boolean)
+          .join(" ") || undefined;
+
       return (
         <p
           {...marks}
           id={!measure && index === 0 && !(piece && piece.from > 0) ? partId(0) : undefined}
-          className={piece && piece.from > 0 ? styles.contPiece : undefined}
+          className={className}
         >
           {text}
         </p>

@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { locales } from "@/i18n/config";
+import { hasLocale, locales } from "@/i18n/config";
 import { SITE_URL, AUTHOR, alternates, baseOpenGraph } from "@/lib/site";
 import JsonLd from "@/components/JsonLd/JsonLd";
-import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getFolders } from "@/lib/content";
 import Hero from "@/components/Hero/Hero";
 import Stack from "@/components/Stack/Stack";
 import styles from "./page.module.css";
+
+// Allow blocking navigation so Stack's full DOM is present for GSAP folder transitions
+export const instant = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,

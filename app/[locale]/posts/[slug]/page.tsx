@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { hasLocale } from "@/i18n/config";
+import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getAllPostSlugs, getPost } from "@/lib/content";
 import { DEFAULT_DESK, defaultScraps } from "@/lib/scraps";
@@ -10,11 +10,16 @@ import CaseFolder from "@/components/CaseFolder/CaseFolder";
 import JsonLd from "@/components/JsonLd/JsonLd";
 import { SITE_URL, AUTHOR, alternates, baseOpenGraph } from "@/lib/site";
 
+// Keep route transitions synchronous so CaseFolder's DOM is immediately ready for GSAP
+export const instant = false;
+
 const textOn = (theme: string) => (theme === "dark" ? "#000" : "#fff");
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({

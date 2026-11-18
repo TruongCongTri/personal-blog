@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { hasLocale } from "@/i18n/config";
+import { hasLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import CaseFolder from "@/components/CaseFolder/CaseFolder";
 import { scrapLabels } from "@/i18n/labels";
 import { contentMediaUrl } from "@/lib/content";
 import { alternates, baseOpenGraph } from "@/lib/site";
+
+// Keep navigation synchronous so CaseFolder's DOM is immediately ready for GSAP
+export const instant = false;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/about">): Promise<Metadata> {
   const { locale } = await params;
@@ -16,7 +23,11 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/about">)
     description: dict.about.body[1],
     alternates: alternates(locale, "/about"),
     openGraph: {
-      ...baseOpenGraph(locale, dict.meta.title), title: dict.about.title, description: dict.about.body[1], url: `/${locale}/about` },
+      ...baseOpenGraph(locale, dict.meta.title),
+      title: dict.about.title,
+      description: dict.about.body[1],
+      url: `/${locale}/about`,
+    },
   };
 }
 
@@ -24,7 +35,10 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/about">)
 export default async function AboutPage({ params }: PageProps<"/[locale]/about">) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
-  const [dict, still] = await Promise.all([getDictionary(locale), contentMediaUrl("pages/about/blade-runner-2049.webp")]);
+  const [dict, still] = await Promise.all([
+    getDictionary(locale),
+    contentMediaUrl("pages/about/blade-runner-2049.webp"),
+  ]);
   const color = "#1E4BD7";
 
   return (

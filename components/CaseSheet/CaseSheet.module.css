@@ -153,6 +153,13 @@
   text-shadow: 1px 1px 1px #fff;
 }
 
+.desc > p {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
 .desc > p + p {
   text-indent: 2.5rem;
 }
@@ -510,6 +517,11 @@
   font-size: inherit;
   line-height: inherit;
   margin: 0;
+}
+
+/* The first half of a paragraph split across a page break: keep its last line justified */
+.desc > p.splitPiece {
+  text-align-last: justify;
 }
 
 /* Hidden copy of the text, at the text's width, for measuring line breaks */

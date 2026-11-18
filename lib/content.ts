@@ -83,12 +83,9 @@ async function readLocal<T>(key: string): Promise<T> {
 async function loadArchive(): Promise<Archive> {
   "use cache";
   cacheTag("content");
-  // Production: hourly, and at once after `content:push` (which revalidates
-  // the tag). Development: re-read about every second so edits show up after
-  // a reload or two. Kept just above the limits (5 min expiry, 30 s stale)
-  // below which Next.js would stop prerendering the pages.
-  if (process.env.NODE_ENV === "development") cacheLife({ stale: 30, revalidate: 1, expire: 300 });
-  else cacheLife("hours");
+  // Keep cache lifetimes well above Next.js's static prerender thresholds
+  // (stale > 30s, expire > 300s) so dev and prod prerenders never fail mid-render.
+  cacheLife("hours");
 
   if (readsFromR2()) {
     const index = await r2GetJson<RawIndex>("folders.json");
@@ -168,6 +165,10 @@ function toPost(raw: RawReview, locale: Locale, source: Archive["source"]): Post
 }
 
 export async function getFolders(locale: Locale): Promise<Folder[]> {
+  "use cache";
+  cacheTag("content");
+  cacheLife("hours");
+
   const { index, reviews, source } = await loadArchive();
   return index.folders.map((f) => ({
     slug: f.slug,

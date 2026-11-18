@@ -462,7 +462,7 @@ export default function CaseFolder(props: Props) {
   } as CSSProperties;
 
   return (
-    <article ref={root} className={styles.page} style={style}>
+    <article ref={root} lang={props.locale} className={styles.page} style={style}>
       {/* Invisible stand-in for this folder's slot in the drawer on the home page. */}
       <span className={styles.probe} data-probe aria-hidden="true" />
 
