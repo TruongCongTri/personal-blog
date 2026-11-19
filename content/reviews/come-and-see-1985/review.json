@@ -32,6 +32,8 @@
     "en": "Truffaut’s anti-war paradox; the Rape of Berlin",
     "vi": "Nghịch lý phản chiến của Truffaut; nạn cưỡng hiếp ở Berlin"
   },
+  "minutes": 7,
+  "verdict": "against",
   "quote": {
     "en": "There is no such thing as an anti-war film.",
     "vi": "Không có thứ gọi là phim phản chiến."
@@ -40,5 +42,190 @@
     "en": "attributed to François Truffaut",
     "vi": "được cho là của François Truffaut"
   },
-  "body": []
+  "excerpt": {
+    "en": "Come and See strips away combat adrenaline, yet by ending with Flyora sparing an infant portrait of Hitler, it shields the victor and leaves out the cycle of vengeance that followed in 1945.",
+    "vi": "Đến Mà Xem tước bỏ hoàn toàn sự hưng phấn của chiến trận, nhưng khi khép lại bằng cảnh Flyora hạ súng trước bức ảnh Hitler lúc nhỏ, bộ phim đã che chắn cho phe chiến thắng và bỏ qua vòng xoáy trả thù năm 1945."
+  },
+  "takeaways": [
+    {
+      "label": {
+        "en": "Truffaut's Trap",
+        "vi": "Cái bẫy của Truffaut"
+      },
+      "text": {
+        "en": "Even without heroic firefights, selective truth becomes its own form of moral glamorization.",
+        "vi": "Ngay cả khi không có những màn đấu súng anh hùng, sự thật chọn lọc vẫn là một dạng mỹ hóa đạo đức."
+      },
+      "near": 1
+    },
+    {
+      "label": {
+        "en": "The Muddy Portrait",
+        "vi": "Bức chân dung dưới vũng bùn"
+      },
+      "text": {
+        "en": "Firing at Hitler's portrait isn't action-hero release — it is the impotent breakdown of a traumatized child.",
+        "vi": "Nổ súng vào chân dung Hitler không phải sự giải tỏa kiểu người hùng—đó là sự sụp đổ bất lực của một đứa trẻ sang chấn."
+      },
+      "near": 6
+    },
+    {
+      "label": {
+        "en": "Where the Camera Cuts",
+        "vi": "Nơi ống kính cắt cảnh"
+      },
+      "text": {
+        "en": "War turns traumatized boys into the same men who terrorized women across Berlin a year later.",
+        "vi": "Chiến tranh biến những cậu bé sang chấn thành chính những kẻ gieo rắc kinh hoàng cho phụ nữ Berlin một năm sau đó."
+      },
+      "near": 13
+    }
+  ],
+  "body": [
+    {
+      "type": "p",
+      "text": {
+        "en": "François Truffaut famously said that there is no such thing as an anti-war film, arguing that by the sheer act of depicting war on screen, a filmmaker ends up glorifying it.",
+        "vi": "François Truffaut từng có câu nói nổi tiếng rằng không hề tồn tại thứ gọi là phim phản chiến, lập luận rằng chỉ riêng hành động tái hiện chiến tranh trên màn ảnh cũng đủ khiến nhà làm phim vô tình tôn vinh nó."
+      }
+    },
+    {
+      "type": "h",
+      "level": 2,
+      "text": {
+        "en": "Stripping Away Combat Adrenaline",
+        "vi": "Tước Bỏ Sự Hưng Phấn Của Chiến Trận"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "If there is one movie in cinema history that people point to in order to prove Truffaut wrong, it is Elem Klimov’s Soviet masterpiece Come and See (1985). And for almost its entire runtime, it genuinely seems to escape Truffaut’s trap. Think about how most war movies — even self-proclaimed anti-war movies — rely on the adrenaline rush of combat. Just like in a James Bond flick where the hero gets dramatically injured before mowing down three hundred faceless bad guys, standard war cinema relies on the thrill of fighting back and taking down the enemy. Come and See strips that away completely. We follow a fourteen-year-old Belarusian boy named Flyora who eagerly joins the Soviet partisans with a rifle in his hands, yet up until the very last scene of the movie, he never shoots and kills a single German soldier on screen. There are no \"badass\" firefights, no heroic tactical maneuvers, and zero moments where you lean forward in your chair thinking, \"Oh man, that's cool.\"",
+        "vi": "Nếu có một bộ phim trong lịch sử điện ảnh được người ta viện dẫn để chứng minh Truffaut đã sai, đó chính là kiệt tác Xô Viết Đến Mà Xem (1985) của Elem Klimov. Và trong gần như suốt thời lượng, tác phẩm thực sự có vẻ đã thoát khỏi cái bẫy của Truffaut. Hãy nghĩ đến cách hầu hết phim chiến tranh — kể cả những phim tự nhận là phản chiến—đều dựa vào cơn sốt adrenaline của giao tranh. Giống như một bộ phim James Bond nơi người hùng bị thương đầy kịch tính trước khi hạ gục ba trăm kẻ thù vô diện, điện ảnh chiến tranh thông thường sống nhờ cảm giác phấn khích khi đánh trả và tiêu diệt kẻ địch. Đến Mà Xem tước bỏ hoàn toàn điều đó. Ta theo chân Flyora, cậu bé người Belarus mười bốn tuổi hăm hở gia nhập đội du kích Xô Viết với khẩu súng trường trên tay, nhưng mãi đến cảnh cuối cùng của phim, cậu chưa từng bắn chết một người lính Đức nào trên màn ảnh. Không có những màn đọ súng \"ngầu lòi\", không có chiến thuật anh hùng, và không một khoảnh khắc nào khiến bạn rướn người trên ghế mà nghĩ: \"Trời ơi, ngầu quá.\""
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Instead of cinematic heroism, Flyora is defined by sheer, overwhelming terror and cowardice. When the German bombers attack, he doesn't stand his ground — he panics and runs away into the woods, desperately hiding in the dirt. Even when he is ordered to go out and find food for starving villagers, he is paralyzed by fear, running away from danger rather than confronting it. Deafened by artillery, trudging helplessly through swamps, and watching in frozen horror as an SS unit herds an entire village into a wooden church and burns them alive, Flyora is the exact opposite of a Hollywood soldier.",
+        "vi": "Thay vì chủ nghĩa anh hùng điện ảnh, Flyora được khắc họa bằng nỗi kinh hoàng tột độ và sự hèn nhát bản năng. Khi máy bay ném bom Đức tấn công, cậu không trụ vững — cậu hoảng loạn bỏ chạy vào rừng, tuyệt vọng vùi mình xuống bùn đất. Ngay cả khi được lệnh đi tìm lương thực cho dân làng đang chết đói, cậu cũng tê liệt vì sợ hãi, tháo chạy khỏi hiểm nguy thay vì đối mặt. Điếc đặc vì tiếng pháo, lê bước bất lực qua đầm lầy, và chết lặng chứng kiến đơn vị SS lùa cả một ngôi làng vào nhà thờ gỗ rồi thiêu sống họ, Flyora là hình ảnh đối lập hoàn toàn với một người lính Hollywood."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "And so, if a film refuses to show its protagonist killing the enemy in combat — and instead shows him running away in terror — surely it has solved Truffaut's problem, right? There shouldn't be any glamorization in that.",
+        "vi": "Và như thế, nếu một bộ phim từ chối cho nhân vật chính giết kẻ thù trên chiến trường — mà thay vào đó chỉ cho thấy cậu bỏ chạy trong kinh hoàng — chắc chắn nó đã giải quyết được bài toán của Truffaut, phải không? Sẽ chẳng thể có sự mỹ hóa nào ở đây cả."
+      }
+    },
+    {
+      "type": "h",
+      "level": 2,
+      "text": {
+        "en": "The Portrait in the Mud",
+        "vi": "Bức Chân Dung Dưới Vũng Bùn"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Yet at the very end of the film, we get a deeply jarring, confusing scene: as the partisans move on, Flyora spots a framed portrait of Adolf Hitler lying in a muddy puddle. For the first time in the movie, Flyora raises his rifle and fires — shooting the puddle over and over again. As he fires, archival footage flashes on screen, rewinding history backwards through World War II, through Hitler’s rise to power, through World War I, all the way back to a photograph of Hitler as an infant sitting in his mother’s lap. At that moment, Flyora stops shooting, lowers his rifle, and breaks down weeping.",
+        "vi": "Ấy vậy mà ở đoạn kết bộ phim, ta lại bắt gặp một phân cảnh đầy chới với và khó hiểu: khi đoàn du kích tiếp tục hành quân, Flyora phát hiện một bức chân dung đóng khung của Adolf Hitler nằm dưới vũng bùn. Lần đầu tiên trong suốt bộ phim, Flyora giương súng trường và bóp cò — nã đạn liên tiếp xuống vũng nước. Khi tiếng súng vang lên, những thước phim tư liệu lóe sáng trên màn ảnh, tua ngược dòng lịch sử qua Thế chiến II, qua thời kỳ Hitler trỗi dậy nắm quyền, qua Thế chiến I, cho đến tận bức ảnh Hitler khi còn là một đứa trẻ sơ sinh ngồi trong lòng mẹ. Ngay khoảnh khắc đó, Flyora ngừng bắn, hạ súng xuống và bật khóc nức nở."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "How do we read that scene? Is it a sudden slip into glamorization — finally giving the audience that cinematic release of pulling a trigger and symbolically destroying evil — or is it simply an honest reflection of what a traumatized Soviet soldier would desperately want to do after enduring an unimaginable amount of horror? I think it is the latter. After watching women and children burned alive and seeing his youth destroyed in a matter of days, firing blindly at an image of the man responsible isn't \"action-hero badassery\"; it is the impotent, psychological breakdown of a child drowning in grief. And by having Flyora stop when he sees baby Hitler, the film insists that despite everything he has suffered, this Soviet boy refuses to kill an innocent life.",
+        "vi": "Ta nên đọc cảnh phim ấy như thế nào? Đó là một cú trượt chân bất ngờ vào sự mỹ hóa — cuối cùng cũng trao cho khán giả sự giải tỏa điện ảnh khi bóp cò và tiêu diệt cái ác về mặt biểu tượng — hay đơn giản là sự phản chiếu chân thực điều mà một người lính Xô Viết sang chấn khao khát làm sau khi nếm trải nỗi kinh hoàng vượt quá sức tưởng tượng? Tôi nghiêng về vế sau. Sau khi chứng kiến phụ nữ và trẻ em bị thiêu sống và tuổi trẻ của chính mình bị hủy hoại chỉ trong vài ngày, việc nã đạn mù quáng vào hình ảnh kẻ gây ra tất cả không phải là \"sự ngầu lòi của người hùng hành động\"; đó là cơn sụp đổ tâm lý bất lực của một đứa trẻ đang chết đuối trong đau thương. Và bằng việc để Flyora dừng lại khi thấy hình ảnh Hitler lúc sơ sinh, bộ phim khẳng định rằng bất chấp mọi nỗi đau đã gánh chịu, cậu bé Xô Viết này vẫn từ chối tước đoạt một sinh linh vô tội."
+      }
+    },
+    {
+      "type": "h",
+      "level": 2,
+      "text": {
+        "en": "Where the Film's Honesty Falters",
+        "vi": "Nơi Sự Trung Thực Của Bộ Phim Chùn Bước"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "And that is the exact point where the film’s honesty falters — and where we have to criticize Come and See for what it chooses to leave out.",
+        "vi": "Và đó chính xác là điểm mà sự trung thực của bộ phim chùn bước — cũng là nơi ta buộc phải phê phán Đến Mà Xem vì những gì nó lựa chọn bỏ lại phía sau."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Throughout the film, Klimov uses the brutalization of women by German soldiers as the ultimate symbol of war's depravity. We see Glasha traumatized, and we see a young Belarusian woman dragged onto the back of a German flatbed truck, stripped, and gang-raped before being left in a daze with harmonica in her mouth. It is horrific, and it happened in real life.",
+        "vi": "Xuyên suốt tác phẩm, Klimov sử dụng sự chà đạp phụ nữ của binh lính Đức như biểu tượng tối thượng cho sự đồi bại của chiến tranh. Ta thấy Glasha sang chấn tâm lý, và ta thấy một thiếu nữ Belarus bị lôi lên thùng xe tải Đức, lột trần và cưỡng hiếp tập thể trước khi bị bỏ lại trong trạng thái thất thần với chiếc kèn harmonica ngậm trong miệng. Điều đó thật kinh hoàng, và nó đã xảy ra ngoài đời thực."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "But the true horror of war — and the ultimate failure of humanity in wartime—is how the suffering inflicted on women flips from one side to the other almost overnight. At the end of Come and See, Flyora marches back into the forest with hundreds of armed Soviet partisans, heading west toward Berlin. The film stops right there, letting the audience believe that because Flyora couldn't bring himself to shoot a picture of a baby, the Soviet march into Germany was purely a righteous liberation by broken, moral men.",
+        "vi": "Nhưng nỗi kinh hoàng thực sự của chiến tranh — và sự sụp đổ tận cùng của nhân tính trong thời chiến—nằm ở cách nỗi đau giáng xuống thân phận người phụ nữ đảo chiều từ bên này sang bên kia chỉ sau một đêm. Ở cuối phim Đến Mà Xem, Flyora hành quân trở lại vào rừng cùng hàng trăm du kích Xô Viết vũ trang, tiến về phía tây hướng tới Berlin. Bộ phim dừng lại ngay tại đó, để khán giả tin rằng bởi vì Flyora không thể xuống tay bắn một bức ảnh trẻ thơ, cuộc tiến quân của Hồng quân vào nước Đức thuần túy là một cuộc giải phóng chính nghĩa của những con người tan vỡ nhưng vẫn giữ trọn đạo đức."
+      }
+    },
+    {
+      "type": "h",
+      "level": 3,
+      "text": {
+        "en": "The Rape of Berlin",
+        "vi": "Bi Kịch Tại Berlin"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "History tells a brutal, terrifyingly different story: the Rape of Berlin. When those traumatized, vengeful Soviet soldiers crossed onto German soil in 1945, they inflicted the exact same monstrous nightmare upon millions of German women — including an estimated 100,000 women in Berlin alone.",
+        "vi": "Lịch sử lại kể một câu chuyện tàn khốc và rùng rợn khác hẳn: nạn cưỡng hiếp tại Berlin. Khi chính những người lính Xô Viết đầy sang chấn và sục sôi thù hận ấy bước qua lãnh thổ Đức vào năm 1945, họ đã giáng đúng cơn ác mộng quái đản ấy xuống hàng triệu phụ nữ Đức — bao gồm ước tính khoảng 100.000 phụ nữ chỉ riêng tại Berlin."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "Modern viewers often carry a misconception about wartime sexual violence, assuming that mass rape only happened to poor, lower-class women who were trapped in the rubble without protection. In the fall of Berlin, class meant nothing. Overnight, the entire social hierarchy collapsed. Aristocratic women, doctors, wives of high-ranking officials, and wealthy upper-class German women were hunted down in basements and luxury villas alike. High-society women were forced to barter their bodies to Soviet officers for a loaf of bread or protection, knowing full well that if they refused, they would be dragged out, gang-raped by dozens of soldiers in succession, and shot dead on the spot. From eight-year-old girls to eighty-year-old grandmothers, across every single social class, women's bodies became the final battlefield of the Eastern Front.",
+        "vi": "Khán giả hiện đại thường mang một ngộ nhận về bạo lực tình dục thời chiến, cho rằng cưỡng hiếp hàng loạt chỉ xảy ra với những phụ nữ nghèo khổ, tầng lớp thấp bị mắc kẹt giữa đống đổ nát không người che chở. Trong ngày Berlin thất thủ, giai cấp hoàn toàn vô nghĩa. Chỉ sau một đêm, toàn bộ trật tự xã hội sụp đổ. Phụ nữ quý tộc, nữ bác sĩ, vợ của các quan chức cấp cao và giới thượng lưu giàu có người Đức đều bị săn lùng dưới các tầng hầm cũng như trong những căn biệt thự xa hoa. Những người phụ nữ thượng lưu buộc phải đánh đổi thân xác với sĩ quan Xô Viết để lấy một ổ bánh mì hay sự bảo vệ, bởi họ hiểu rõ rằng nếu từ chối, họ sẽ bị lôi ra ngoài, bị hàng chục binh lính thay nhau cưỡng hiếp tập thể rồi bắn chết ngay tại chỗ. Từ những bé gái tám tuổi cho đến các cụ bà tám mươi, xuyên suốt mọi tầng lớp xã hội, thân thể người phụ nữ đã trở thành chiến trường cuối cùng của Mặt trận phía Đông."
+      }
+    },
+    {
+      "type": "h",
+      "level": 2,
+      "text": {
+        "en": "Selective Truth Is Glamorization",
+        "vi": "Sự Thật Chọn Lọc Chính Là Mỹ Hóa"
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "If the defense of a war film is \"it’s not glamorizing to show something exactly how it existed,\" then selective truth becomes its own form of glamorization. By ending the story with Flyora sparing the image of baby Hitler, Come and See morally glamorizes the Soviet soldier — framing him as an eternal victim whose suffering kept his soul pure.",
+        "vi": "Nếu lời bào chữa cho một bộ phim chiến tranh là \"mô tả đúng những gì đã tồn tại thì không phải là mỹ hóa\", thì sự thật chọn lọc tự thân nó đã trở thành một hình thức mỹ hóa. Bằng cách kết thúc câu chuyện ở khoảnh khắc Flyora tha thứ cho bức ảnh Hitler lúc nhỏ, Đến Mà Xem đã mỹ hóa người lính Xô Viết về mặt đạo đức — đóng khung họ như những nạn nhân vĩnh cửu mà nỗi đau khổ đã giữ cho tâm hồn họ luôn thuần khiết."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "If a movie truly wants to be an uncompromising anti-war film — and if it specifically uses the sexual violation of women to show the depths of war's evil — then it has a responsibility to show that horror on both sides. War does not divide neatly into monsters on one side and saints on the other; the machinery of war takes traumatized boys like Flyora and turns them into the very men who terrorized the women of Berlin a year later.",
+        "vi": "Nếu một bộ phim thực sự muốn trở thành một tác phẩm phản chiến không khoan nhượng — và nếu nó chủ đích dùng sự xâm hại tình dục đối với phụ nữ để phơi bày tận cùng cái ác của chiến tranh — thì nó có trách nhiệm phải cho thấy nỗi kinh hoàng đó ở cả hai phía. Chiến tranh không phân chia rạch ròi một bên là quái vật còn bên kia là thánh nhân; cỗ máy chiến tranh nghiền nát những cậu bé sang chấn như Flyora và nhào nặn họ thành chính những kẻ gieo rắc kinh hoàng cho phụ nữ Berlin một năm sau đó."
+      }
+    },
+    {
+      "type": "quote",
+      "text": {
+        "en": "The moment a camera chooses where to cut to black, it is no longer just telling the whole truth — it is protecting a side.",
+        "vi": "Khoảnh khắc ống kính lựa chọn điểm cắt sang màn hình đen, nó không còn kể trọn vẹn sự thật nữa — mà đang che chắn cho một phe."
+      }
+    },
+    {
+      "type": "p",
+      "text": {
+        "en": "As Truffaut goes, there is no such thing as an anti-war film. I don't know if I could describe Come and See as a complete anti-war film when it only indicts the atrocities of the invader while shielding the atrocities of the victor. It is an unforgettable masterpiece about the Nazi horror in Belarus, and every person who endured that hell deserves our deepest sympathy. But by refusing to show how the cycle of vengeance consumed women on both sides of the front line, even the bleakest war movie ever made proves Truffaut right: the moment a camera chooses where to cut to black, it is no longer just telling the whole truth — it is protecting a side.",
+        "vi": "Như Truffaut đã nói, không hề tồn tại thứ gọi là phim phản chiến. Tôi không biết liệu mình có thể gọi Đến Mà Xem là một bộ phim phản chiến trọn vẹn hay không khi nó chỉ lên án tội ác của kẻ xâm lược mà lại che chắn cho tội ác của người chiến thắng. Đây là một kiệt tác không thể nào quên về nỗi kinh hoàng của phát xít Đức tại Belarus, và mỗi con người từng đi qua địa ngục ấy đều xứng đáng nhận được sự đồng cảm sâu sắc nhất của chúng ta. Nhưng bằng việc từ chối cho thấy vòng xoáy trả thù đã nuốt chửng phụ nữ ở cả hai bên chiến tuyến như thế nào, ngay cả bộ phim chiến tranh u ám nhất từng được thực hiện cũng đã chứng minh Truffaut đúng: khoảnh khắc ống kính lựa chọn điểm cắt sang màn hình đen, nó không còn kể trọn vẹn sự thật nữa — mà đang che chắn cho một phe."
+      }
+    }
+  ]
 }
